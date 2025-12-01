@@ -1,0 +1,46 @@
+{
+  "id": 1731859200000,
+  "nombre": "PC Escritorio HP",
+  "categoria": "PC",
+  "fabricante": "HP",
+  "modelo": "EliteDesk 800 G6",
+  "serie": "XYZ789",
+  "assetId": "",
+  "area": "Contabilidad",
+  "estadoActivo": "activo",
+  "estadoOperativo": "operativo",
+  "fechaCompra": "2025-02-10",
+  "fechaFinGarantia": "2028-02-10",
+  "proveedor": "HP Peru",
+  "ip": "192.168.1.50",
+  "mac": "A4:5E:60:D2:8F:1A",
+  "usuariosAsignados": [
+    {
+      "nombre": "María González",
+      "correo": "maria.gonzalez@empresa.com",
+      "cargo": "Contador"
+    },
+    {
+      "nombre": "Carlos Ruiz",
+      "correo": "carlos.ruiz@empresa.com",
+      "cargo": "Asistente Contable"
+    }
+  ],
+  "observaciones": "PC compartido entre contadores",
+  "empresaId": "123",
+  "sedeId": "456",
+  "camposPersonalizados": {
+    "Sistema Operativo": "Windows 10 Pro",
+    "Procesador": "Intel Core i5-10500"
+  },
+  "camposPersonalizadosArray": {
+    "RAM": [
+      { "tipo": "DDR4", "capacidad": "16GB" }
+    ],
+    "Almacenamiento": [
+      { "tipo": "HDD", "capacidad": "1TB" },
+      { "tipo": "SSD", "capacidad": "256GB" }
+    ]
+  },
+  "fotos": []
+}

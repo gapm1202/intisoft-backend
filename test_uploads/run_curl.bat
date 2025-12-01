@@ -1,0 +1,2 @@
+@echo off
+curl --connect-timeout 5 --max-time 20 -v -X POST "http://127.0.0.1:4000/api/empresas/31/sedes/20/inventario" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiYWRtaW5pc3RyYWRvciIsImlhdCI6MTc2MzcwMTIwNywiZXhwIjoxNzYzNzA0ODA3fQ.R7kJxGkCu-cXl0dUFYdzykIzY0U91obibCkzmzg4Qos" -F "files=@test_uploads/antes.png" -F "files=@test_uploads/despues.png" -F "data=@test_uploads/data.json"
