@@ -1,4 +1,6 @@
 import * as repo from '../repositories/activos.repository';
+import * as activosEmpRepo from '../../empresas/repositories/activos.repository';
+import crypto from 'crypto';
 import * as trasladosRepo from '../repositories/traslados.repository';
 import { pool } from '../../../config/db';
 import { CreateTrasladoDto, Foto } from '../models/traslado.model';
@@ -305,4 +307,106 @@ export const trasladarActivo = async (dto: TrasladarActivoDto) => {
 
 export const getTrasladosByActivo = async (activoId: number) => {
   return trasladosRepo.getTrasladosByActivo(activoId);
+};
+
+export const getOrCreateEtiquetaToken = async (activoId: number) : Promise<string> => {
+  const activo = await activosEmpRepo.getActivoById(activoId);
+  if (!activo) throw new Error('ACTIVO_NOT_FOUND');
+  if (activo.etiquetaToken) return activo.etiquetaToken;
+
+  // generate secure 32 bytes hex (64 chars)
+  const token = crypto.randomBytes(32).toString('hex');
+  await activosEmpRepo.setEtiquetaToken(activoId, token);
+  return token;
+};
+
+export const getActivoByEtiquetaToken = async (token: string) => {
+  return activosEmpRepo.getActivoByToken(token);
+};
+
+export const getActivoByAssetId = async (assetId: string) => {
+  return activosEmpRepo.getActivoByAssetId(assetId);
+};
+
+export const getActivoById = async (id: number) => {
+  return activosEmpRepo.getActivoById(id);
+};
+
+export const getOrCreateTokensBatch = async (ids: number[]): Promise<Record<number,string>> => {
+  // fetch activos by ids
+  const rows = await activosEmpRepo.getActivosByIds(ids);
+  const result: Record<number,string> = {};
+  const toSet: Array<{id:number, token:string}> = [];
+
+  for (const r of rows) {
+    if (r.etiquetaToken) {
+      result[r.id] = r.etiquetaToken;
+    } else {
+      const tok = crypto.randomBytes(32).toString('hex');
+      result[r.id] = tok;
+      toSet.push({ id: r.id, token: tok });
+    }
+  }
+
+  // persist tokens in a transaction
+  if (toSet.length > 0) {
+    const client = await pool.connect();
+    try {
+      await client.query('BEGIN');
+      for (const t of toSet) {
+        await client.query('UPDATE inventario SET etiqueta_token = $1, updated_at = NOW() WHERE id = $2', [t.token, t.id]);
+      }
+      await client.query('COMMIT');
+    } catch (err) {
+      await client.query('ROLLBACK');
+      throw err;
+    } finally {
+      client.release();
+    }
+  }
+
+  return result;
+};
+
+export const regenerateEtiquetaToken = async (activoId: number, actorId?: number) : Promise<string> => {
+  const activo = await activosEmpRepo.getActivoById(activoId);
+  if (!activo) throw new Error('ACTIVO_NOT_FOUND');
+  const old = activo.etiquetaToken || null;
+  const token = crypto.randomBytes(32).toString('hex');
+  await activosEmpRepo.setEtiquetaToken(activoId, token);
+
+  // audit log to file
+  try {
+    const fs = require('fs');
+    const path = require('path');
+    const LOG_DIR = path.resolve(process.cwd(), 'logs');
+    const AUDIT = path.join(LOG_DIR, 'tokens_audit.log');
+    fs.mkdirSync(LOG_DIR, { recursive: true });
+    const line = `${new Date().toISOString()} - actor=${actorId || 'unknown'} - activo=${activoId} - action=regenerate - old=${old} - new=${token}\n`;
+    fs.appendFileSync(AUDIT, line);
+  } catch (e) {
+    console.warn('Failed to write audit log', e);
+  }
+
+  return token;
+};
+
+export const deleteEtiquetaToken = async (activoId: number, actorId?: number) : Promise<void> => {
+  const activo = await activosEmpRepo.getActivoById(activoId);
+  if (!activo) throw new Error('ACTIVO_NOT_FOUND');
+  const old = activo.etiquetaToken || null;
+  await activosEmpRepo.setEtiquetaToken(activoId, null);
+
+  // audit log to file
+  try {
+    const fs = require('fs');
+    const path = require('path');
+    const LOG_DIR = path.resolve(process.cwd(), 'logs');
+    const AUDIT = path.join(LOG_DIR, 'tokens_audit.log');
+    fs.mkdirSync(LOG_DIR, { recursive: true });
+    const line = `${new Date().toISOString()} - actor=${actorId || 'unknown'} - activo=${activoId} - action=delete - old=${old}\n`;
+    fs.appendFileSync(AUDIT, line);
+  } catch (e) {
+    console.warn('Failed to write audit log', e);
+  }
 };

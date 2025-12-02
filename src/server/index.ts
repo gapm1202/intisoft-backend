@@ -10,11 +10,14 @@ import categoriasRoutes from "../modules/empresas/routes/categorias.routes";
 import activosRoutes from "../routes/activos.routes";
 import informesRoutes from "../routes/informes.routes";
 import uploadsRoutes from "../routes/uploads.routes";
+import publicRoutes from "../routes/public.routes";
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+// Also accept urlencoded form bodies (from forms or some frontend libraries)
+app.use(express.urlencoded({ extended: true }));
 
 // Serve uploaded files from /uploads
 app.use('/uploads', express.static(path.resolve(process.cwd(), 'uploads')));
@@ -25,6 +28,7 @@ app.use("/api/empresas", empresaRoutes);
 app.use("/api/activos", activosRoutes);
 app.use("/api/informes", informesRoutes);
 app.use("/api/uploads", uploadsRoutes);
+app.use('/public', publicRoutes);
 
 // Debug endpoint to list registered routes (temporary)
 app.get("/debug/routes", (req, res) => {

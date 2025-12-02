@@ -71,6 +71,7 @@ export interface Inventario {
   antiguedadAnios?: number | null;
   antiguedadMeses?: number | null;
   antiguedadText?: string | null;
+  etiquetaToken?: string | null;
   creadoEn?: Date;
   actualizadoEn?: Date;
 }
