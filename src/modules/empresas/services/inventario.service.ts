@@ -2,6 +2,8 @@ import * as repo from "../repositories/inventario.repository";
 import * as activosRepo from "../repositories/activos.repository";
 import * as empresaRepo from "../repositories/empresa.repository";
 import * as sedeRepo from "../repositories/sede.repository";
+import * as codigoRepo from "../repositories/activos_codigo.repository";
+import * as codigoService from "./activos_codigo.service";
 import { Categoria, Area, Inventario, RAM, Storage, Foto } from "../models/inventario.model";
 
 // ===== VALIDACIONES =====
@@ -131,29 +133,7 @@ export const listarAreas = async (empresaId: number): Promise<Area[]> => {
 // ===== INVENTARIO =====
 export const crearInventario = async (inv: Inventario): Promise<Inventario> => {
   console.log('crearInventario - llamado con:', JSON.stringify(inv));
-  // Generar assetId automáticamente si no viene desde el frontend (Opción B)
-  // Always generate assetId on the backend (ignore any assetId sent from frontend)
-  const prefixesMap: Record<string, string> = { Laptop: 'LPT', PC: 'PC', Servidor: 'SRV' };
-  const fromCategoria = (inv.categoria || '').toString();
-  const prefix = prefixesMap[fromCategoria] || (fromCategoria ? fromCategoria.substring(0, 3).toUpperCase() : 'AST');
-  try {
-    // compute antiguedad for generated-asset flow
-    const a = computeAntiguedad(inv as any);
-    if (a.anios !== null) (inv as any).antiguedadAnios = a.anios;
-    if (typeof a.meses !== 'undefined') (inv as any).antiguedadMeses = a.meses;
-    if (a.text !== null) (inv as any).antiguedadText = a.text;
-
-    const created = await repo.createInventarioWithGeneratedAsset(prefix, inv as Inventario);
-    console.log('crearInventario - creado en BD id=', (created as any).id, 'assetId=', (created as any).assetId);
-    return created as Inventario;
-  } catch (e: any) {
-    console.error('❌ crearInventario - ERROR creating with generated asset:');
-    console.error('   Error message:', e?.message);
-    console.error('   Error code:', e?.code);
-    console.error('   Error detail:', e?.detail);
-    console.error('   Stack:', e?.stack);
-    throw e;
-  }
+  
   // Validaciones generales
   const empresa = await empresaRepo.getById(inv.empresaId);
   if (!empresa) throw new Error("Empresa no encontrada");
@@ -163,11 +143,86 @@ export const crearInventario = async (inv: Inventario): Promise<Inventario> => {
     if (!sede) throw new Error("Sede no encontrada");
   }
 
-  if (!inv.assetId || inv.assetId.trim() === "") throw new Error("assetId requerido");
+  // Check if a reserved code was provided and should be used
+  const assetIdFromClient = (inv as any).assetId;
+  const reservationIdFromClient = (inv as any).reservationId;
+  
+  let finalAssetId = assetIdFromClient;
+  let reservationIdToConfirm: number | undefined = reservationIdFromClient;
+
+  // If a code was provided and reservation ID exists, validate and use it
+  if (assetIdFromClient && reservationIdFromClient) {
+    console.log(`📝 Validando código reservado: ${assetIdFromClient} (reservation_id: ${reservationIdFromClient})`);
+    
+    const codeValidation = await codigoService.isCodeValidForCreation(
+      assetIdFromClient,
+      inv.empresaId,
+      reservationIdFromClient
+    );
+    
+    if (!codeValidation.valid) {
+      console.warn(`⚠️ Código no válido: ${codeValidation.reason}`);
+      throw new Error(codeValidation.reason || "Código no válido");
+    }
+    
+    console.log(`✅ Código reservado validado: ${assetIdFromClient}`);
+    finalAssetId = assetIdFromClient;
+  } else {
+    // Generate code automatically if not reserved
+    console.log('⚠️ No se proporcionó código reservado, generando automáticamente');
+    try {
+      // Determine categoriaId to generate official code (EMP-CATNNNN)
+      let categoriaId: number | undefined = (inv as any).categoriaId;
+
+      if (!categoriaId && inv.categoria) {
+        // Try resolve by name within empresa; if not found, try global categories
+        try {
+          const catsEmpresa = await repo.getCategoriasByEmpresa(inv.empresaId);
+          const foundEmp = (catsEmpresa || []).find(c => c && c.nombre && c.nombre.toLowerCase() === String(inv.categoria).toLowerCase());
+          if (foundEmp && foundEmp.id) categoriaId = foundEmp.id;
+        } catch (_) { /* ignore and try global */ }
+        if (!categoriaId) {
+          try {
+            const catsGlobal = await repo.getAllCategorias();
+            const foundGlob = (catsGlobal || []).find(c => c && c.nombre && c.nombre.toLowerCase() === String(inv.categoria).toLowerCase());
+            if (foundGlob && foundGlob.id) categoriaId = foundGlob.id;
+          } catch (_) { /* ignore */ }
+        }
+      }
+
+      if (!categoriaId) {
+        console.warn('⚠️ crearInventario - categoriaId ausente y no se pudo resolver desde categoria (nombre).');
+        throw new Error('Categoría requerida para generar código automáticamente');
+      }
+
+      // Reserve next official code for this empresa/categoria
+      const reservation = await codigoService.getNextCode(inv.empresaId, categoriaId);
+      finalAssetId = reservation.code;
+      reservationIdToConfirm = reservation.reservation_id as any;
+      console.log(`🔐 Código oficial reservado automáticamente: ${finalAssetId} (reservation_id: ${reservationIdToConfirm})`);
+    } catch (e: any) {
+      console.error('❌ crearInventario - ERROR al generar código oficial automáticamente:');
+      console.error('   Error message:', e?.message);
+      console.error('   Error code:', e?.code);
+      console.error('   Error detail:', e?.detail);
+      console.error('   Stack:', e?.stack);
+      throw e;
+    }
+  }
+
+  // Use reserved code path
+  if (!finalAssetId || finalAssetId.trim() === "") {
+    throw new Error("assetId requerido");
+  }
 
   // Validar unicidad de assetId en tabla inventario
-  const exists = await repo.checkAssetIdExists(inv.assetId);
-  if (exists) throw new Error("assetId ya existe (conflicto 409)");
+  const exists = await repo.checkAssetIdExists(finalAssetId);
+  if (exists) {
+    throw new Error("assetId ya existe (conflicto 409)");
+  }
+
+  // Update inventory with final asset ID
+  (inv as any).assetId = finalAssetId;
 
   // Persist into detailed `inventario` table
   // compute antiguedad for manual assetId flow
@@ -178,6 +233,17 @@ export const crearInventario = async (inv: Inventario): Promise<Inventario> => {
 
   const created = await repo.createInventario(inv as any);
   console.log('crearInventario - creado en BD id=', (created as any).id, 'assetId=', (created as any).assetId);
+  
+  // Confirm the reservation if one exists
+  if (reservationIdToConfirm && (created as any).id) {
+    try {
+      await codigoRepo.confirmReservation(reservationIdToConfirm, (created as any).id);
+      console.log(`✅ Reserva confirmada: reservation_id=${reservationIdToConfirm}, activo_id=${(created as any).id}`);
+    } catch (e) {
+      console.warn('⚠️ Error confirmando reserva (no es crítico):', e);
+    }
+  }
+  
   return created as Inventario;
 };
 

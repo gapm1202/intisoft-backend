@@ -6,7 +6,7 @@ export const create = async (
   usuario: string | undefined,
   nombreUsuario: string | undefined,
   motivo: string | undefined,
-  accion: 'EDITAR_EMPRESA' | 'EDITAR_SEDE' | 'ELIMINAR_SEDE',
+  accion: 'EDITAR_EMPRESA' | 'EDITAR_SEDE' | 'ELIMINAR_SEDE' | 'DESACTIVAR_SEDE' | 'REACTIVAR_SEDE' | 'desactivar_sede' | 'activar_sede' | 'editar_empresa',
   changes?: Record<string, any> | null
 ): Promise<Historial> => {
   const query = `

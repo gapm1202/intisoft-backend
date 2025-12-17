@@ -1,5 +1,6 @@
 import { Router } from "express";
 import * as controller from "../controllers/inventario.controller";
+import * as codigoController from "../controllers/activos_codigo.controller";
 import { authenticate, authorizeRole } from "../../../middlewares/auth.middleware";
 import multer from 'multer';
 import path from 'path';
@@ -47,5 +48,11 @@ router.put("/sedes/:sedeId/inventario/:activoId", authorizeRole(["administrador"
 
 // ===== FOTOS =====
 router.post("/inventario/:inventarioId/fotos", authorizeRole(["administrador"]), controller.uploadFoto);
+
+// ===== ACTIVOS CODIGO =====
+// GET /api/empresas/:empresaId/activos/next-code?categoria=<categoriaId>
+// Reserve the next available asset code with transactional lock
+router.get("/activos/next-code", codigoController.getNextCode);
+router.post("/activos/next-code", codigoController.postNextCode);
 
 export default router;

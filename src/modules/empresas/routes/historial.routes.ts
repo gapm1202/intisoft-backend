@@ -5,5 +5,6 @@ import { authenticate, authorizeRole } from "../../../middlewares/auth.middlewar
 const router = Router({ mergeParams: true });
 
 router.get("/", authenticate, authorizeRole(["administrador"]), controller.getHistorial);
+router.post("/", authenticate, authorizeRole(["administrador"]), controller.create);
 
 export default router;

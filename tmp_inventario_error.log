@@ -1595,3 +1595,995 @@
   }
 }
 -----
+{
+  "time": "2025-12-04T21:47:45.413Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "PC rdg",
+    "categoria": "PC",
+    "fabricante": "HP",
+    "modelo": "rdg",
+    "serie": "3525352",
+    "assetId": "",
+    "area": "Ventas",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "2025-12-03",
+    "fechaFinGarantia": "2026-12-03",
+    "proveedor": "LAFACUTRA",
+    "tipoDocumentoCompra": "Factura",
+    "numeroDocumentoCompra": "F0003",
+    "fechaCompraAprox": "",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "1 año",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "EXCELENTE",
+    "antiguedadCalculada": "0",
+    "ip": "456544545445",
+    "mac": "DD454545",
+    "usuariosAsignados": [
+      {
+        "nombre": "Grecia Pérez",
+        "correo": "perezmontesgreciaanelhy@gmail.com",
+        "cargo": "Asistente"
+      }
+    ],
+    "observaciones": "cdvcdfvdffvfdvdfvdv",
+    "empresaId": "31",
+    "sedeId": "20",
+    "empresaNombre": "Imer",
+    "sedeNombre": "Sede Ate",
+    "empresa": "Imer",
+    "sede": "Sede Ate",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {
+      "Memoria RAM": "",
+      "Disco Duro": "",
+      "Tarjeta de video": "4"
+    },
+    "camposPersonalizadosArray": {
+      "Memoria RAM": [
+        {
+          "Cantidad": "16",
+          "Tipo": "DDR4"
+        }
+      ],
+      "Disco Duro": [
+        {
+          "Capacidad": "500",
+          "Tipo": "SSD"
+        },
+        {
+          "Capacidad": "500",
+          "Tipo": "HDD"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": "EXCELENTE"
+  }
+}
+-----
+{
+  "time": "2025-12-14T02:33:21.255Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "PC rdg",
+    "categoria": "PC",
+    "fabricante": "",
+    "modelo": "rdg",
+    "serie": "3525352",
+    "assetId": "",
+    "area": "recursos humanos",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "",
+    "proveedor": "LAFACUTRA",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": null,
+    "antiguedadCalculada": "",
+    "ip": "456544545445",
+    "mac": "DD454545",
+    "usuariosAsignados": [],
+    "observaciones": "",
+    "empresaId": "30",
+    "sedeId": "18",
+    "empresaNombre": "pruebaa22ddcd",
+    "sedeNombre": "prueba 12",
+    "empresa": "pruebaa22ddcd",
+    "sede": "prueba 12",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {
+      "Memoria RAM": "",
+      "Disco Duro": "",
+      "Tarjeta de video": "deff"
+    },
+    "camposPersonalizadosArray": {
+      "Memoria RAM": [
+        {
+          "Cantidad": "12",
+          "Tipo": "DDR4"
+        }
+      ],
+      "Disco Duro": [
+        {
+          "Capacidad": "2",
+          "Tipo": "SSD"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-14T02:43:34.716Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "PC rdg",
+    "categoria": "PC",
+    "fabricante": "Asus",
+    "modelo": "rdg",
+    "serie": "3525352",
+    "assetId": "",
+    "area": "Ventas",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2024-01-01",
+    "proveedor": "LAFACUTRA",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2023",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "1 año",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "3",
+    "ip": "456544545445",
+    "mac": "DD454545",
+    "usuariosAsignados": [
+      {
+        "nombre": "Grecia",
+        "correo": "greci@gmail.com",
+        "cargo": "dfs"
+      }
+    ],
+    "observaciones": "",
+    "empresaId": "31",
+    "sedeId": "21",
+    "empresaNombre": "Imer",
+    "sedeNombre": "Callao",
+    "empresa": "Imer",
+    "sede": "Callao",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {
+      "Memoria RAM": "",
+      "Disco Duro": "",
+      "Tarjeta de video": "NJEFE"
+    },
+    "camposPersonalizadosArray": {
+      "Memoria RAM": [
+        {
+          "Cantidad": "16",
+          "Tipo": "DDR4"
+        },
+        {
+          "Cantidad": "16",
+          "Tipo": "DDR4"
+        }
+      ],
+      "Disco Duro": [
+        {
+          "Capacidad": "500",
+          "Tipo": "SSD"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": "BUENO"
+  }
+}
+-----
+{
+  "time": "2025-12-15T19:45:04.890Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "PC EDFDF",
+    "categoria": "PC",
+    "fabricante": "Asus",
+    "modelo": "EDFDF",
+    "serie": "453434",
+    "assetId": "IME-PC0001",
+    "area": "Ventas",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "",
+    "proveedor": "CDCXDC",
+    "tipoDocumentoCompra": "Factura",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "6 meses",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": null,
+    "antiguedadCalculada": "",
+    "ip": "",
+    "mac": "",
+    "usuariosAsignados": [],
+    "observaciones": "",
+    "empresaId": "31",
+    "sedeId": "20",
+    "empresaNombre": "Imer",
+    "sedeNombre": "Sede Ate",
+    "empresa": "Imer",
+    "sede": "Sede Ate",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {
+      "Memoria RAM": "",
+      "Disco Duro": "",
+      "Tarjeta de video": "GBFGBGB"
+    },
+    "camposPersonalizadosArray": {
+      "Memoria RAM": [
+        {
+          "Cantidad": "16",
+          "Tipo": "DDR3"
+        }
+      ],
+      "Disco Duro": [
+        {
+          "Capacidad": "500",
+          "Tipo": "SSD"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-15T19:48:43.414Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "PC dd",
+    "categoria": "PC",
+    "fabricante": "HP",
+    "modelo": "dd",
+    "serie": "dsadsd",
+    "assetId": "",
+    "area": "recursos humanos",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "",
+    "proveedor": "",
+    "tipoDocumentoCompra": "Boleta",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": null,
+    "antiguedadCalculada": "",
+    "ip": "",
+    "mac": "",
+    "usuariosAsignados": [],
+    "observaciones": "",
+    "empresaId": "30",
+    "sedeId": "18",
+    "empresaNombre": "pruebaa22ddcd",
+    "sedeNombre": "prueba 12",
+    "empresa": "pruebaa22ddcd",
+    "sede": "prueba 12",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {
+      "Memoria RAM": "",
+      "Disco Duro": "",
+      "Tarjeta de video": "uiytju"
+    },
+    "camposPersonalizadosArray": {
+      "Memoria RAM": [
+        {
+          "Cantidad": "16",
+          "Tipo": "DDR4"
+        }
+      ],
+      "Disco Duro": [
+        {
+          "Capacidad": "500",
+          "Tipo": "SSD"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-15T20:01:00.551Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "PC kkbjbhj",
+    "categoria": "PC",
+    "fabricante": "Asus",
+    "modelo": "kkbjbhj",
+    "serie": "151515",
+    "assetId": "",
+    "area": "Ventas",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "",
+    "proveedor": "",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": null,
+    "antiguedadCalculada": "",
+    "ip": "",
+    "mac": "",
+    "usuariosAsignados": [],
+    "observaciones": "",
+    "empresaId": "31",
+    "sedeId": "20",
+    "empresaNombre": "Imer",
+    "sedeNombre": "Sede Ate",
+    "empresa": "Imer",
+    "sede": "Sede Ate",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {
+      "Memoria RAM": "",
+      "Disco Duro": "",
+      "Tarjeta de video": "njbjhb"
+    },
+    "camposPersonalizadosArray": {
+      "Memoria RAM": [
+        {
+          "Cantidad": "16",
+          "Tipo": "DDR4"
+        }
+      ],
+      "Disco Duro": [
+        {
+          "Capacidad": "500",
+          "Tipo": "SSD"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-15T20:01:00.567Z",
+  "route": "/api/empresas/:empresaId/sedes/:sedeId/inventario (sede)",
+  "params": {
+    "empresaId": "31",
+    "sedeId": "20"
+  },
+  "bodyPreview": {
+    "nombre": "PC kkbjbhj",
+    "categoria": "PC",
+    "fabricante": "Asus",
+    "modelo": "kkbjbhj",
+    "serie": "151515",
+    "assetId": "",
+    "area": "Ventas",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "",
+    "proveedor": "",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": null,
+    "antiguedadCalculada": "",
+    "ip": "",
+    "mac": "",
+    "usuariosAsignados": [],
+    "observaciones": "",
+    "empresaId": "31",
+    "sedeId": "20",
+    "empresaNombre": "Imer",
+    "sedeNombre": "Sede Ate",
+    "empresa": "Imer",
+    "sede": "Sede Ate",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {
+      "Memoria RAM": "",
+      "Disco Duro": "",
+      "Tarjeta de video": "njbjhb"
+    },
+    "camposPersonalizadosArray": {
+      "Memoria RAM": [
+        {
+          "Cantidad": "16",
+          "Tipo": "DDR4"
+        }
+      ],
+      "Disco Duro": [
+        {
+          "Capacidad": "500",
+          "Tipo": "SSD"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": null
+  },
+  "files": null,
+  "error": "Error: Empresa sin código asignado: 31\n    at Object.getNextCode (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\services\\activos_codigo.service.ts:32:11)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async Object.crearInventario (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\services\\inventario.service.ts:199:27)\n    at async createInventarioSede (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\controllers\\inventario.controller.ts:493:24)"
+}
+-----
+{
+  "time": "2025-12-15T20:04:55.428Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "PC IME-PC0001",
+    "categoria": "PC",
+    "fabricante": "HP",
+    "modelo": "",
+    "serie": "",
+    "assetId": "IME-PC0001",
+    "area": "Ventas",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "",
+    "proveedor": "",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": null,
+    "antiguedadCalculada": "",
+    "ip": "",
+    "mac": "",
+    "usuariosAsignados": [],
+    "observaciones": "",
+    "empresaId": "31",
+    "sedeId": "20",
+    "empresaNombre": "Imer",
+    "sedeNombre": "Sede Ate",
+    "empresa": "Imer",
+    "sede": "Sede Ate",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {
+      "Memoria RAM": "",
+      "Disco Duro": "",
+      "Tarjeta de video": "4"
+    },
+    "camposPersonalizadosArray": {
+      "Memoria RAM": [
+        {
+          "Cantidad": "13",
+          "Tipo": "DDR4"
+        }
+      ],
+      "Disco Duro": [
+        {
+          "Capacidad": "4",
+          "Tipo": "SSD"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-15T20:05:26.900Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "PC -",
+    "categoria": "PC",
+    "fabricante": "Asus",
+    "modelo": "",
+    "serie": "",
+    "assetId": "",
+    "area": "recursos humanos",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "",
+    "proveedor": "",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": null,
+    "antiguedadCalculada": "",
+    "ip": "",
+    "mac": "",
+    "usuariosAsignados": [],
+    "observaciones": "",
+    "empresaId": "30",
+    "sedeId": "18",
+    "empresaNombre": "pruebaa22ddcd",
+    "sedeNombre": "prueba 12",
+    "empresa": "pruebaa22ddcd",
+    "sede": "prueba 12",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {
+      "Memoria RAM": "",
+      "Disco Duro": "",
+      "Tarjeta de video": "sdvdsvdsvsd"
+    },
+    "camposPersonalizadosArray": {
+      "Memoria RAM": [
+        {
+          "Cantidad": "5",
+          "Tipo": "DDR3"
+        }
+      ],
+      "Disco Duro": [
+        {
+          "Capacidad": "498",
+          "Tipo": ""
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-15T20:05:59.656Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "PC sdf",
+    "categoria": "PC",
+    "fabricante": "Asus",
+    "modelo": "sdf",
+    "serie": "54354",
+    "assetId": "",
+    "area": "Ventas",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "",
+    "proveedor": "",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": null,
+    "antiguedadCalculada": "",
+    "ip": "",
+    "mac": "",
+    "usuariosAsignados": [],
+    "observaciones": "",
+    "empresaId": "31",
+    "sedeId": "21",
+    "empresaNombre": "Imer",
+    "sedeNombre": "Callao",
+    "empresa": "Imer",
+    "sede": "Callao",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {
+      "Memoria RAM": "",
+      "Disco Duro": "",
+      "Tarjeta de video": "dbfb"
+    },
+    "camposPersonalizadosArray": {
+      "Memoria RAM": [
+        {
+          "Cantidad": "16",
+          "Tipo": "DDR4"
+        }
+      ],
+      "Disco Duro": [
+        {
+          "Capacidad": "500",
+          "Tipo": "SSD"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-15T20:06:27.938Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "PC 542",
+    "categoria": "PC",
+    "fabricante": "Asus",
+    "modelo": "542",
+    "serie": "",
+    "assetId": "",
+    "area": "Ventas",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "",
+    "proveedor": "",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": null,
+    "antiguedadCalculada": "",
+    "ip": "",
+    "mac": "",
+    "usuariosAsignados": [],
+    "observaciones": "",
+    "empresaId": "31",
+    "sedeId": "20",
+    "empresaNombre": "Imer",
+    "sedeNombre": "Sede Ate",
+    "empresa": "Imer",
+    "sede": "Sede Ate",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {
+      "Memoria RAM": "",
+      "Disco Duro": "",
+      "Tarjeta de video": "dbfvdvd"
+    },
+    "camposPersonalizadosArray": {
+      "Memoria RAM": [
+        {
+          "Cantidad": "16",
+          "Tipo": "DDR4"
+        }
+      ],
+      "Disco Duro": [
+        {
+          "Capacidad": "500",
+          "Tipo": "HDD"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-15T20:06:48.787Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "PC IME-PC0004",
+    "categoria": "PC",
+    "fabricante": "",
+    "modelo": "",
+    "serie": "",
+    "assetId": "IME-PC0004",
+    "area": "Ventas",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "",
+    "proveedor": "",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": null,
+    "antiguedadCalculada": "",
+    "ip": "",
+    "mac": "",
+    "usuariosAsignados": [],
+    "observaciones": "",
+    "empresaId": "31",
+    "sedeId": "20",
+    "empresaNombre": "Imer",
+    "sedeNombre": "Sede Ate",
+    "empresa": "Imer",
+    "sede": "Sede Ate",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {
+      "Memoria RAM": "",
+      "Disco Duro": "",
+      "Tarjeta de video": "escsd"
+    },
+    "camposPersonalizadosArray": {
+      "Memoria RAM": [
+        {
+          "Cantidad": "16",
+          "Tipo": "DDR3"
+        }
+      ],
+      "Disco Duro": [
+        {
+          "Capacidad": "500",
+          "Tipo": "SSD"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-15T20:08:07.878Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "PC -",
+    "categoria": "PC",
+    "fabricante": "Asus",
+    "modelo": "",
+    "serie": "",
+    "assetId": "",
+    "area": "recursos humanos",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "",
+    "proveedor": "",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": null,
+    "antiguedadCalculada": "",
+    "ip": "",
+    "mac": "",
+    "usuariosAsignados": [],
+    "observaciones": "",
+    "empresaId": "30",
+    "sedeId": "18",
+    "empresaNombre": "pruebaa22ddcd",
+    "sedeNombre": "prueba 12",
+    "empresa": "pruebaa22ddcd",
+    "sede": "prueba 12",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {
+      "Memoria RAM": "",
+      "Disco Duro": "",
+      "Tarjeta de video": "dvfdvf"
+    },
+    "camposPersonalizadosArray": {
+      "Memoria RAM": [
+        {
+          "Cantidad": "16",
+          "Tipo": "DDR5"
+        }
+      ],
+      "Disco Duro": [
+        {
+          "Capacidad": "500",
+          "Tipo": "HDD"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-16T14:18:15.675Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "PC 6yhr",
+    "categoria": "PC",
+    "fabricante": "Asus",
+    "modelo": "6yhr",
+    "serie": "dffrf",
+    "assetId": "",
+    "area": "hola",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "",
+    "proveedor": "",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": null,
+    "antiguedadCalculada": "",
+    "ip": "",
+    "mac": "",
+    "usuariosAsignados": [],
+    "observaciones": "",
+    "empresaId": "29",
+    "sedeId": "16",
+    "empresaNombre": "pruebaa22",
+    "sedeNombre": "prueba 1344",
+    "empresa": "pruebaa22",
+    "sede": "prueba 1344",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {
+      "Memoria RAM": "",
+      "Disco Duro": "",
+      "Tarjeta de video": "fddd"
+    },
+    "camposPersonalizadosArray": {
+      "Memoria RAM": [
+        {
+          "Cantidad": "16",
+          "Tipo": "DDR4"
+        }
+      ],
+      "Disco Duro": [
+        {
+          "Capacidad": "16",
+          "Tipo": "SSD"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": null
+  }
+}
+-----

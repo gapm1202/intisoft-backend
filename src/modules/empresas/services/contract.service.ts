@@ -1,0 +1,143 @@
+import {
+  ContractBase,
+  ContractCreateInput,
+  ContractEstado,
+  ContractWithDetails,
+  ContractServices,
+  ContractPreventivePolicy,
+  ContractEconomics,
+} from "../models/contract.model";
+import * as repo from "../repositories/contract.repository";
+
+const ESTADOS: ContractEstado[] = ['activo', 'suspendido', 'vencido', 'historico'];
+
+export const listContracts = async (empresaId: number): Promise<ContractBase[]> => {
+  const items = await repo.listByEmpresa(empresaId);
+  const updated: ContractBase[] = [];
+  for (const c of items) {
+    updated.push(await repo.expireIfNeeded(c));
+  }
+  return updated;
+};
+
+export const getContract = async (contractId: number): Promise<ContractWithDetails | null> => {
+  const item = await repo.getByIdWithDetails(contractId);
+  if (!item) return null;
+  // expire check
+  await repo.expireIfNeeded(item as ContractBase);
+  // return fresh details
+  return repo.getByIdWithDetails(contractId);
+};
+
+export const getActiveContract = async (empresaId: number): Promise<ContractWithDetails | null> => {
+  const activeId = await repo.getActiveByEmpresa(empresaId);
+  if (!activeId) return null;
+  return getContract(activeId);
+};
+
+export const createContract = async (input: ContractCreateInput): Promise<ContractWithDetails> => {
+  if (!ESTADOS.includes(input.estadoContrato)) {
+    throw new Error('Estado de contrato no válido');
+  }
+  if (new Date(input.fechaFin) < new Date(input.fechaInicio)) {
+    throw new Error('fechaFin debe ser mayor o igual a fechaInicio');
+  }
+  if (input.tipoContrato === 'bolsa_horas' && (!input.services || !input.services.horasMensualesIncluidas)) {
+    throw new Error('horasMensualesIncluidas es requerido para bolsa_horas');
+  }
+  return repo.createContract(input);
+};
+
+export const updateEstado = async (
+  contractId: number,
+  nuevoEstado: ContractEstado,
+  motivo: string,
+  usuario?: string | null
+): Promise<ContractBase | null> => {
+  if (!ESTADOS.includes(nuevoEstado)) {
+    throw new Error('Estado de contrato no válido');
+  }
+  return repo.updateEstado(contractId, nuevoEstado, motivo, usuario);
+};
+
+export const updateGeneral = async (
+  contractId: number,
+  data: Partial<ContractBase>,
+  motivo: string,
+  usuario?: string | null
+) => {
+  return repo.updateGeneral(contractId, data, motivo, usuario);
+};
+
+export const updateServices = async (
+  contractId: number,
+  data: ContractServices,
+  motivo: string,
+  usuario?: string | null
+) => {
+  if (data.horasMensualesIncluidas !== undefined && data.horasMensualesIncluidas !== null && data.horasMensualesIncluidas < 0) {
+    throw new Error('horasMensualesIncluidas no puede ser negativa');
+  }
+  return repo.updateServices(contractId, data, motivo, usuario);
+};
+
+export const updatePreventive = async (
+  contractId: number,
+  data: ContractPreventivePolicy,
+  motivo: string,
+  usuario?: string | null
+) => {
+  return repo.updatePreventive(contractId, data, motivo, usuario);
+};
+
+export const updateEconomics = async (
+  contractId: number,
+  data: ContractEconomics,
+  motivo: string,
+  usuario?: string | null
+) => {
+  if (data.diaFacturacion !== undefined && data.diaFacturacion !== null) {
+    if (data.diaFacturacion < 1 || data.diaFacturacion > 31) {
+      throw new Error('diaFacturacion debe estar entre 1 y 31');
+    }
+  }
+  if (data.montoReferencial !== undefined && data.montoReferencial !== null && Number(data.montoReferencial) <= 0) {
+    throw new Error('montoReferencial debe ser mayor a 0');
+  }
+  return repo.updateEconomics(contractId, data, motivo, usuario);
+};
+
+export const addDocument = async (
+  contractId: number,
+  doc: any,
+  motivo: string,
+  usuario?: string | null
+) => {
+  return repo.addDocument(contractId, doc, motivo, usuario);
+};
+
+export const deleteDocument = async (
+  contractId: number,
+  docId: number,
+  motivo: string,
+  usuario?: string | null
+) => {
+  return repo.deleteDocument(contractId, docId, motivo, usuario);
+};
+
+export const renewContract = async (
+  empresaId: number,
+  contractId: number,
+  data: ContractCreateInput,
+  motivo: string,
+  usuario?: string | null
+) => {
+  if (new Date(data.fechaFin) < new Date(data.fechaInicio)) {
+    throw new Error('fechaFin debe ser mayor o igual a fechaInicio');
+  }
+  return repo.renewContract(empresaId, contractId, data, motivo, usuario);
+};
+
+export const getContractHistory = async (contractId: number) => {
+  return repo.getContractHistory(contractId);
+};

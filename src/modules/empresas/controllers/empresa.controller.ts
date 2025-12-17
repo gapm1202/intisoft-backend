@@ -8,17 +8,19 @@ export const list = async (req: Request, res: Response) => {
     const items = await service.listEmpresas();
     // augment items with flat aliases for frontend convenience
     const mapped = items.map((it: any) => {
-      const admin = Array.isArray(it.contactosAdministrativos) && it.contactosAdministrativos.length > 0 ? it.contactosAdministrativos[0] : null;
-      const tech = Array.isArray(it.contactosTecnicos) && it.contactosTecnicos.length > 0 ? it.contactosTecnicos[0] : null;
+      // Support both old (contactosAdministrativos) and new (contactosAdmin) field names
+      const adminArray = it.contactosAdmin || it.contactosAdministrativos || [];
+      const techArray = it.contactosTecnicos || [];
+      const admin = Array.isArray(adminArray) && adminArray.length > 0 ? adminArray[0] : null;
+      const tech = Array.isArray(techArray) && techArray.length > 0 ? techArray[0] : null;
       return {
         ...it,
         sector: it.tipoEmpresa || undefined,
-        adminNombre: admin ? admin.nombreCompleto : undefined,
+        adminNombre: admin ? (admin.nombre || admin.nombreCompleto) : undefined,
         adminCargo: admin ? admin.cargo : undefined,
         adminTelefono: admin ? admin.telefono : undefined,
         adminEmail: admin ? admin.email : undefined,
-        observaciones: admin ? admin.observaciones : undefined,
-        tecNombre: tech ? tech.nombreCompleto : undefined,
+        tecNombre: tech ? (tech.nombre || tech.nombreCompleto) : undefined,
         tecCargo: tech ? tech.cargo : undefined,
         tecTelefono1: tech ? tech.telefono1 : undefined,
         tecTelefono2: tech ? tech.telefono2 : undefined,
@@ -38,17 +40,19 @@ export const getOne = async (req: Request, res: Response) => {
     const id = parseInt(req.params.id);
     const item = await service.getEmpresa(id);
     if (!item) return res.status(404).json({ message: "Empresa no encontrada" });
-    const admin = Array.isArray(item.contactosAdministrativos) && item.contactosAdministrativos.length > 0 ? item.contactosAdministrativos[0] : null;
-    const tech = Array.isArray(item.contactosTecnicos) && item.contactosTecnicos.length > 0 ? item.contactosTecnicos[0] : null;
+    // Support both old (contactosAdministrativos) and new (contactosAdmin) field names
+    const adminArray = (item as any).contactosAdmin || (item as any).contactosAdministrativos || [];
+    const techArray = (item as any).contactosTecnicos || [];
+    const admin = Array.isArray(adminArray) && adminArray.length > 0 ? adminArray[0] : null;
+    const tech = Array.isArray(techArray) && techArray.length > 0 ? techArray[0] : null;
     const mapped = {
       ...item,
       sector: item.tipoEmpresa || undefined,
-      adminNombre: admin ? admin.nombreCompleto : undefined,
+      adminNombre: admin ? (admin.nombre || admin.nombreCompleto) : undefined,
       adminCargo: admin ? admin.cargo : undefined,
       adminTelefono: admin ? admin.telefono : undefined,
       adminEmail: admin ? admin.email : undefined,
-      observaciones: admin ? admin.observaciones : undefined,
-      tecNombre: tech ? tech.nombreCompleto : undefined,
+      tecNombre: tech ? (tech.nombre || tech.nombreCompleto) : undefined,
       tecCargo: tech ? tech.cargo : undefined,
       tecTelefono1: tech ? tech.telefono1 : undefined,
       tecTelefono2: tech ? tech.telefono2 : undefined,
@@ -88,15 +92,6 @@ export const create = async (req: Request, res: Response) => {
       }
     }
 
-    // Basic email validation for optional emails
-    const emailRegex = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
-    if (data.email && !emailRegex.test(data.email)) {
-      errors.push({ field: 'email', message: 'email inválido' });
-    }
-    if (data.contactoEmail && !emailRegex.test(data.contactoEmail)) {
-      errors.push({ field: 'contactoEmail', message: 'contactoEmail inválido' });
-    }
-
     // Validate contactos arrays (optional) - accept arrays or JSON strings
     const parseArrayField = (v: any) => {
       if (!v) return undefined;
@@ -112,6 +107,7 @@ export const create = async (req: Request, res: Response) => {
       return undefined;
     };
 
+    const contactosAdminInput = parseArrayField(data.contactosAdmin) as any[] | undefined;
     const contactosAdministrativos = parseArrayField(data.contactosAdministrativos) as any[] | undefined;
     const contactosTecnicos = parseArrayField(data.contactosTecnicos) as any[] | undefined;
 
@@ -142,6 +138,7 @@ export const create = async (req: Request, res: Response) => {
     };
 
     const finalContactosAdministrativos = contactosAdministrativos ?? mapAdminFromFields();
+    const finalContactosAdmin = contactosAdminInput ?? finalContactosAdministrativos;
     const finalContactosTecnicos = contactosTecnicos ?? mapTechFromFields();
 
     if (errors.length > 0) {
@@ -172,22 +169,35 @@ export const create = async (req: Request, res: Response) => {
       direccionFiscal: data.direccionFiscal.trim(),
       direccionOperativa: data.direccionOperativa ? String(data.direccionOperativa).trim() : undefined,
       ciudad: data.ciudad.trim(),
-      razonSocial: data.razonSocial ? String(data.razonSocial).trim() : undefined,
       provincia: data.provincia ? String(data.provincia).trim() : undefined,
-      telefono: data.telefono ? String(data.telefono).trim() : undefined,
-      email: data.email ? String(data.email).trim() : undefined,
       tipoEmpresa: data.tipoEmpresa ? String(data.tipoEmpresa).trim() : (data.sector ? String(data.sector).trim() : undefined),
       paginaWeb: data.paginaWeb ? String(data.paginaWeb).trim() : undefined,
       estadoContrato: estadoContrato as any,
-      contactosAdministrativos: finalContactosAdministrativos,
+      codigo: data.nombre && data.nombre.trim().length >= 3 
+        ? data.nombre.trim().substring(0, 3).toUpperCase()
+        : data.nombre ? data.nombre.trim().toUpperCase().padEnd(3, 'X') : 'XXX',
+      contactosAdmin: finalContactosAdmin,
       contactosTecnicos: finalContactosTecnicos,
+      // New fields from frontend
+      observacionesGenerales: data.observacionesGenerales ? String(data.observacionesGenerales).trim() : undefined,
+      autorizacionFacturacion: data.autorizacionFacturacion !== undefined ? Boolean(data.autorizacionFacturacion) : false,
     };
 
     const created = await service.createEmpresa(toCreate as any);
     res.status(201).json(created);
   } catch (error) {
-    console.error("Error create empresa:", error);
     const err: any = error;
+    console.error("Error create empresa - Full error:", {
+      message: err?.message,
+      code: err?.code,
+      detail: err?.detail,
+      hint: err?.hint,
+      context: err?.context,
+      position: err?.position,
+      internalPosition: err?.internalPosition,
+      internalQuery: err?.internalQuery,
+      stack: err?.stack?.substring(0, 500)
+    });
     // Postgres unique violation
     if (err && (err.code === "23505" || err.code === 23505)) {
       const detail = err.detail || "";
@@ -196,7 +206,7 @@ export const create = async (req: Request, res: Response) => {
       }
       return res.status(400).json({ message: "Violación de unicidad" });
     }
-    res.status(500).json({ message: "Error en el servidor" });
+    res.status(500).json({ message: "Error en el servidor", error: err?.message });
   }
 };
 
@@ -213,7 +223,7 @@ export const update = async (req: Request, res: Response) => {
     
     // Allow partial updates for the new fields
     const toUpdate: any = {};
-    const simpleFields = ['nombre','ruc','direccionFiscal','direccionOperativa','direccion','ciudad','razonSocial','provincia','telefono','email','tipoEmpresa','paginaWeb','estadoContrato'];
+    const simpleFields = ['nombre','ruc','direccionFiscal','direccionOperativa','ciudad','provincia','tipoEmpresa','paginaWeb','estadoContrato'];
     for (const f of simpleFields) {
       if (data[f] !== undefined && data[f] !== null) {
         toUpdate[f] = typeof data[f] === 'string' ? data[f].trim() : data[f];
@@ -233,8 +243,14 @@ export const update = async (req: Request, res: Response) => {
       return undefined;
     };
 
-    if (data.contactosAdministrativos !== undefined) {
-      toUpdate.contactosAdministrativos = parseArrayField(data.contactosAdministrativos);
+    if (data.contactosAdmin !== undefined) {
+      toUpdate.contactosAdmin = parseArrayField(data.contactosAdmin);
+    }
+    const contactosAdministrativosUpdate = data.contactosAdministrativos !== undefined
+      ? parseArrayField(data.contactosAdministrativos)
+      : undefined;
+    if (toUpdate.contactosAdmin === undefined && contactosAdministrativosUpdate !== undefined) {
+      toUpdate.contactosAdmin = contactosAdministrativosUpdate;
     }
     if (data.contactosTecnicos !== undefined) {
       toUpdate.contactosTecnicos = parseArrayField(data.contactosTecnicos);
@@ -266,13 +282,24 @@ export const update = async (req: Request, res: Response) => {
       }];
     };
 
-    if (toUpdate.contactosAdministrativos === undefined) {
+    if (toUpdate.contactosAdmin === undefined) {
       const mapped = mapAdminFromFieldsUpdate();
-      if (mapped) toUpdate.contactosAdministrativos = mapped;
+      if (mapped) toUpdate.contactosAdmin = mapped;
     }
     if (toUpdate.contactosTecnicos === undefined) {
       const mapped = mapTechFromFieldsUpdate();
       if (mapped) toUpdate.contactosTecnicos = mapped;
+    }
+
+    // Support new contact/metadata fields in update
+    if (data.contactosAdmin !== undefined) {
+      toUpdate.contactosAdmin = parseArrayField(data.contactosAdmin);
+    }
+    if (data.observacionesGenerales !== undefined) {
+      toUpdate.observacionesGenerales = data.observacionesGenerales ? String(data.observacionesGenerales).trim() : undefined;
+    }
+    if (data.autorizacionFacturacion !== undefined) {
+      toUpdate.autorizacionFacturacion = Boolean(data.autorizacionFacturacion);
     }
 
     // If ruc provided in update, normalize and validate
@@ -299,7 +326,7 @@ export const update = async (req: Request, res: Response) => {
       changes[key] = { old: oldVal, new: newVal };
     }
 
-    // Record historial with user info and changes
+    // Record historial con resumen y destino
     const user = (req as any).user;
     try {
       await historialService.createHistorial(
@@ -307,12 +334,16 @@ export const update = async (req: Request, res: Response) => {
         user.email,
         user.nombre,
         motivo,
-        'EDITAR_EMPRESA',
-        changes
+        'editar_empresa',
+        {
+          tipo: 'empresa',
+          destino: updated.nombre || existingEmpresa.nombre,
+          cambios: changes
+        }
       );
     } catch (histErr) {
       console.error("Warning: historial not recorded:", histErr);
-      // Don't fail the update if historial fails, just log it
+      // No fallar el update si historial falla
     }
 
     res.json(updated);

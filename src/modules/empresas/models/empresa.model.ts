@@ -1,36 +1,38 @@
-export interface ContactoAdministrativo {
-  nombreCompleto: string;
+export interface ContactoAdmin {
+  nombre: string;
   cargo?: string;
   telefono?: string;
   email?: string;
-  observaciones?: string;
 }
 
 export interface ContactoTecnico {
-  nombreCompleto: string;
+  nombre: string;
   cargo?: string;
   telefono1?: string;
   telefono2?: string;
   email?: string;
+  contactoPrincipal?: boolean;
+  horarioDisponible?: string;
+  autorizaCambiosCriticos?: boolean;
   nivelAutorizacion?: string;
 }
 
 export interface Empresa {
   id?: number;
   nombre: string;
+  codigo?: string; // Código corto para generar asset codes (ej. "IME")
+  codigoCliente?: string; // Código cliente auto-generado (CLI-001, CLI-002, etc.)
   ruc?: string;
-  direccion?: string; // legacy/general address
   direccionFiscal?: string;
   direccionOperativa?: string;
   ciudad?: string;
-  razonSocial?: string;
   provincia?: string;
-  telefono?: string;
-  email?: string;
   tipoEmpresa?: string; // sector empresarial
   paginaWeb?: string;
   estadoContrato?: 'Activo' | 'Suspendido' | 'No renovado';
-  contactosAdministrativos?: ContactoAdministrativo[];
+  contactosAdmin?: ContactoAdmin[];
   contactosTecnicos?: ContactoTecnico[];
+  observacionesGenerales?: string;
+  autorizacionFacturacion?: boolean;
   creado_en?: Date;
 }

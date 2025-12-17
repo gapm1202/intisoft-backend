@@ -6,9 +6,9 @@ import * as historialService from "../services/historial.service";
 export const list = async (req: Request, res: Response) => {
   try {
     const empresaId = parseInt(req.params.empresaId || req.params.id);
-    // El servicio actual toma un solo parámetro (empresaId).
-    // Si en el futuro añadimos soporte para incluir eliminadas, podemos extender el servicio.
-    const items = await service.listSedes(empresaId);
+    // Check query parameter to include inactive sedes
+    const includeInactive = req.query.incluirInactivas === 'true' || req.query.includeInactive === 'true';
+    const items = await service.listSedes(empresaId, includeInactive);
     res.json(items);
   } catch (error) {
     console.error("Error list sedes:", error);
@@ -28,24 +28,56 @@ export const create = async (req: Request, res: Response) => {
       return res.status(400).json({ message: 'direccion es requerida' });
     }
 
+    // Parse responsables array if provided
+    const parseArrayField = (v: any) => {
+      if (!v) return undefined;
+      if (Array.isArray(v)) return v;
+      if (typeof v === 'string') {
+        try {
+          const parsed = JSON.parse(v);
+          return Array.isArray(parsed) ? parsed : undefined;
+        } catch {
+          return undefined;
+        }
+      }
+      return undefined;
+    };
+
     const toCreate = {
       nombre: String(data.nombre).trim(),
+      codigoInterno: data.codigoInterno ? String(data.codigoInterno).trim() : undefined,
       direccion: String(data.direccion).trim(),
       ciudad: data.ciudad ? String(data.ciudad).trim() : undefined,
       provincia: data.provincia ? String(data.provincia).trim() : undefined,
       telefono: data.telefono ? String(data.telefono).trim() : undefined,
       email: data.email ? String(data.email).trim() : undefined,
       tipo: data.tipo ? String(data.tipo).trim() : undefined,
+      // Legacy fields (support backward compatibility)
       responsable: data.responsable ? String(data.responsable).trim() : undefined,
       cargoResponsable: data.cargoResponsable ? String(data.cargoResponsable).trim() : undefined,
       telefonoResponsable: data.telefonoResponsable ? String(data.telefonoResponsable).trim() : undefined,
       emailResponsable: data.emailResponsable ? String(data.emailResponsable).trim() : undefined,
+      // New fields
+      responsables: parseArrayField(data.responsables),
+      horarioAtencion: data.horarioAtencion ? String(data.horarioAtencion).trim() : undefined,
+      observaciones: data.observaciones ? String(data.observaciones).trim() : undefined,
+      autorizaIngresoTecnico: data.autorizaIngresoTecnico !== undefined ? Boolean(data.autorizaIngresoTecnico) : false,
+      autorizaMantenimientoFueraHorario: data.autorizaMantenimientoFueraHorario !== undefined ? Boolean(data.autorizaMantenimientoFueraHorario) : false,
     };
 
     const created = await service.createSede(empresaId, toCreate as any);
     res.status(201).json(created);
   } catch (error) {
     console.error("Error create sede:", error);
+    const err: any = error;
+    // Handle unique constraint violation for codigo_interno
+    if (err && (err.code === "23505" || err.code === 23505)) {
+      const detail = err.detail || "";
+      if (detail.includes("codigo_interno")) {
+        return res.status(400).json({ message: "El código interno ya existe" });
+      }
+      return res.status(400).json({ message: "Violación de unicidad" });
+    }
     res.status(500).json({ message: "Error en el servidor" });
   }
 };
@@ -63,11 +95,38 @@ export const update = async (req: Request, res: Response) => {
     
     // Prepare update payload (skip motivo from the update itself)
     const toUpdate: any = {};
-    const simpleFields = ['nombre', 'direccion', 'ciudad', 'provincia', 'telefono', 'email', 'tipo', 'responsable', 'cargoResponsable', 'telefonoResponsable', 'emailResponsable'];
+    const simpleFields = ['nombre', 'codigoInterno', 'direccion', 'ciudad', 'provincia', 'telefono', 'email', 'tipo', 'responsable', 'cargoResponsable', 'telefonoResponsable', 'emailResponsable', 'horarioAtencion', 'observaciones'];
     for (const f of simpleFields) {
       if (data[f] !== undefined && data[f] !== null) {
         toUpdate[f] = typeof data[f] === 'string' ? data[f].trim() : data[f];
       }
+    }
+
+    // Handle array fields (responsables)
+    const parseArrayField = (v: any) => {
+      if (!v) return undefined;
+      if (Array.isArray(v)) return v;
+      if (typeof v === 'string') {
+        try {
+          const parsed = JSON.parse(v);
+          return Array.isArray(parsed) ? parsed : undefined;
+        } catch {
+          return undefined;
+        }
+      }
+      return undefined;
+    };
+
+    if (data.responsables !== undefined) {
+      toUpdate.responsables = parseArrayField(data.responsables);
+    }
+
+    // Handle boolean fields
+    if (data.autorizaIngresoTecnico !== undefined) {
+      toUpdate.autorizaIngresoTecnico = Boolean(data.autorizaIngresoTecnico);
+    }
+    if (data.autorizaMantenimientoFueraHorario !== undefined) {
+      toUpdate.autorizaMantenimientoFueraHorario = Boolean(data.autorizaMantenimientoFueraHorario);
     }
 
     // Fetch current sede to compute diff
@@ -105,6 +164,75 @@ export const update = async (req: Request, res: Response) => {
     res.json(updated);
   } catch (error) {
     console.error("Error update sede:", error);
+    res.status(500).json({ message: "Error en el servidor" });
+  }
+};
+
+export const toggleActivo = async (req: Request, res: Response) => {
+  try {
+    const sedeId = parseInt(req.params.sedeId);
+    const empresaId = parseInt(req.params.empresaId || req.params.id);
+    
+    // Validar body
+    if (!req.body || typeof req.body !== 'object') {
+      return res.status(400).json({ message: "Body es requerido" });
+    }
+
+    const { activo, motivo } = req.body;
+
+    // Validar activo (debe ser boolean)
+    if (activo === undefined || activo === null || typeof activo !== 'boolean') {
+      return res.status(400).json({ message: "activo es requerido y debe ser boolean (true/false)" });
+    }
+
+    // Validar motivo
+    if (!motivo || typeof motivo !== 'string' || motivo.trim() === '') {
+      return res.status(400).json({ message: "motivo es requerido y no puede estar vacío" });
+    }
+    const motivoTrimmed = motivo.trim();
+    
+    // Fetch current sede
+    const current = await service.getSede(sedeId);
+    if (!current) return res.status(404).json({ message: "Sede no encontrada" });
+
+    // Prevent toggling if already in desired state (optional - can be removed)
+    if (current.activo === activo) {
+      return res.status(400).json({ 
+        message: `Sede ya está ${activo ? 'activa' : 'inactiva'}` 
+      });
+    }
+
+    // Record historial (nuevo registro por evento)
+    const user = (req as any).user;
+    try {
+      await historialService.createHistorial(
+        empresaId,
+        user.email,
+        user.nombre,
+        motivoTrimmed,
+        activo ? 'activar_sede' : 'desactivar_sede',
+        {
+          tipo: 'sede',
+          destino: current.nombre,
+          sedeId,
+          anterior: { activo: current.activo, motivo: current.motivo },
+          nuevo: { activo, motivo: motivoTrimmed }
+        }
+      );
+    } catch (histErr) {
+      console.error("Warning: historial not recorded:", histErr);
+    }
+
+    // Update sede activo status (soft delete/reactivate)
+    const updated = await service.toggleActivoSede(sedeId, activo, motivoTrimmed);
+    if (!updated) return res.status(404).json({ message: "Sede no encontrada" });
+    
+    res.json({ 
+      message: activo ? "Sede reactivada" : "Sede desactivada", 
+      data: updated 
+    });
+  } catch (error) {
+    console.error("Error toggle sede activo:", error);
     res.status(500).json({ message: "Error en el servidor" });
   }
 };

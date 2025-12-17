@@ -7,6 +7,7 @@ const router = Router({ mergeParams: true });
 router.get("/", authenticate, controller.list);
 router.post("/", authenticate, authorizeRole(["administrador"]), controller.create);
 router.put("/:sedeId", authenticate, authorizeRole(["administrador"]), controller.update);
+router.patch("/:sedeId", authenticate, authorizeRole(["administrador"]), controller.toggleActivo);
 router.delete("/:sedeId", authenticate, authorizeRole(["administrador"]), controller.remove);
 
 export default router;

@@ -3,6 +3,7 @@ import * as controller from "../controllers/empresa.controller";
 import sedesRouter from "./sede.routes";
 import historialRouter from "./historial.routes";
 import inventarioRouter from "./inventario.routes";
+import contratosRouter from "./contract.routes";
 import { authenticate, authorizeRole } from "../../../middlewares/auth.middleware";
 
 const router = Router();
@@ -24,5 +25,8 @@ router.use("/:id/historial", historialRouter);
 
 // Nested inventario routes: /api/empresas/:empresaId/inventario
 router.use("/:empresaId", inventarioRouter);
+
+// Nested contratos routes: /api/empresas/:id/contratos
+router.use("/:id/contratos", contratosRouter);
 
 export default router;
