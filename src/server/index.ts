@@ -11,6 +11,7 @@ import activosRoutes from "../routes/activos.routes";
 import informesRoutes from "../routes/informes.routes";
 import uploadsRoutes from "../routes/uploads.routes";
 import publicRoutes from "../routes/public.routes";
+import slaRoutes from "../routes/sla.routes";
 
 const app = express();
 
@@ -18,6 +19,19 @@ app.use(cors());
 app.use(express.json());
 // Also accept urlencoded form bodies (from forms or some frontend libraries)
 app.use(express.urlencoded({ extended: true }));
+
+// Debug ALL requests
+app.use((req, res, next) => {
+  if (req.path.includes('/sla/')) {
+    console.log('[DEBUG] Request to SLA:', {
+      method: req.method,
+      path: req.path,
+      url: req.url,
+      body: req.body,
+    });
+  }
+  next();
+});
 
 // Serve uploaded files from /uploads
 app.use('/uploads', express.static(path.resolve(process.cwd(), 'uploads')));
@@ -28,6 +42,7 @@ app.use("/api/empresas", empresaRoutes);
 app.use("/api/activos", activosRoutes);
 app.use("/api/informes", informesRoutes);
 app.use("/api/uploads", uploadsRoutes);
+app.use("/api/sla", slaRoutes);
 app.use('/public', publicRoutes);
 
 // Debug endpoint to list registered routes (temporary)
