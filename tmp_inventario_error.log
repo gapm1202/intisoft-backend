@@ -2587,3 +2587,137 @@
   }
 }
 -----
+{
+  "time": "2025-12-20T16:13:33.734Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "PC cdc",
+    "categoria": "PC",
+    "fabricante": "HP",
+    "modelo": "cdc",
+    "serie": "ddd",
+    "assetId": "",
+    "area": "Recursos humanos",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "",
+    "proveedor": "",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "",
+    "fechaCompraUnknown": true,
+    "purchaseDocumentDescription": "",
+    "garantia": "",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": null,
+    "antiguedadCalculada": "",
+    "ip": "",
+    "mac": "",
+    "usuariosAsignados": [],
+    "observaciones": "",
+    "empresaId": "71",
+    "sedeId": "27",
+    "empresaNombre": "swmdomw",
+    "sedeNombre": "OBRASIN SACf",
+    "empresa": "swmdomw",
+    "sede": "OBRASIN SACf",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {
+      "Memoria RAM": "",
+      "Disco Duro": "",
+      "Tarjeta de video": "ssds"
+    },
+    "camposPersonalizadosArray": {
+      "Memoria RAM": [
+        {
+          "Cantidad": "16",
+          "Tipo": "DDR3"
+        },
+        {
+          "Cantidad": "16",
+          "Tipo": "DDR4"
+        }
+      ],
+      "Disco Duro": [
+        {
+          "Capacidad": "100",
+          "Tipo": "SSD"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-20T16:21:18.321Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "fvdv FRDFR",
+    "categoria": "fvdv",
+    "fabricante": "",
+    "modelo": "FRDFR",
+    "serie": "",
+    "assetId": "",
+    "area": "Recursos humanos",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "",
+    "proveedor": "",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": null,
+    "antiguedadCalculada": "",
+    "ip": "",
+    "mac": "",
+    "usuariosAsignados": [
+      {
+        "nombre": "GRECIA",
+        "correo": "grecia@gmail.com",
+        "cargo": "def"
+      },
+      {
+        "nombre": "",
+        "correo": "",
+        "cargo": ""
+      }
+    ],
+    "observaciones": "",
+    "empresaId": "71",
+    "sedeId": "27",
+    "empresaNombre": "swmdomw",
+    "sedeNombre": "OBRASIN SACf",
+    "empresa": "swmdomw",
+    "sede": "OBRASIN SACf",
+    "camposPersonalizados": {
+      "fdvd": ""
+    },
+    "camposPersonalizadosArray": {
+      "fdvd": [
+        {
+          "fvdv": "15"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": null
+  }
+}
+-----

@@ -3,11 +3,11 @@
 -- Adds motivo field to record why a sede was deactivated
 
 ALTER TABLE sedes
-  ADD COLUMN activo BOOLEAN DEFAULT true NOT NULL,
-  ADD COLUMN motivo VARCHAR(500);
+  ADD COLUMN IF NOT EXISTS activo BOOLEAN DEFAULT true NOT NULL,
+  ADD COLUMN IF NOT EXISTS motivo VARCHAR(500);
 
 -- Index for filtering active sedes
-CREATE INDEX idx_sedes_activo ON sedes(activo, empresa_id);
+CREATE INDEX IF NOT EXISTS idx_sedes_activo ON sedes(activo, empresa_id);
 
 -- Comments for documentation
 COMMENT ON COLUMN sedes.activo IS 'Boolean flag: true = active sede, false = deactivated sede';

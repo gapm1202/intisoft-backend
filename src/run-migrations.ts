@@ -15,20 +15,26 @@ async function runMigrations() {
     process.exit(0);
   }
 
-  try {
-    for (const file of files) {
-      const filePath = path.join(migrationsDir, file);
-      console.log(`Applying migration: ${file}`);
-      const sql = fs.readFileSync(filePath, { encoding: 'utf8' });
+  let failures = 0;
+  for (const file of files) {
+    const filePath = path.join(migrationsDir, file);
+    console.log(`Applying migration: ${file}`);
+    const sql = fs.readFileSync(filePath, { encoding: 'utf8' });
+    try {
       await pool.query(sql);
       console.log(`Applied: ${file}`);
+    } catch (err: any) {
+      failures++;
+      console.warn(`Migration failed for ${file}:`, err && (err.message || err));
+      // Continue to next migration
     }
-    console.log("All migrations applied successfully");
-    process.exit(0);
-  } catch (err: any) {
-    console.error("Migration failed:", err.message || err);
-    process.exit(1);
   }
+  if (failures > 0) {
+    console.warn(`Migrations completed with ${failures} failure(s)`);
+  } else {
+    console.log("All migrations applied successfully");
+  }
+  process.exit(0);
 }
 
 runMigrations();

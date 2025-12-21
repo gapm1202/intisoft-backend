@@ -12,6 +12,7 @@ import informesRoutes from "../routes/informes.routes";
 import uploadsRoutes from "../routes/uploads.routes";
 import publicRoutes from "../routes/public.routes";
 import slaRoutes from "../routes/sla.routes";
+import catalogoRoutes from "../modules/catalogo/routes/catalogo.routes";
 
 const app = express();
 
@@ -43,6 +44,7 @@ app.use("/api/activos", activosRoutes);
 app.use("/api/informes", informesRoutes);
 app.use("/api/uploads", uploadsRoutes);
 app.use("/api/sla", slaRoutes);
+app.use("/api/catalogo", catalogoRoutes);
 app.use('/public', publicRoutes);
 
 // Debug endpoint to list registered routes (temporary)
@@ -84,6 +86,17 @@ app.get("/debug/routes", (req, res) => {
 	} catch (err) {
 		res.status(500).json({ message: 'Error enumerando rutas', error: String(err) });
 	}
+});
+
+// Error handler JSON (ensure no HTML error pages leak)
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+	const status = err && (err.status || err.code === '23505' ? 409 : 500) || 500;
+	const message = err && (err.message || 'Error en el servidor') || 'Error en el servidor';
+	try {
+		console.error('[ERROR]', { path: req.originalUrl, status, message, err });
+	} catch (_) { /* noop */ }
+	res.status(status).json({ error: message });
 });
 
 const PORT = Number(process.env.PORT) || 4000;

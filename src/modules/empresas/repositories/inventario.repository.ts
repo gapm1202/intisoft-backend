@@ -153,12 +153,14 @@ export const createCategoria = async (empresaId: number | null, nombre: string, 
     }
 
     const query = `
-      INSERT INTO categorias (empresa_id, nombre, subcategorias, campos)
-      VALUES ($1, $2, $3, $4::jsonb)
+      INSERT INTO categorias (empresa_id, nombre, subcategorias, campos, codigo)
+      VALUES ($1, $2, $3, $4::jsonb, $5)
       RETURNING id, empresa_id as "empresaId", nombre, subcategorias, COALESCE(campos, '[]'::jsonb) as campos, creado_en as "creadoEn"
     `;
     const camposJson = campos ? JSON.stringify(campos) : JSON.stringify([]);
-    const result = await pool.query(query, [empresaId || null, nombre, subcategorias || [], camposJson]);
+    // Generar código: primeras 2 letras del nombre, uppercase
+    const codigo = nombre.substring(0, 2).toUpperCase();
+    const result = await pool.query(query, [empresaId || null, nombre, subcategorias || [], camposJson, codigo]);
     return result.rows[0];
   } catch (err: any) {
     // Normalize PG unique-violation into a friendly error with code '23505'

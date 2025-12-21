@@ -109,10 +109,39 @@ export const createCategoriaGlobal = async (req: Request, res: Response) => {
     const categoriaName = nombre || name;
     const camposData = campos || camposPersonalizados || [];
 
-    if (!categoriaName) return res.status(400).json({ ok: false, message: "nombre requerido" });
+    console.log('createCategoriaGlobal - Body completo:', JSON.stringify(req.body, null, 2));
+    console.log('createCategoriaGlobal - Categoría name:', categoriaName);
+    console.log('createCategoriaGlobal - Campos recibidos:', JSON.stringify(camposData, null, 2));
 
-    console.log('createCategoriaGlobal - Body completo:', req.body);
-    console.log('createCategoriaGlobal - Campos recibidos:', camposData);
+    // Validación: nombre requerido
+    if (!categoriaName || (typeof categoriaName === 'string' && categoriaName.trim() === '')) {
+      return res.status(400).json({ 
+        ok: false, 
+        message: "El campo 'nombre' es requerido",
+        received: { nombre, name, categoriaName }
+      });
+    }
+
+    // Validación: si vienen campos, verificar estructura
+    if (Array.isArray(camposData) && camposData.length > 0) {
+      for (let i = 0; i < camposData.length; i++) {
+        const campo = camposData[i];
+        if (!campo.nombre || (typeof campo.nombre === 'string' && campo.nombre.trim() === '')) {
+          return res.status(400).json({
+            ok: false,
+            message: `El campo [${i}] debe tener un 'nombre'`,
+            field: campo
+          });
+        }
+        if (!campo.tipo) {
+          return res.status(400).json({
+            ok: false,
+            message: `El campo '${campo.nombre}' [${i}] debe tener un 'tipo'`,
+            field: campo
+          });
+        }
+      }
+    }
 
     const categoria = await service.crearCategoriaGlobal(categoriaName, subcategorias, camposData);
     res.status(201).json(categoria);
@@ -121,10 +150,27 @@ export const createCategoriaGlobal = async (req: Request, res: Response) => {
     
     // Detectar conflicto de unicidad
     if (error.code === '23505' || error.message.includes("duplicate key")) {
-      return res.status(409).json({ ok: false, message: "Ya existe una categoría con ese nombre" });
+      return res.status(409).json({ 
+        ok: false, 
+        message: "Ya existe una categoría con ese nombre",
+        error: error.message 
+      });
     }
     
-    res.status(500).json({ ok: false, message: "Error en el servidor" });
+    // Propagar mensajes de error del servicio
+    if (error.message && error.message.includes("requerido")) {
+      return res.status(400).json({ 
+        ok: false, 
+        message: error.message 
+      });
+    }
+    
+    console.error("Stack trace:", error.stack);
+    res.status(500).json({ 
+      ok: false, 
+      message: "Error en el servidor",
+      error: error.message 
+    });
   }
 };
 
