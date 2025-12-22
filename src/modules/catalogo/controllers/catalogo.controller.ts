@@ -7,7 +7,7 @@ class CatalogoController {
       const forTickets = this.parseBoolean(req.query.forTickets);
       const includeInactivas = this.parseBoolean(req.query.includeInactivas);
       const estado = typeof req.query.estado === 'string' ? (req.query.estado as string) : undefined;
-      const tipo = typeof req.query.tipo === 'string' ? (req.query.tipo as string) : undefined;
+      const tipo = typeof req.query.tipo === 'string' && String(req.query.tipo).trim() !== '' ? String(req.query.tipo).trim().toLowerCase() : undefined;
       const limit = this.parseNumber(req.query.limit);
       const offset = this.parseNumber(req.query.offset);
       const categorias = await catalogoService.listCategorias({
@@ -55,7 +55,7 @@ class CatalogoController {
       const forTickets = this.parseBoolean(req.query.forTickets);
       const includeInactivas = this.parseBoolean(req.query.includeInactivas);
       const estado = typeof req.query.estado === 'string' ? (req.query.estado as string) : undefined;
-      const tipo = typeof req.query.tipo === 'string' ? (req.query.tipo as string) : undefined;
+      const tipo = typeof req.query.tipo === 'string' && String(req.query.tipo).trim() !== '' ? String(req.query.tipo).trim().toLowerCase() : undefined;
       const limit = this.parseNumber(req.query.limit);
       const offset = this.parseNumber(req.query.offset);
 
@@ -82,7 +82,9 @@ class CatalogoController {
 
   async createSubcategoria(req: Request, res: Response): Promise<void> {
     try {
+      console.info('[catalogo] createSubcategoria request body:', { body: req.body });
       const subcategoria = await catalogoService.createSubcategoria(req.body);
+      console.info('[catalogo] createSubcategoria result:', { id: subcategoria.id, tipoTicket: subcategoria.tipoTicket });
       res.status(201).json({ data: subcategoria });
     } catch (error: any) {
       this.handleError(res, error);
@@ -99,6 +101,44 @@ class CatalogoController {
 
       const subcategoria = await catalogoService.updateSubcategoria(id, req.body);
       res.json({ data: subcategoria });
+    } catch (error: any) {
+      this.handleError(res, error);
+    }
+  }
+
+  async listTipos(req: Request, res: Response): Promise<void> {
+    try {
+      const tipos = await catalogoService.listTipos();
+      res.json({ data: tipos });
+    } catch (error: any) {
+      this.handleError(res, error);
+    }
+  }
+
+  async createTipo(req: Request, res: Response): Promise<void> {
+    try {
+      const tipo = typeof req.body?.tipo === 'string' ? req.body.tipo.trim() : '';
+      if (!tipo) {
+        res.status(400).json({ error: 'tipo es requerido' });
+        return;
+      }
+      const created = await catalogoService.createTipo(tipo);
+      res.status(201).json({ data: created });
+    } catch (error: any) {
+      this.handleError(res, error);
+    }
+  }
+
+  async deleteTipo(req: Request, res: Response): Promise<void> {
+    try {
+      const tipo = req.params.tipo;
+      if (!tipo) {
+        res.status(400).json({ error: 'tipo inválido' });
+        return;
+      }
+      await catalogoService.deleteTipo(tipo);
+      const tipos = await catalogoService.listTipos();
+      res.status(200).json({ data: tipos });
     } catch (error: any) {
       this.handleError(res, error);
     }

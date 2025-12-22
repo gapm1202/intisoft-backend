@@ -250,10 +250,87 @@ export class CatalogoRepository {
     return this.mapSubcategoria(result.rows[0]);
   }
 
+  async listTipos(): Promise<string[]> {
+    // Prefer dedicated table if exists
+    if (await this.tableExists('catalogo_tipos')) {
+      const result = await pool.query('SELECT tipo FROM catalogo_tipos ORDER BY tipo ASC');
+      return result.rows.map((r: any) => String(r.tipo).toLowerCase());
+    }
+
+    // Fallback: collect distinct tipos from categorias and subcategorias (normalized lower-case)
+    const tipos: Set<string> = new Set();
+    if (await this.tableExists('catalogo_categorias')) {
+      const res1 = await pool.query('SELECT DISTINCT tipo_ticket AS tipo FROM catalogo_categorias WHERE tipo_ticket IS NOT NULL');
+      res1.rows.forEach((r: any) => { if (r.tipo) tipos.add(String(r.tipo).trim().toLowerCase()); });
+    }
+    if (await this.tableExists('catalogo_subcategorias')) {
+      const res2 = await pool.query('SELECT DISTINCT tipo_ticket AS tipo FROM catalogo_subcategorias WHERE tipo_ticket IS NOT NULL');
+      res2.rows.forEach((r: any) => { if (r.tipo) tipos.add(String(r.tipo).trim().toLowerCase()); });
+    }
+    return Array.from(tipos).sort();
+  }
+
+  async createTipo(tipo: string): Promise<string> {
+    // Ensure table exists and backfill existing tipos
+    if (!(await this.tableExists('catalogo_tipos')) ) {
+      await pool.query(`
+        CREATE TABLE IF NOT EXISTS catalogo_tipos (
+          tipo VARCHAR(120) PRIMARY KEY,
+          created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+          updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+        )
+      `);
+
+      if (await this.tableExists('catalogo_categorias')) {
+        await pool.query(`
+          INSERT INTO catalogo_tipos(tipo)
+          SELECT DISTINCT LOWER(tipo_ticket) FROM catalogo_categorias WHERE tipo_ticket IS NOT NULL
+          ON CONFLICT DO NOTHING
+        `);
+      }
+      if (await this.tableExists('catalogo_subcategorias')) {
+        await pool.query(`
+          INSERT INTO catalogo_tipos(tipo)
+          SELECT DISTINCT LOWER(tipo_ticket) FROM catalogo_subcategorias WHERE tipo_ticket IS NOT NULL
+          ON CONFLICT DO NOTHING
+        `);
+      }
+    }
+
+    const result = await pool.query('INSERT INTO catalogo_tipos(tipo) VALUES ($1) RETURNING tipo', [tipo]);
+    return result.rows[0].tipo;
+  }
+
+  async isTipoReferenced(tipo: string): Promise<boolean> {
+    const params: any[] = [tipo];
+    if (await this.tableExists('catalogo_categorias')) {
+      const r = await pool.query('SELECT 1 FROM catalogo_categorias WHERE tipo_ticket = $1 LIMIT 1', params);
+      if (r.rows.length > 0) return true;
+    }
+    if (await this.tableExists('catalogo_subcategorias')) {
+      const r2 = await pool.query('SELECT 1 FROM catalogo_subcategorias WHERE tipo_ticket = $1 LIMIT 1', params);
+      if (r2.rows.length > 0) return true;
+    }
+    return false;
+  }
+
+  async deleteTipo(tipo: string): Promise<void> {
+    if (await this.isTipoReferenced(tipo)) {
+      const err = new Error('Tipo está en uso') as any;
+      err.status = 400;
+      throw err;
+    }
+    const result = await pool.query('DELETE FROM catalogo_tipos WHERE tipo = $1', [tipo]);
+    if (result.rowCount === 0) {
+      const err = new Error('Tipo no encontrado') as any;
+      err.status = 404;
+      throw err;
+    }
+  }
+
   async updateSubcategoria(id: number, data: Partial<SubcategoriaInput>): Promise<CatalogoSubcategoria | null> {
     const sets: string[] = [];
     const params: any[] = [];
-
     if (data.categoriaId !== undefined) {
       params.push(data.categoriaId);
       sets.push(`categoria_id = $${params.length}`);
