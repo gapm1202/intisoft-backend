@@ -28,6 +28,8 @@ export class SLARepository {
         requisitos,
         exclusiones,
         alertas,
+        fuera_de_horario as "fueraDeHorario",
+        requisitos_personalizados as "requisitosPersonalizados",
         created_at as "createdAt",
         updated_at as "updatedAt",
         deleted_at as "deletedAt"
@@ -99,6 +101,8 @@ export class SLARepository {
              requisitos = COALESCE($6, requisitos),
              exclusiones = COALESCE($7, exclusiones),
              alertas = COALESCE($8, alertas),
+             fuera_de_horario = COALESCE($9, fuera_de_horario),
+             requisitos_personalizados = COALESCE($10, requisitos_personalizados),
              updated_at = CURRENT_TIMESTAMP
            WHERE empresa_id = $1 AND deleted_at IS NULL
            RETURNING id`,
@@ -111,6 +115,8 @@ export class SLARepository {
             data.requisitos ? JSON.stringify(data.requisitos) : null,
             data.exclusiones ? JSON.stringify(data.exclusiones) : null,
             data.alertas ? JSON.stringify(data.alertas) : null,
+            typeof data.fueraDeHorario === 'boolean' ? data.fueraDeHorario : null,
+            data.requisitosPersonalizados ? JSON.stringify(data.requisitosPersonalizados) : null,
           ]
         );
         slaId = updateResult.rows[0].id;
@@ -118,8 +124,8 @@ export class SLARepository {
         // Crear
         const createResult = await client.query(
           `INSERT INTO sla_configuracion 
-           (empresa_id, alcance, gestion_incidentes, tiempos, horarios, requisitos, exclusiones, alertas)
-           VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+           (empresa_id, alcance, gestion_incidentes, tiempos, horarios, requisitos, exclusiones, alertas, fuera_de_horario, requisitos_personalizados)
+           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
            RETURNING id`,
           [
             empresaId,
@@ -130,6 +136,8 @@ export class SLARepository {
             JSON.stringify(data.requisitos || {}),
             JSON.stringify(data.exclusiones || {}),
             JSON.stringify(data.alertas || {}),
+            typeof data.fueraDeHorario === 'boolean' ? data.fueraDeHorario : false,
+            JSON.stringify(data.requisitosPersonalizados || []),
           ]
         );
         slaId = createResult.rows[0].id;

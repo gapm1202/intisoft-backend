@@ -26,6 +26,7 @@ export const list = async (req: Request, res: Response) => {
         tecTelefono2: tech ? tech.telefono2 : undefined,
         tecEmail: tech ? tech.email : undefined,
         nivelAutorizacion: tech ? tech.nivelAutorizacion : undefined,
+        supervisionCoordinacion: tech ? (tech.supervisionCoordinacion !== undefined ? tech.supervisionCoordinacion : true) : true,
       };
     });
     res.json(mapped);
@@ -58,6 +59,7 @@ export const getOne = async (req: Request, res: Response) => {
       tecTelefono2: tech ? tech.telefono2 : undefined,
       tecEmail: tech ? tech.email : undefined,
       nivelAutorizacion: tech ? tech.nivelAutorizacion : undefined,
+      supervisionCoordinacion: tech ? (tech.supervisionCoordinacion !== undefined ? tech.supervisionCoordinacion : true) : true,
     };
     res.json(mapped);
   } catch (error) {
@@ -126,7 +128,7 @@ export const create = async (req: Request, res: Response) => {
 
     const mapTechFromFields = () => {
       const name = data.tecNombre || data.tec_nombre || data.tecName;
-      if (!name && !data.tecEmail && !data.tecTelefono1 && !data.tecTelefono2 && !data.nivelAutorizacion && !data.tecCargo) return undefined;
+      if (!name && !data.tecEmail && !data.tecTelefono1 && !data.tecTelefono2 && !data.nivelAutorizacion && !data.tecCargo && data.supervisionCoordinacion === undefined) return undefined;
       return [{
         nombreCompleto: name ? String(name).trim() : '',
         cargo: data.tecCargo ? String(data.tecCargo).trim() : undefined,
@@ -134,6 +136,9 @@ export const create = async (req: Request, res: Response) => {
         telefono2: data.tecTelefono2 ? String(data.tecTelefono2).trim() : undefined,
         email: data.tecEmail ? String(data.tecEmail).trim() : undefined,
         nivelAutorizacion: data.nivelAutorizacion ? String(data.nivelAutorizacion).trim() : undefined,
+        contactoPrincipal: data.contactoPrincipal !== undefined ? Boolean(data.contactoPrincipal) : false,
+        autorizaCambiosCriticos: data.autorizaCambiosCriticos !== undefined ? Boolean(data.autorizaCambiosCriticos) : false,
+        supervisionCoordinacion: data.supervisionCoordinacion !== undefined ? Boolean(data.supervisionCoordinacion) : true,
       }];
     };
 
@@ -271,7 +276,7 @@ export const update = async (req: Request, res: Response) => {
 
     const mapTechFromFieldsUpdate = () => {
       const name = data.tecNombre || data.tec_nombre || data.tecName;
-      if (!name && !data.tecEmail && !data.tecTelefono1 && !data.tecTelefono2 && !data.nivelAutorizacion && !data.tecCargo) return undefined;
+      if (!name && !data.tecEmail && !data.tecTelefono1 && !data.tecTelefono2 && !data.nivelAutorizacion && !data.tecCargo && data.supervisionCoordinacion === undefined) return undefined;
       return [{
         nombreCompleto: name ? String(name).trim() : '',
         cargo: data.tecCargo ? String(data.tecCargo).trim() : undefined,
@@ -279,6 +284,9 @@ export const update = async (req: Request, res: Response) => {
         telefono2: data.tecTelefono2 ? String(data.tecTelefono2).trim() : undefined,
         email: data.tecEmail ? String(data.tecEmail).trim() : undefined,
         nivelAutorizacion: data.nivelAutorizacion ? String(data.nivelAutorizacion).trim() : undefined,
+        contactoPrincipal: data.contactoPrincipal !== undefined ? Boolean(data.contactoPrincipal) : false,
+        autorizaCambiosCriticos: data.autorizaCambiosCriticos !== undefined ? Boolean(data.autorizaCambiosCriticos) : false,
+        supervisionCoordinacion: data.supervisionCoordinacion !== undefined ? Boolean(data.supervisionCoordinacion) : true,
       }];
     };
 

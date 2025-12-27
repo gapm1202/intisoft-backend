@@ -1,13 +1,17 @@
+
 import { Router } from "express";
 import { authenticate, authorizeRole } from "../../../middlewares/auth.middleware";
 import * as controller from "../controllers/contract.controller";
 
 const router = Router({ mergeParams: true });
 
+// Endpoint contratos próximos a vencer (debe ir antes de rutas dinámicas)
+router.get('/proximos-a-vencer', authenticate, controller.proximosAVencer);
+
 // List and get contract with details
 router.get("/", authenticate, controller.list);
 router.get("/activo", authenticate, controller.getActive);
-router.get("/:contractId", authenticate, controller.getOne);
+router.get('/:contractId', authenticate, controller.getOne);
 
 // Create contract (admin only)
 router.post("/", authenticate, authorizeRole(["administrador"]), controller.create);
@@ -40,4 +44,9 @@ router.post("/:contractId/renovar", authenticate, authorizeRole(["administrador"
 // Endpoint de lectura de historial
 router.get("/:contractId/historial", authenticate, controller.getHistory);
 
+import { getByIdGlobal } from "../controllers/contract.controller";
+const globalRouter = Router();
+globalRouter.get("/contratos/:contratoId", getByIdGlobal);
+
 export default router;
+export { globalRouter };

@@ -1,3 +1,4 @@
+
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -15,9 +16,42 @@ import slaRoutes from "../routes/sla.routes";
 import catalogoRoutes from "../modules/catalogo/routes/catalogo.routes";
 import { authenticate } from '../middlewares/auth.middleware';
 
-const app = express();
 
-app.use(cors());
+
+const app = express();
+app.use(cors({
+	origin: '*',
+	methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+	allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+	credentials: false,
+}));
+import usuariosRoutes from "../routes/usuarios.routes";
+app.use("/api/usuarios", usuariosRoutes);
+
+
+
+
+app.use(cors({
+	origin: '*',
+	methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+	allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+	credentials: false,
+}));
+
+// Responder a preflight OPTIONS para todos los endpoints
+
+// Manejo manual de preflight OPTIONS para CORS
+
+// Manejo global de preflight OPTIONS para CORS
+app.use((req, res, next) => {
+	if (req.method === 'OPTIONS') {
+		res.header('Access-Control-Allow-Origin', '*');
+		res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE,OPTIONS');
+		res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+		return res.sendStatus(200);
+	}
+	next();
+});
 app.use(express.json());
 // Also accept urlencoded form bodies (from forms or some frontend libraries)
 app.use(express.urlencoded({ extended: true }));
@@ -41,6 +75,10 @@ app.use('/uploads', express.static(path.resolve(process.cwd(), 'uploads')));
 app.use("/api/auth", authRoutes);
 app.use("/api/categorias", categoriasRoutes);
 app.use("/api/empresas", empresaRoutes);
+// Registrar rutas de contratos (específicas primero)
+import contractRoutes, { globalRouter as empresaContractGlobalRoutes } from "../modules/empresas/routes/contract.routes";
+app.use("/api/contratos", contractRoutes); // PRIMERO - rutas específicas
+app.use("/api", empresaContractGlobalRoutes); // DESPUÉS - rutas dinámicas
 app.use("/api/activos", activosRoutes);
 app.use("/api/informes", informesRoutes);
 app.use("/api/uploads", uploadsRoutes);

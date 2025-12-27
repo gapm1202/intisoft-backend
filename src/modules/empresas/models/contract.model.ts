@@ -11,6 +11,7 @@ export interface ContractBase {
   renovacionAutomatica?: boolean;
   responsableComercial?: string | null;
   observaciones?: string | null;
+  serviciosPersonalizados?: any[]; // Array de servicios personalizados
   createdAt?: string;
   updatedAt?: string;
   createdBy?: string | null;
@@ -82,6 +83,7 @@ export interface ContractWithDetails extends ContractBase {
   economics?: ContractEconomics | null;
   documents?: ContractDocument[];
   history?: ContractHistoryEntry[];
+  serviciosPersonalizados?: any[];
 }
 
 export interface ContractCreateInput extends Omit<ContractBase, 'id' | 'createdAt' | 'updatedAt' | 'createdBy' | 'updatedBy'> {
@@ -89,6 +91,7 @@ export interface ContractCreateInput extends Omit<ContractBase, 'id' | 'createdA
   preventivePolicy?: ContractPreventivePolicy | null;
   economics?: ContractEconomics | null;
   documents?: ContractDocument[];
+  serviciosPersonalizados?: any[];
   usuario?: string | null;
   createdBy?: string | null;
 }

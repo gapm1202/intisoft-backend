@@ -63,6 +63,7 @@ export const create = async (req: Request, res: Response) => {
       observaciones: data.observaciones ? String(data.observaciones).trim() : undefined,
       autorizaIngresoTecnico: data.autorizaIngresoTecnico !== undefined ? Boolean(data.autorizaIngresoTecnico) : false,
       autorizaMantenimientoFueraHorario: data.autorizaMantenimientoFueraHorario !== undefined ? Boolean(data.autorizaMantenimientoFueraHorario) : false,
+      autorizaSupervisionCoordinacion: data.autorizaSupervisionCoordinacion !== undefined ? Boolean(data.autorizaSupervisionCoordinacion) : true,
     };
 
     const created = await service.createSede(empresaId, toCreate as any);

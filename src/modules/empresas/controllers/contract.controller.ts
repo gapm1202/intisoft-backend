@@ -1,3 +1,40 @@
+// Endpoint: contratos próximos a vencer
+import dayjs from "dayjs";
+
+export const proximosAVencer = async (req: Request, res: Response) => {
+  try {
+    // Validar parámetro dias
+    let dias = parseInt(req.query.dias as string);
+    if (isNaN(dias)) dias = 30;
+    if (dias < 1) dias = 1;
+    if (dias > 90) dias = 90;
+
+    // Requiere autenticación (ya lo hace el middleware)
+
+    // Obtener contratos activos próximos a vencer
+    const hoy = dayjs().startOf('day');
+    const contratos = await service.getContratosProximosAVencer(dias, hoy.format('YYYY-MM-DD'));
+    res.json(contratos);
+  } catch (error) {
+    console.error("Error proximos-a-vencer:", error);
+    res.status(500).json({ message: "Error en el servidor" });
+  }
+};
+// Nuevo endpoint: obtener contrato por ID global
+export const getByIdGlobal = async (req: Request, res: Response) => {
+  try {
+    const contractId = parseInt(req.params.contratoId);
+    if (isNaN(contractId)) {
+      return res.status(400).json({ message: "ID de contrato inválido" });
+    }
+    const item = await service.getContract(contractId);
+    if (!item) return res.status(404).json({ message: "Contrato no encontrado" });
+    res.json(item);
+  } catch (error) {
+    console.error("Error getByIdGlobal:", error);
+    res.status(500).json({ message: "Error en el servidor" });
+  }
+};
 import { Request, Response } from "express";
 import * as service from "../services/contract.service";
 import { ContractCreateInput, ContractEstado } from "../models/contract.model";
@@ -50,7 +87,10 @@ export const getActive = async (req: Request, res: Response) => {
     const empresaId = parseInt(req.params.empresaId || req.params.id);
     const item = await service.getActiveContract(empresaId);
     if (!item) return res.status(404).json({ message: "No hay contrato activo para esta empresa" });
-    res.json(item);
+    // Obtener historial consolidado de todos los contratos de la empresa
+    const history = await service.getContractHistoryByEmpresa(empresaId);
+    // Sobrescribir el campo history del contrato activo con el historial consolidado
+    res.json({ ...item, history });
   } catch (error) {
     console.error("Error get active contract:", error);
     res.status(500).json({ message: "Error en el servidor" });

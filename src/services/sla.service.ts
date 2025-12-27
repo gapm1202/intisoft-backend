@@ -37,6 +37,22 @@ export class SLAService {
       throw new Error('empresaId es requerido');
     }
 
+    // Validar fueraDeHorario
+    if (data.fueraDeHorario !== undefined && typeof data.fueraDeHorario !== 'boolean') {
+      throw new Error('fueraDeHorario debe ser boolean');
+    }
+    // Validar requisitosPersonalizados
+    if (data.requisitosPersonalizados !== undefined && !Array.isArray(data.requisitosPersonalizados)) {
+      throw new Error('requisitosPersonalizados debe ser un arreglo de strings');
+    }
+    if (Array.isArray(data.requisitosPersonalizados)) {
+      for (const req of data.requisitosPersonalizados) {
+        if (typeof req !== 'string') {
+          throw new Error('Todos los requisitosPersonalizados deben ser strings');
+        }
+      }
+    }
+
     this.validateConfigurationData(data);
 
     return slaRepository.upsertConfiguration(empresaId, data, usuario, usuarioId);

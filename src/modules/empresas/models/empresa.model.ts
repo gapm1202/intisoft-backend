@@ -15,6 +15,7 @@ export interface ContactoTecnico {
   horarioDisponible?: string;
   autorizaCambiosCriticos?: boolean;
   nivelAutorizacion?: string;
+  supervisionCoordinacion?: boolean; // Nuevo campo
 }
 
 export interface Empresa {

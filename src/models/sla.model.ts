@@ -118,6 +118,8 @@ export interface SLAConfiguracion {
   requisitos: SLARequisitos;
   exclusiones: SLAExclusiones;
   alertas: SLAAlertas;
+  fueraDeHorario?: boolean; // Nuevo campo a nivel raíz
+  requisitosPersonalizados?: string[]; // Nuevo campo a nivel raíz
   createdAt: Date;
   updatedAt: Date;
   deletedAt?: Date;
@@ -231,4 +233,6 @@ export const DEFAULT_SLA_VALUES = {
     accionAutomatica: 'notificar',
     estadosVisibles: ['🟢 Cumpliendo', '🟡 En riesgo', '🔴 Incumplido'],
   },
+  fueraDeHorario: false,
+  requisitosPersonalizados: [],
 };

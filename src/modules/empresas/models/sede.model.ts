@@ -25,6 +25,7 @@ export interface Sede {
   observaciones?: string;
   autorizaIngresoTecnico?: boolean;
   autorizaMantenimientoFueraHorario?: boolean;
+  autorizaSupervisionCoordinacion?: boolean; // Nuevo campo: autorización para supervisión/coord.
   activo?: boolean; // Soft delete: true = active, false = inactive
   motivo?: string; // Reason for deactivation/reactivation
   creado_en?: Date;

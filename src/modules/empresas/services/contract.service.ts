@@ -1,3 +1,25 @@
+import dayjs from "dayjs";
+
+export const getContratosProximosAVencer = async (dias: number, hoy: string) => {
+  // Buscar contratos activos cuya fechaFin esté entre hoy y hoy+dias
+  const rows = await repo.getContratosProximosAVencer(dias, hoy);
+  // Calcular diasRestantes y filtrar
+  return rows
+    .map((c: any) => {
+      const fechaFin = dayjs(c.fechaFin);
+      const diasRestantes = fechaFin.diff(dayjs(hoy), 'day');
+      return {
+        ...c,
+        diasRestantes,
+      };
+    })
+    .filter((c: any) => c.diasRestantes >= 0 && c.diasRestantes <= dias)
+    .sort((a: any, b: any) => a.diasRestantes - b.diasRestantes);
+};
+// Historial consolidado por empresa
+export const getContractHistoryByEmpresa = async (empresaId: number) => {
+  return repo.getContractHistoryByEmpresa(empresaId);
+};
 import {
   ContractBase,
   ContractCreateInput,
@@ -36,16 +58,29 @@ export const getActiveContract = async (empresaId: number): Promise<ContractWith
 };
 
 export const createContract = async (input: ContractCreateInput): Promise<ContractWithDetails> => {
-  if (!ESTADOS.includes(input.estadoContrato)) {
-    throw new Error('Estado de contrato no válido');
+  // Calcular estado automáticamente según la fecha de fin
+  let estado: ContractEstado | undefined = undefined;
+  const hoy = new Date();
+  if (input.estadoContrato === 'suspendido') {
+    estado = 'suspendido';
+  } else if (input.fechaFin) {
+    const fechaFin = new Date(input.fechaFin);
+    if (isNaN(fechaFin.getTime())) {
+      throw new Error('fechaFin inválida');
+    }
+    if (input.fechaInicio && new Date(input.fechaFin) < new Date(input.fechaInicio)) {
+      throw new Error('fechaFin debe ser mayor o igual a fechaInicio');
+    }
+    if (fechaFin >= hoy) {
+      estado = 'activo';
+    } else {
+      estado = 'vencido';
+    }
   }
-  if (new Date(input.fechaFin) < new Date(input.fechaInicio)) {
-    throw new Error('fechaFin debe ser mayor o igual a fechaInicio');
-  }
-  if (input.tipoContrato === 'bolsa_horas' && (!input.services || !input.services.horasMensualesIncluidas)) {
-    throw new Error('horasMensualesIncluidas es requerido para bolsa_horas');
-  }
-  return repo.createContract(input);
+  // Si no hay estado calculado, no incluir estadoContrato en el inputFinal
+  const inputFinal = estado ? { ...input, estadoContrato: estado } : { ...input };
+  // Ya no se exige horasMensualesIncluidas al crear contrato tipo bolsa_horas
+  return repo.createContract(inputFinal);
 };
 
 export const updateEstado = async (
@@ -54,8 +89,9 @@ export const updateEstado = async (
   motivo: string,
   usuario?: string | null
 ): Promise<ContractBase | null> => {
-  if (!ESTADOS.includes(nuevoEstado)) {
-    throw new Error('Estado de contrato no válido');
+  // Solo permitir cambiar manualmente a 'suspendido'
+  if (nuevoEstado !== 'suspendido') {
+    throw new Error('Solo se permite cambiar manualmente a estado "suspendido". Los estados "activo" y "vencido" son automáticos.');
   }
   return repo.updateEstado(contractId, nuevoEstado, motivo, usuario);
 };

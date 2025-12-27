@@ -22,6 +22,9 @@ export class SLAController {
   /**
    * POST /api/sla/configuracion/:empresaId
    * Crear o actualizar configuración SLA completa
+   *
+   * Permite los campos fueraDeHorario (boolean) y requisitosPersonalizados (string[])
+   * a nivel raíz del objeto enviado.
    */
   async upsertConfiguracion(req: Request, res: Response): Promise<void> {
     try {

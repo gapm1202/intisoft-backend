@@ -8,6 +8,7 @@ export const getAllByEmpresa = async (empresaId: number, includeInactive: boolea
       responsable, cargo_responsable AS "cargoResponsable", telefono_responsable AS "telefonoResponsable", email_responsable AS "emailResponsable",
       responsables, horario_atencion AS "horarioAtencion", observaciones,
       autoriza_ingreso_tecnico AS "autorizaIngresoTecnico", autoriza_mantenimiento_fuera_horario AS "autorizaMantenimientoFueraHorario",
+      autoriza_supervision_coordinacion AS "autorizaSupervisionCoordinacion",
       activo, motivo, creado_en
      FROM sedes ${whereClause} ORDER BY id`,
     [empresaId]
@@ -17,9 +18,9 @@ export const getAllByEmpresa = async (empresaId: number, includeInactive: boolea
 
 export const createForEmpresa = async (empresaId: number, sede: Sede): Promise<Sede> => {
   const res = await pool.query(
-    `INSERT INTO sedes (empresa_id, nombre, codigo_interno, direccion, ciudad, provincia, telefono, email, tipo, responsable, cargo_responsable, telefono_responsable, email_responsable, responsables, horario_atencion, observaciones, autoriza_ingreso_tecnico, autoriza_mantenimiento_fuera_horario, activo, motivo)
-     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14::jsonb,$15,$16,$17,$18,$19,$20)
-     RETURNING id, empresa_id AS "empresaId", nombre, codigo_interno AS "codigoInterno", direccion, ciudad, provincia, telefono, email, tipo, responsable, cargo_responsable AS "cargoResponsable", telefono_responsable AS "telefonoResponsable", email_responsable AS "emailResponsable", responsables, horario_atencion AS "horarioAtencion", observaciones, autoriza_ingreso_tecnico AS "autorizaIngresoTecnico", autoriza_mantenimiento_fuera_horario AS "autorizaMantenimientoFueraHorario", activo, motivo, creado_en`,
+    `INSERT INTO sedes (empresa_id, nombre, codigo_interno, direccion, ciudad, provincia, telefono, email, tipo, responsable, cargo_responsable, telefono_responsable, email_responsable, responsables, horario_atencion, observaciones, autoriza_ingreso_tecnico, autoriza_mantenimiento_fuera_horario, autoriza_supervision_coordinacion, activo, motivo)
+     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14::jsonb,$15,$16,$17,$18,$19,$20,$21)
+     RETURNING id, empresa_id AS "empresaId", nombre, codigo_interno AS "codigoInterno", direccion, ciudad, provincia, telefono, email, tipo, responsable, cargo_responsable AS "cargoResponsable", telefono_responsable AS "telefonoResponsable", email_responsable AS "emailResponsable", responsables, horario_atencion AS "horarioAtencion", observaciones, autoriza_ingreso_tecnico AS "autorizaIngresoTecnico", autoriza_mantenimiento_fuera_horario AS "autorizaMantenimientoFueraHorario", autoriza_supervision_coordinacion AS "autorizaSupervisionCoordinacion", activo, motivo, creado_en`,
     [
       empresaId,
       sede.nombre,
@@ -39,6 +40,7 @@ export const createForEmpresa = async (empresaId: number, sede: Sede): Promise<S
       sede.observaciones || null,
       sede.autorizaIngresoTecnico !== undefined ? sede.autorizaIngresoTecnico : false,
       sede.autorizaMantenimientoFueraHorario !== undefined ? sede.autorizaMantenimientoFueraHorario : false,
+      sede.autorizaSupervisionCoordinacion !== undefined ? sede.autorizaSupervisionCoordinacion : true,
       sede.activo !== undefined ? sede.activo : true,
       sede.motivo || null,
     ]
@@ -70,6 +72,7 @@ export const getById = async (id: number): Promise<Sede | null> => {
       responsable, cargo_responsable AS "cargoResponsable", telefono_responsable AS "telefonoResponsable", email_responsable AS "emailResponsable",
       responsables, horario_atencion AS "horarioAtencion", observaciones,
       autoriza_ingreso_tecnico AS "autorizaIngresoTecnico", autoriza_mantenimiento_fuera_horario AS "autorizaMantenimientoFueraHorario",
+      autoriza_supervision_coordinacion AS "autorizaSupervisionCoordinacion",
       activo, motivo, creado_en
      FROM sedes WHERE id = $1`,
     [id]
@@ -162,7 +165,7 @@ export const updateById = async (id: number, updates: Partial<Sede>): Promise<Se
   if (fields.length === 0) return null;
 
   const query = `UPDATE sedes SET ${fields.join(', ')} WHERE id = $1
-    RETURNING id, empresa_id AS "empresaId", nombre, codigo_interno AS "codigoInterno", direccion, ciudad, provincia, telefono, email, tipo, responsable, cargo_responsable AS "cargoResponsable", telefono_responsable AS "telefonoResponsable", email_responsable AS "emailResponsable", responsables, horario_atencion AS "horarioAtencion", observaciones, autoriza_ingreso_tecnico AS "autorizaIngresoTecnico", autoriza_mantenimiento_fuera_horario AS "autorizaMantenimientoFueraHorario", activo, motivo, creado_en`;
+    RETURNING id, empresa_id AS "empresaId", nombre, codigo_interno AS "codigoInterno", direccion, ciudad, provincia, telefono, email, tipo, responsable, cargo_responsable AS "cargoResponsable", telefono_responsable AS "telefonoResponsable", email_responsable AS "emailResponsable", responsables, horario_atencion AS "horarioAtencion", observaciones, autoriza_ingreso_tecnico AS "autorizaIngresoTecnico", autoriza_mantenimiento_fuera_horario AS "autorizaMantenimientoFueraHorario", autoriza_supervision_coordinacion AS "autorizaSupervisionCoordinacion", activo, motivo, creado_en`;
 
   const res = await pool.query(query, values);
   return res.rows[0] || null;

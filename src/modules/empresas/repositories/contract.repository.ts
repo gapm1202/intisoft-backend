@@ -1,3 +1,32 @@
+// Contratos próximos a vencer
+export const getContratosProximosAVencer = async (dias: number, hoy: string) => {
+  // fechaFin entre hoy y hoy+dias, estado activo
+  const res = await pool.query(
+    `SELECT id, empresa_id AS "empresaId", tipo_contrato AS "tipoContrato", estado_contrato AS "estadoContrato",
+            fecha_inicio AS "fechaInicio", fecha_fin AS "fechaFin", renovacion_automatica AS "renovacionAutomatica",
+            responsable_comercial AS "responsableComercial", observaciones
+     FROM contracts
+     WHERE estado_contrato = 'activo'
+       AND fecha_fin >= $1
+       AND fecha_fin <= ($1::date + ($2 || ' days')::interval)
+     ORDER BY fecha_fin ASC`,
+    [hoy, dias]
+  );
+  return res.rows;
+};
+// Historial consolidado de todos los contratos de una empresa
+export const getContractHistoryByEmpresa = async (empresaId: number): Promise<ContractHistoryEntry[]> => {
+  const res = await pool.query(
+    `SELECT h.id, h.contract_id AS "contractId", h.campo, h.valor_anterior AS "valorAnterior", h.valor_nuevo AS "valorNuevo",
+            h.fecha, h.usuario, h.motivo, h.tipo_accion AS "tipoAccion", h.tipo_cambio AS "tipoCambio"
+     FROM contract_history h
+     INNER JOIN contracts c ON h.contract_id = c.id
+     WHERE c.empresa_id = $1
+     ORDER BY h.fecha DESC, h.id DESC`,
+    [empresaId]
+  );
+  return res.rows || [];
+};
 import { pool } from "../../../config/db";
 import {
   ContractBase,
@@ -27,7 +56,7 @@ export const listByEmpresa = async (empresaId: number): Promise<ContractBase[]> 
 
 export const getActiveByEmpresa = async (empresaId: number): Promise<number | null> => {
   const res = await pool.query(
-    `SELECT id FROM contracts WHERE empresa_id = $1 AND estado_contrato = 'activo' LIMIT 1`,
+    `SELECT id FROM contracts WHERE empresa_id = $1 ORDER BY id DESC LIMIT 1`,
     [empresaId]
   );
   return res.rows[0]?.id || null;
@@ -40,6 +69,7 @@ export const getByIdWithDetails = async (id: number): Promise<ContractWithDetail
       `SELECT id, empresa_id AS "empresaId", tipo_contrato AS "tipoContrato", estado_contrato AS "estadoContrato",
               fecha_inicio AS "fechaInicio", fecha_fin AS "fechaFin", renovacion_automatica AS "renovacionAutomatica",
               responsable_comercial AS "responsableComercial", observaciones,
+              servicios_personalizados AS "serviciosPersonalizados",
               created_at AS "createdAt", updated_at AS "updatedAt", created_by AS "createdBy", updated_by AS "updatedBy"
        FROM contracts WHERE id = $1`,
       [id]
@@ -99,15 +129,31 @@ export const getByIdWithDetails = async (id: number): Promise<ContractWithDetail
       version: doc.version,
     }));
 
-    const contract: ContractWithDetails = {
+    // Calcular estado actualizado si corresponde
+    let contract: ContractWithDetails = {
       ...contractRes.rows[0],
-      services: servicesRes.rows[0] || null,
+      services: {
+        ...(servicesRes.rows[0] || {}),
+        serviciosPersonalizados: contractRes.rows[0].serviciosPersonalizados || [],
+      },
       preventivePolicy: preventiveRes.rows[0] || null,
       economics: economicsRes.rows[0] || null,
       documents: documentsFormatted,
-      history: historyRes.rows || [],
+      history: (historyRes.rows || []).map((h: any) => ({
+        campo: h.campo,
+        valorAnterior: h.valorAnterior,
+        valorNuevo: h.valorNuevo,
+        motivo: h.motivo,
+        fecha: h.fecha,
+        usuario: h.usuario,
+        tipoAccion: h.tipo_accion || h.tipoAccion || null
+      })),
     };
 
+    // Actualizar estadoContrato si aplica (activo/vencido)
+    const contractBase = contract as any as ContractBase;
+    const expired = await exports.expireIfNeeded(contractBase);
+    contract.estadoContrato = expired.estadoContrato || contract.estadoContrato;
     return contract;
   } finally {
     client.release();
@@ -135,6 +181,13 @@ export const createContract = async (input: ContractCreateInput): Promise<Contra
       createdBy,
     } = input as any;
 
+
+    // Buscar contrato previo para la empresa
+    const prevRes = await client.query(
+      `SELECT id, estado_contrato FROM contracts WHERE empresa_id = $1 ORDER BY fecha_inicio DESC LIMIT 1`,
+      [empresaId]
+    );
+
     const contractRes = await client.query(
       `INSERT INTO contracts (empresa_id, tipo_contrato, estado_contrato, fecha_inicio, fecha_fin, renovacion_automatica, responsable_comercial, observaciones, created_by, updated_by)
        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$9)
@@ -156,6 +209,25 @@ export const createContract = async (input: ContractCreateInput): Promise<Contra
     );
 
     const contractId = contractRes.rows[0].id as number;
+
+    // Si había contrato previo, registrar renovación en el historial
+    if (prevRes.rows.length > 0) {
+      const prev = prevRes.rows[0];
+      await client.query(
+        `INSERT INTO contract_history (contract_id, campo, valor_anterior, valor_nuevo, usuario, motivo, tipo_accion, tipo_cambio, fecha)
+         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,NOW())`,
+        [
+          contractId,
+          'Renovación del contrato',
+          `Contrato anterior ${prev.estado_contrato ? prev.estado_contrato : 'vencido/suspendido'}`,
+          'Contrato registrado como activo',
+          usuario || createdBy || null,
+          'Creación del nuevo contrato por renovación',
+          'RENOVACION',
+          'general',
+        ]
+      );
+    }
 
     if (services) {
       await client.query(
@@ -229,25 +301,26 @@ export const createContract = async (input: ContractCreateInput): Promise<Contra
       }
     }
 
-    // Agregar entrada de historial automáticamente
-    const historyMessage = estadoContrato === 'activo' 
-      ? 'Contrato registrado como activo' 
-      : 'Contrato creado';
-    
-    await client.query(
-      `INSERT INTO contract_history (contract_id, campo, valor_anterior, valor_nuevo, usuario, motivo, tipo_accion, tipo_cambio)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8)` ,
-      [
-        contractId,
-        'Creación del Contrato',
-        null,
-        historyMessage,
-        usuario || null,
-        'Creación inicial del contrato',
-        'CREACION',
-        'general',
-      ]
-    );
+    // Solo crear registro CREACION si NO hay contrato previo
+    if (prevRes.rows.length === 0) {
+      const historyMessage = estadoContrato === 'activo' 
+        ? 'Contrato registrado como activo' 
+        : 'Contrato creado';
+      await client.query(
+        `INSERT INTO contract_history (contract_id, campo, valor_anterior, valor_nuevo, usuario, motivo, tipo_accion, tipo_cambio)
+         VALUES ($1,$2,$3,$4,$5,$6,$7,$8)` ,
+        [
+          contractId,
+          'Creación del Contrato',
+          null,
+          historyMessage,
+          usuario || null,
+          'Creación inicial del contrato',
+          'CREACION',
+          'general',
+        ]
+      );
+    }
 
     await client.query("COMMIT");
 
@@ -450,9 +523,31 @@ export const updateGeneral = async (
     }
     const current = currentRes.rows[0] as ContractBase;
 
+
+    // Calcular estado automáticamente según la fecha de fin
+    let estado: ContractEstado | '' = current.estadoContrato;
+    const hoy = new Date();
+    const fechaFin = data.fechaFin ? new Date(data.fechaFin) : new Date(current.fechaFin);
+    if (data.estadoContrato === 'suspendido') {
+      estado = 'suspendido';
+    } else if (fechaFin) {
+      if (isNaN(fechaFin.getTime())) {
+        throw new Error('fechaFin inválida');
+      }
+      const fechaInicio = data.fechaInicio ? new Date(data.fechaInicio) : new Date(current.fechaInicio);
+      if (fechaInicio && fechaFin < fechaInicio) {
+        throw new Error('fechaFin debe ser mayor o igual a fechaInicio');
+      }
+      if (fechaFin >= hoy) {
+        estado = 'activo';
+      } else {
+        estado = 'vencido';
+      }
+    }
+
     const merged = {
       tipoContrato: data.tipoContrato ?? current.tipoContrato,
-      estadoContrato: current.estadoContrato,
+      estadoContrato: estado,
       fechaInicio: data.fechaInicio ?? current.fechaInicio,
       fechaFin: data.fechaFin ?? current.fechaFin,
       renovacionAutomatica: data.renovacionAutomatica ?? current.renovacionAutomatica ?? false,
@@ -461,11 +556,12 @@ export const updateGeneral = async (
     };
 
     await client.query(
-      `UPDATE contracts SET tipo_contrato=$1, fecha_inicio=$2, fecha_fin=$3, renovacion_automatica=$4,
-        responsable_comercial=$5, observaciones=$6, updated_by=$7
-       WHERE id = $8`,
+      `UPDATE contracts SET tipo_contrato=$1, estado_contrato=$2, fecha_inicio=$3, fecha_fin=$4, renovacion_automatica=$5,
+        responsable_comercial=$6, observaciones=$7, updated_by=$8
+       WHERE id = $9`,
       [
         merged.tipoContrato,
+        merged.estadoContrato,
         merged.fechaInicio,
         merged.fechaFin,
         merged.renovacionAutomatica,
@@ -478,6 +574,7 @@ export const updateGeneral = async (
 
     const changes: Record<string, { old: any; new: any }> = {
       tipo_contrato: { old: current.tipoContrato, new: merged.tipoContrato },
+      estado_contrato: { old: current.estadoContrato, new: merged.estadoContrato },
       fecha_inicio: { old: current.fechaInicio, new: merged.fechaInicio },
       fecha_fin: { old: current.fechaFin, new: merged.fechaFin },
       renovacion_automatica: { old: current.renovacionAutomatica, new: merged.renovacionAutomatica },
@@ -508,13 +605,14 @@ export const updateGeneral = async (
 
 export const updateServices = async (
   contractId: number,
-  data: ContractServices,
+  data: any,
   motivo: string,
   usuario?: string | null
 ): Promise<ContractServices> => {
   const client = await pool.connect();
   try {
     await client.query('BEGIN');
+    // Obtener servicios actuales y serviciosPersonalizados actuales
     const currentRes = await client.query(
       `SELECT soporte_remoto AS "soporteRemoto", soporte_presencial AS "soportePresencial", mantenimiento_preventivo AS "mantenimientoPreventivo",
               gestion_inventario AS "gestionInventario", gestion_credenciales AS "gestionCredenciales", monitoreo,
@@ -524,6 +622,23 @@ export const updateServices = async (
       [contractId]
     );
     const current = currentRes.rows[0] as ContractServices | undefined;
+
+    // Obtener serviciosPersonalizados actuales
+    const currentPersonalizadosRes = await client.query(
+      `SELECT servicios_personalizados FROM contracts WHERE id = $1 FOR UPDATE`,
+      [contractId]
+    );
+    const currentPersonalizados: string[] = currentPersonalizadosRes.rows[0]?.servicios_personalizados || [];
+
+    // Actualizar servicios_personalizados en contracts si viene en el body
+    let serviciosPersonalizadosChanged = false;
+    if (Array.isArray(data.serviciosPersonalizados)) {
+      serviciosPersonalizadosChanged = JSON.stringify(currentPersonalizados) !== JSON.stringify(data.serviciosPersonalizados);
+      await client.query(
+        `UPDATE contracts SET servicios_personalizados = $1, updated_at = NOW() WHERE id = $2`,
+        [JSON.stringify(data.serviciosPersonalizados), contractId]
+      );
+    }
 
     const merged: ContractServices = {
       soporteRemoto: data.soporteRemoto ?? current?.soporteRemoto ?? false,
@@ -583,6 +698,13 @@ export const updateServices = async (
     const oldObj = current || {} as any;
     for (const key of Object.keys(merged)) {
       changes[key] = { old: (oldObj as any)[key], new: (merged as any)[key] };
+    }
+    // Registrar historial de serviciosPersonalizados si cambió
+    if (serviciosPersonalizadosChanged) {
+      changes["serviciosPersonalizados"] = {
+        old: currentPersonalizados,
+        new: data.serviciosPersonalizados
+      };
     }
     await diffAndHistory(client, contractId, changes, motivo, usuario || null, 'servicio');
 

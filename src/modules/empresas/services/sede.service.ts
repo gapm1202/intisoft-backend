@@ -41,7 +41,10 @@ export const createSede = async (empresaId: number, data: Sede): Promise<Sede> =
   if (!data.codigoInterno && data.nombre) {
     data.codigoInterno = generarCodigoInterno(data.nombre);
   }
-  
+  // Default autorizaSupervisionCoordinacion to true if not provided
+  if (data.autorizaSupervisionCoordinacion === undefined) {
+    data.autorizaSupervisionCoordinacion = true;
+  }
   return repo.createForEmpresa(empresaId, data);
 };
 
