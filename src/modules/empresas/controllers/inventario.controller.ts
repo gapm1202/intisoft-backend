@@ -418,6 +418,7 @@ export const createInventario = async (req: Request, res: Response) => {
         if (!raw) return null;
         try { return String(raw).trim().toUpperCase(); } catch { return null; }
       })(),
+      codigoAccesoRemoto: data.codigoAccesoRemoto || data.codigo_acceso_remoto || null,
       ram: data.ram,
       storages: data.storages,
       especificacion: data.especificacion,
@@ -576,7 +577,8 @@ export const createInventarioSede = async (req: Request, res: Response) => {
       garantia: data.garantia || data.garantiaDuracion || data.garantia_duracion || null
       ,
       // Pass normalized condicion fisica collected earlier
-      condicionFisica: data.condicionFisica || data.condicion_fisica || null
+      condicionFisica: data.condicionFisica || data.condicion_fisica || null,
+      codigoAccesoRemoto: data.codigoAccesoRemoto || data.codigo_acceso_remoto || null
     } as any);
 
     console.log('createInventarioSede - created:', inventario);

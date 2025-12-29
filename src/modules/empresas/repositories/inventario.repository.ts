@@ -260,7 +260,7 @@ export const createInventario = async (inv: Inventario): Promise<Inventario> => 
     'campos_personalizados', 'campos_personalizados_array', 'observaciones',
     'purchase_document_url', 'warranty_document_url', 'purchase_document_description', 'warranty_document_description',
     'tipo_documento_compra', 'numero_documento_compra', 'fecha_compra_aprox_year',
-    'garantia', 'condicion_fisica', 'antiguedad_anios', 'antiguedad_meses', 'antiguedad_text', 'fotos'
+    'garantia', 'condicion_fisica', 'antiguedad_anios', 'antiguedad_meses', 'antiguedad_text', 'codigo_acceso_remoto', 'fotos'
   ];
 
   const params = [
@@ -298,6 +298,7 @@ export const createInventario = async (inv: Inventario): Promise<Inventario> => 
     (inv as any).antiguedadAnios || (inv as any).antiguedad_anios || null,
     (inv as any).antiguedadMeses || (inv as any).antiguedad_meses || null,
     (inv as any).antiguedadText || (inv as any).antiguedad_text || null,
+    (inv as any).codigoAccesoRemoto || (inv as any).codigo_acceso_remoto || null,
     JSON.stringify((inv as any).fotos || [])
   ];
 
@@ -348,6 +349,7 @@ export const createInventario = async (inv: Inventario): Promise<Inventario> => 
     antiguedadAnios: row.antiguedad_anios,
     antiguedadMeses: row.antiguedad_meses,
     antiguedadText: row.antiguedad_text,
+    codigoAccesoRemoto: row.codigo_acceso_remoto,
     usuarioAsignado: null,
     camposPersonalizados: row.campos_personalizados,
     camposPersonalizadosArray: row.campos_personalizados_array,
@@ -378,6 +380,7 @@ export const getInventarioById = async (id: number): Promise<Inventario | null> 
       garantia,
       condicion_fisica,
       antiguedad_anios, antiguedad_meses, antiguedad_text,
+      codigo_acceso_remoto,
       created_at, updated_at
     FROM inventario WHERE id = $1`;
   const result = await pool.query(query, [id]);
@@ -427,6 +430,7 @@ export const getInventarioById = async (id: number): Promise<Inventario | null> 
     antiguedadAnios: row.antiguedad_anios,
     antiguedadMeses: row.antiguedad_meses,
     antiguedadText: row.antiguedad_text,
+    codigoAccesoRemoto: row.codigo_acceso_remoto,
     usuarioAsignado: usuariosAsignados.length > 0 ? usuariosAsignados[0] : null,
     usuariosAsignados: usuariosAsignados,
     camposPersonalizados: camposPersonalizados,
@@ -453,6 +457,7 @@ export const getInventarioById = async (id: number): Promise<Inventario | null> 
         garantia,
         condicion_fisica,
         antiguedad_anios, antiguedad_meses, antiguedad_text,
+        codigo_acceso_remoto,
         created_at, updated_at
       FROM inventario WHERE empresa_id = $1 ORDER BY created_at DESC`;
     const result = await pool.query(query, [empresaId]);
@@ -498,6 +503,7 @@ export const getInventarioById = async (id: number): Promise<Inventario | null> 
         antiguedadAnios: row.antiguedad_anios,
         antiguedadMeses: row.antiguedad_meses,
         antiguedadText: row.antiguedad_text,
+        codigoAccesoRemoto: row.codigo_acceso_remoto,
         usuarioAsignado: usuariosAsignados.length > 0 ? usuariosAsignados[0] : null,
         usuariosAsignados: usuariosAsignados,
         camposPersonalizados: camposPersonalizados,
@@ -534,6 +540,7 @@ export const getInventarioBySede = async (sedeId: number, empresaId: number, sol
       garantia,
       condicion_fisica,
       antiguedad_anios, antiguedad_meses, antiguedad_text,
+      codigo_acceso_remoto,
       created_at, updated_at,
       (sede_id IS DISTINCT FROM sede_original_id) as trasladado
     FROM inventario ${whereClause} ORDER BY created_at DESC`;
@@ -600,6 +607,7 @@ export const getInventarioBySede = async (sedeId: number, empresaId: number, sol
         antiguedadAnios: row.antiguedad_anios,
         antiguedadMeses: row.antiguedad_meses,
         antiguedadText: row.antiguedad_text,
+        codigoAccesoRemoto: row.codigo_acceso_remoto,
         usuarioAsignado: usuariosAsignados.length > 0 ? usuariosAsignados[0] : null,
         usuariosAsignados: usuariosAsignados,
         // correo and cargo removed from table
@@ -623,6 +631,10 @@ export const checkAssetIdExists = async (assetId: string): Promise<boolean> => {
   return result.rows.length > 0;
 };
 
+/**
+ * @deprecated Legacy function - use activos_codigo sequence system instead
+ * This function uses ORDER BY which doesn't prevent code reuse after deletion
+ */
 export const getLastAssetCodeByPrefix = async (prefix: string): Promise<string | null> => {
   const likePattern = `${prefix}-%`;
   const query = `SELECT asset_id FROM inventario WHERE asset_id LIKE $1 ORDER BY asset_id DESC LIMIT 1`;
@@ -630,6 +642,18 @@ export const getLastAssetCodeByPrefix = async (prefix: string): Promise<string |
   return result.rows[0] ? result.rows[0].asset_id : null;
 };
 
+/**
+ * @deprecated DO NOT USE - This function can reuse deleted codes!
+ * Use the official flow: inventario.service.crearInventario() which uses activos_codigo_sequence
+ * 
+ * This function uses MAX() on current inventory records, so if a record is deleted,
+ * the next code will reuse that number. Example:
+ * - Current: OBR-PC0001, OBR-PC0002, OBR-PC0003
+ * - Delete OBR-PC0003
+ * - Next code generated: OBR-PC0003 (WRONG! Reuses deleted code)
+ * 
+ * The correct system (activos_codigo_sequence) never decrements and generates OBR-PC0004
+ */
 export const createInventarioWithGeneratedAsset = async (prefix: string, inv: Inventario): Promise<Inventario> => {
   // Use serializable transaction with retry to avoid race conditions when generating numeric suffix
   const maxAttempts = 5;
@@ -671,9 +695,9 @@ export const createInventarioWithGeneratedAsset = async (prefix: string, inv: In
             tipo_documento_compra, numero_documento_compra, fecha_compra_aprox_year,
                   garantia,
                   condicion_fisica,
-            antiguedad_anios, antiguedad_meses, antiguedad_text, fotos
+            antiguedad_anios, antiguedad_meses, antiguedad_text, codigo_acceso_remoto, fotos
           )
-                VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12::date,$13,$14,$15,$16::jsonb,$17::jsonb,$18::jsonb,$19,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29,$30,$31,$32::jsonb)
+                VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12::date,$13,$14,$15,$16::jsonb,$17::jsonb,$18::jsonb,$19,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29,$30,$31,$32,$33::jsonb)
           RETURNING *
         `;
 
@@ -713,6 +737,7 @@ export const createInventarioWithGeneratedAsset = async (prefix: string, inv: In
           (inv as any).antiguedadAnios || (inv as any).antiguedad_anios || null,
           (inv as any).antiguedadMeses || (inv as any).antiguedad_meses || null,
           (inv as any).antiguedadText || (inv as any).antiguedad_text || null,
+          (inv as any).codigoAccesoRemoto || (inv as any).codigo_acceso_remoto || null,
           JSON.stringify((inv as any).fotos || [])
         ];
           // params will include condicion_fisica at position 30 (index 29)
@@ -769,7 +794,7 @@ export const createInventarioWithGeneratedAsset = async (prefix: string, inv: In
           'campos_personalizados','campos_personalizados_array','observaciones',
           'purchase_document_url','warranty_document_url','purchase_document_description','warranty_document_description',
           'tipo_documento_compra','numero_documento_compra','fecha_compra_aprox_year',
-          'garantia','condicion_fisica','antiguedad_anios','antiguedad_meses','antiguedad_text','fotos'
+          'garantia','condicion_fisica','antiguedad_anios','antiguedad_meses','antiguedad_text','codigo_acceso_remoto','fotos'
         ];
         const typeSuffixTx: Record<string,string> = {
           'fecha_compra': '::date',
@@ -813,6 +838,7 @@ export const createInventarioWithGeneratedAsset = async (prefix: string, inv: In
           antiguedadAnios: row.antiguedad_anios,
           antiguedadMeses: row.antiguedad_meses,
           antiguedadText: row.antiguedad_text,
+          codigoAccesoRemoto: row.codigo_acceso_remoto,
           usuarioAsignado: null,
           camposPersonalizados: row.campos_personalizados,
           camposPersonalizadosArray: row.campos_personalizados_array,
@@ -963,8 +989,9 @@ export const updateInventarioById = async (id: number, inv: any): Promise<Invent
       garantia = COALESCE($21, garantia),
       condicion_fisica = COALESCE($22, condicion_fisica),
       area = COALESCE($23, area),
+      codigo_acceso_remoto = COALESCE($24, codigo_acceso_remoto),
       updated_at = now()
-    WHERE id = $24
+    WHERE id = $25
     RETURNING *
   `;
 
@@ -993,6 +1020,7 @@ export const updateInventarioById = async (id: number, inv: any): Promise<Invent
     // condicion_fisica for update
     ((inv as any).condicionFisica || (inv as any).condicion_fisica) ? String((inv as any).condicionFisica || (inv as any).condicion_fisica).toUpperCase() : null,
     inv.area || null,
+    (inv as any).codigoAccesoRemoto || (inv as any).codigo_acceso_remoto || null,
     id
   ];
 
@@ -1039,6 +1067,7 @@ export const updateInventarioById = async (id: number, inv: any): Promise<Invent
     antiguedadAnios: row.antiguedad_anios,
     antiguedadMeses: row.antiguedad_meses,
     antiguedadText: row.antiguedad_text,
+    codigoAccesoRemoto: row.codigo_acceso_remoto,
     usuarioAsignado: usuariosAsignados.length > 0 ? usuariosAsignados[0] : null,
     usuariosAsignados: usuariosAsignados,
     camposPersonalizados: camposPersonalizados,
@@ -1083,8 +1112,9 @@ export const updateInventarioByIdWithHistorial = async (id: number, inv: any, op
         garantia = COALESCE($14, garantia),
         condicion_fisica = COALESCE($15, condicion_fisica),
         area = COALESCE($16, area),
+        codigo_acceso_remoto = COALESCE($17, codigo_acceso_remoto),
         updated_at = now()
-        WHERE id = $17
+        WHERE id = $18
       RETURNING *
     `;
 
@@ -1107,6 +1137,7 @@ export const updateInventarioByIdWithHistorial = async (id: number, inv: any, op
         // condicion_fisica for update in historial flow
         ((inv as any).condicionFisica || (inv as any).condicion_fisica) ? String((inv as any).condicionFisica || (inv as any).condicion_fisica).toUpperCase() : null,
         inv.area || null,
+        (inv as any).codigoAccesoRemoto || (inv as any).codigo_acceso_remoto || null,
         id
     ];
 
@@ -1167,6 +1198,7 @@ export const updateInventarioByIdWithHistorial = async (id: number, inv: any, op
         fechaCompraAproxYear: row.fecha_compra_aprox_year,
         garantia: row.garantia,
         condicionFisica: row.condicion_fisica,
+        codigoAccesoRemoto: row.codigo_acceso_remoto,
         usuarioAsignado: usuariosAsignados.length > 0 ? usuariosAsignados[0] : null,
         usuariosAsignados: usuariosAsignados,
         camposPersonalizados: camposPersonalizados,

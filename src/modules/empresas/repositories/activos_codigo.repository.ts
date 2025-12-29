@@ -59,30 +59,6 @@ export const reserveNextCode = async (
   try {
     await client.query('BEGIN ISOLATION LEVEL SERIALIZABLE');
 
-    // Get or create sequence with lock (FOR UPDATE)
-    const seqResult = await client.query(
-      `SELECT * FROM activos_codigo_sequence 
-       WHERE empresa_id = $1 AND categoria_id = $2 
-       FOR UPDATE`,
-      [empresaId, categoriaId]
-    );
-
-    let sequence: CodigoSequence;
-    if (seqResult.rows.length === 0) {
-      // Create new sequence
-      const createResult = await client.query(
-        `INSERT INTO activos_codigo_sequence (empresa_id, categoria_id, next_number)
-         VALUES ($1, $2, 1)
-         RETURNING *`,
-        [empresaId, categoriaId]
-      );
-      sequence = createResult.rows[0];
-    } else {
-      sequence = seqResult.rows[0];
-    }
-
-    const sequenceNumber = sequence.next_number;
-
     // Get empresa codigo and categoria codigo
     const empresaResult = await client.query(
       'SELECT codigo FROM empresas WHERE id = $1',
@@ -104,39 +80,30 @@ export const reserveNextCode = async (
     const empresaCodigo = empresaResult.rows[0].codigo;
     const categoriaCodigo = categoriaResult.rows[0].codigo;
 
+    // 🎯 LÓGICA SIMPLE: Solo MAX() de inventario + 1
+    const pattern = `${empresaCodigo}-${categoriaCodigo}%`;
+    const maxNumberResult = await client.query(
+      `SELECT COALESCE(MAX(CAST(SUBSTRING(asset_id FROM '[0-9]+$') AS INTEGER)), 0) as max_num
+       FROM inventario 
+       WHERE empresa_id = $1 
+       AND asset_id LIKE $2`,
+      [empresaId, pattern]
+    );
+
+    const sequenceNumber = (maxNumberResult.rows[0].max_num || 0) + 1;
+
     // Format: <EMPRESA_CODIGO>-<CATEGORIA_CODIGO><NNNN>
     const paddedNumber = String(sequenceNumber).padStart(4, '0');
     const codigo = `${empresaCodigo}-${categoriaCodigo}${paddedNumber}`;
 
-    // Increment sequence
-    const updateResult = await client.query(
-      `UPDATE activos_codigo_sequence 
-       SET next_number = next_number + 1, updated_at = CURRENT_TIMESTAMP
-       WHERE empresa_id = $1 AND categoria_id = $2
-       RETURNING *`,
-      [empresaId, categoriaId]
-    );
-
-    // Create reservation with TTL
-    const expiresAt = new Date();
-    expiresAt.setMinutes(expiresAt.getMinutes() + reservationTtlMinutes);
-
-    const reservationResult = await client.query(
-      `INSERT INTO activos_codigo_reserved 
-       (empresa_id, categoria_id, codigo, sequence_number, expires_at, user_id, confirmed)
-       VALUES ($1, $2, $3, $4, $5, $6, FALSE)
-       RETURNING *`,
-      [empresaId, categoriaId, codigo, sequenceNumber, expiresAt, userId || null]
-    );
-
     await client.query('COMMIT');
 
-    const reservation = reservationResult.rows[0];
+    // Retornar en el formato esperado (sin crear reserva)
     return {
       code: codigo,
       sequence_number: sequenceNumber,
-      reservation_id: reservation.id,
-      expires_at: reservation.expires_at
+      reservation_id: 0, // No hay reserva
+      expires_at: new Date().toISOString() // No expira
     };
   } catch (error) {
     await client.query('ROLLBACK');

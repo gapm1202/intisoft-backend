@@ -308,6 +308,7 @@ export const actualizarInventario = async (inventarioId: number, data: any, opts
     warrantyDocumentUrl: data.warrantyDocumentUrl || data.warranty_document_url || null,
     purchaseDocumentDescription: data.purchaseDocumentDescription || data.purchase_document_description || null,
     warrantyDocumentDescription: data.warrantyDocumentDescription || data.warranty_document_description || null,
+    codigoAccesoRemoto: data.codigoAccesoRemoto || data.codigo_acceso_remoto || null,
     empresaNombre: data.empresaNombre,
     sedeNombre: data.sedeNombre,
     area: data.area

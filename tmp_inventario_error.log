@@ -1,0 +1,4141 @@
+{
+  "time": "2025-12-28T01:04:53.448Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "PC sdsds",
+    "categoria": "PC",
+    "fabricante": "dsd",
+    "modelo": "sdsds",
+    "serie": "dsdsds",
+    "assetId": "",
+    "area": "Recursos Humanos",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2022-07-01",
+    "proveedor": "dssdsds",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2022",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "6 meses",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "4",
+    "ip": "dsddd",
+    "mac": "dsdsd",
+    "usuariosAsignados": [
+      {
+        "nombre": "Nicole Pérez",
+        "correo": "nicole@gmail.com",
+        "cargo": "Gerente"
+      },
+      {
+        "nombre": "Grecia Pérez",
+        "correo": "grecia@gmail.com",
+        "cargo": "Asistente"
+      }
+    ],
+    "observaciones": "sdsfdsfs",
+    "empresaId": "72",
+    "sedeId": "30",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sucursal ate",
+    "empresa": "OBRASIN",
+    "sede": "Sucursal ate",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {},
+    "camposPersonalizadosArray": {},
+    "fotos": [],
+    "condicion_fisica": "BUENO"
+  }
+}
+-----
+{
+  "time": "2025-12-28T01:04:53.461Z",
+  "route": "/api/empresas/:empresaId/sedes/:sedeId/inventario (sede)",
+  "params": {
+    "empresaId": "72",
+    "sedeId": "30"
+  },
+  "bodyPreview": {
+    "nombre": "PC sdsds",
+    "categoria": "PC",
+    "fabricante": "dsd",
+    "modelo": "sdsds",
+    "serie": "dsdsds",
+    "assetId": "",
+    "area": "Recursos Humanos",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2022-07-01",
+    "proveedor": "dssdsds",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2022",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "6 meses",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "4",
+    "ip": "dsddd",
+    "mac": "dsdsd",
+    "usuariosAsignados": [
+      {
+        "nombre": "Nicole Pérez",
+        "correo": "nicole@gmail.com",
+        "cargo": "Gerente"
+      },
+      {
+        "nombre": "Grecia Pérez",
+        "correo": "grecia@gmail.com",
+        "cargo": "Asistente"
+      }
+    ],
+    "observaciones": "sdsfdsfs",
+    "empresaId": "72",
+    "sedeId": "30",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sucursal ate",
+    "empresa": "OBRASIN",
+    "sede": "Sucursal ate",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {},
+    "camposPersonalizadosArray": {},
+    "fotos": [],
+    "condicion_fisica": "BUENO"
+  },
+  "files": null,
+  "error": "Error: Categoría requerida para generar código automáticamente\n    at Object.crearInventario (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\services\\inventario.service.ts:195:15)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async createInventarioSede (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\controllers\\inventario.controller.ts:539:24)"
+}
+-----
+{
+  "time": "2025-12-28T01:04:58.966Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "PC sdsds",
+    "categoria": "PC",
+    "fabricante": "dsd",
+    "modelo": "sdsds",
+    "serie": "dsdsds",
+    "assetId": "",
+    "area": "Recursos Humanos",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2022-07-01",
+    "proveedor": "dssdsds",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2022",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "6 meses",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "4",
+    "ip": "dsddd",
+    "mac": "dsdsd",
+    "usuariosAsignados": [
+      {
+        "nombre": "Nicole Pérez",
+        "correo": "nicole@gmail.com",
+        "cargo": "Gerentee"
+      },
+      {
+        "nombre": "Grecia Pérez",
+        "correo": "grecia@gmail.com",
+        "cargo": "Asistente"
+      }
+    ],
+    "observaciones": "sdsfdsfs",
+    "empresaId": "72",
+    "sedeId": "30",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sucursal ate",
+    "empresa": "OBRASIN",
+    "sede": "Sucursal ate",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {},
+    "camposPersonalizadosArray": {},
+    "fotos": [],
+    "condicion_fisica": "BUENO"
+  }
+}
+-----
+{
+  "time": "2025-12-28T01:04:58.975Z",
+  "route": "/api/empresas/:empresaId/sedes/:sedeId/inventario (sede)",
+  "params": {
+    "empresaId": "72",
+    "sedeId": "30"
+  },
+  "bodyPreview": {
+    "nombre": "PC sdsds",
+    "categoria": "PC",
+    "fabricante": "dsd",
+    "modelo": "sdsds",
+    "serie": "dsdsds",
+    "assetId": "",
+    "area": "Recursos Humanos",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2022-07-01",
+    "proveedor": "dssdsds",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2022",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "6 meses",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "4",
+    "ip": "dsddd",
+    "mac": "dsdsd",
+    "usuariosAsignados": [
+      {
+        "nombre": "Nicole Pérez",
+        "correo": "nicole@gmail.com",
+        "cargo": "Gerentee"
+      },
+      {
+        "nombre": "Grecia Pérez",
+        "correo": "grecia@gmail.com",
+        "cargo": "Asistente"
+      }
+    ],
+    "observaciones": "sdsfdsfs",
+    "empresaId": "72",
+    "sedeId": "30",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sucursal ate",
+    "empresa": "OBRASIN",
+    "sede": "Sucursal ate",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {},
+    "camposPersonalizadosArray": {},
+    "fotos": [],
+    "condicion_fisica": "BUENO"
+  },
+  "files": null,
+  "error": "Error: Categoría requerida para generar código automáticamente\n    at Object.crearInventario (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\services\\inventario.service.ts:195:15)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async createInventarioSede (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\controllers\\inventario.controller.ts:539:24)"
+}
+-----
+{
+  "time": "2025-12-28T01:05:14.036Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "PC sdsds",
+    "categoria": "PC",
+    "fabricante": "dsd",
+    "modelo": "sdsds",
+    "serie": "dsdsds",
+    "assetId": "",
+    "area": "Recursos Humanos",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2022-07-01",
+    "proveedor": "dssdsds",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2022",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "6 meses",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "4",
+    "ip": "dsddd",
+    "mac": "dsdsd",
+    "usuariosAsignados": [
+      {
+        "nombre": "Nicole Pérez",
+        "correo": "nicole@gmail.com",
+        "cargo": "Gerentee"
+      },
+      {
+        "nombre": "Grecia Pérez",
+        "correo": "grecia@gmail.com",
+        "cargo": "Asistente"
+      }
+    ],
+    "observaciones": "sdsfdsfs",
+    "empresaId": "72",
+    "sedeId": "30",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sucursal ate",
+    "empresa": "OBRASIN",
+    "sede": "Sucursal ate",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {},
+    "camposPersonalizadosArray": {},
+    "fotos": [],
+    "condicion_fisica": "BUENO"
+  }
+}
+-----
+{
+  "time": "2025-12-28T01:05:14.051Z",
+  "route": "/api/empresas/:empresaId/sedes/:sedeId/inventario (sede)",
+  "params": {
+    "empresaId": "72",
+    "sedeId": "30"
+  },
+  "bodyPreview": {
+    "nombre": "PC sdsds",
+    "categoria": "PC",
+    "fabricante": "dsd",
+    "modelo": "sdsds",
+    "serie": "dsdsds",
+    "assetId": "",
+    "area": "Recursos Humanos",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2022-07-01",
+    "proveedor": "dssdsds",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2022",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "6 meses",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "4",
+    "ip": "dsddd",
+    "mac": "dsdsd",
+    "usuariosAsignados": [
+      {
+        "nombre": "Nicole Pérez",
+        "correo": "nicole@gmail.com",
+        "cargo": "Gerentee"
+      },
+      {
+        "nombre": "Grecia Pérez",
+        "correo": "grecia@gmail.com",
+        "cargo": "Asistente"
+      }
+    ],
+    "observaciones": "sdsfdsfs",
+    "empresaId": "72",
+    "sedeId": "30",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sucursal ate",
+    "empresa": "OBRASIN",
+    "sede": "Sucursal ate",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {},
+    "camposPersonalizadosArray": {},
+    "fotos": [],
+    "condicion_fisica": "BUENO"
+  },
+  "files": null,
+  "error": "Error: Categoría requerida para generar código automáticamente\n    at Object.crearInventario (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\services\\inventario.service.ts:195:15)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async createInventarioSede (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\controllers\\inventario.controller.ts:539:24)"
+}
+-----
+{
+  "time": "2025-12-28T01:05:16.161Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "PC sdsds",
+    "categoria": "PC",
+    "fabricante": "dsd",
+    "modelo": "sdsds",
+    "serie": "dsdsds",
+    "assetId": "",
+    "area": "Recursos Humanos",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2022-07-01",
+    "proveedor": "dssdsds",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2022",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "6 meses",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "4",
+    "ip": "dsddd",
+    "mac": "dsdsd",
+    "usuariosAsignados": [
+      {
+        "nombre": "Nicole Pérez",
+        "correo": "nicole@gmail.com",
+        "cargo": "Gerentee"
+      },
+      {
+        "nombre": "Grecia Pérez",
+        "correo": "grecia@gmail.com",
+        "cargo": "Asistente"
+      }
+    ],
+    "observaciones": "sdsfdsfs",
+    "empresaId": "72",
+    "sedeId": "30",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sucursal ate",
+    "empresa": "OBRASIN",
+    "sede": "Sucursal ate",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {},
+    "camposPersonalizadosArray": {},
+    "fotos": [],
+    "condicion_fisica": "BUENO"
+  }
+}
+-----
+{
+  "time": "2025-12-28T01:05:16.170Z",
+  "route": "/api/empresas/:empresaId/sedes/:sedeId/inventario (sede)",
+  "params": {
+    "empresaId": "72",
+    "sedeId": "30"
+  },
+  "bodyPreview": {
+    "nombre": "PC sdsds",
+    "categoria": "PC",
+    "fabricante": "dsd",
+    "modelo": "sdsds",
+    "serie": "dsdsds",
+    "assetId": "",
+    "area": "Recursos Humanos",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2022-07-01",
+    "proveedor": "dssdsds",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2022",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "6 meses",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "4",
+    "ip": "dsddd",
+    "mac": "dsdsd",
+    "usuariosAsignados": [
+      {
+        "nombre": "Nicole Pérez",
+        "correo": "nicole@gmail.com",
+        "cargo": "Gerentee"
+      },
+      {
+        "nombre": "Grecia Pérez",
+        "correo": "grecia@gmail.com",
+        "cargo": "Asistente"
+      }
+    ],
+    "observaciones": "sdsfdsfs",
+    "empresaId": "72",
+    "sedeId": "30",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sucursal ate",
+    "empresa": "OBRASIN",
+    "sede": "Sucursal ate",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {},
+    "camposPersonalizadosArray": {},
+    "fotos": [],
+    "condicion_fisica": "BUENO"
+  },
+  "files": null,
+  "error": "Error: Categoría requerida para generar código automáticamente\n    at Object.crearInventario (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\services\\inventario.service.ts:195:15)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async createInventarioSede (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\controllers\\inventario.controller.ts:539:24)"
+}
+-----
+{
+  "time": "2025-12-28T01:05:23.418Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "PC sdsds",
+    "categoria": "PC",
+    "fabricante": "dsd",
+    "modelo": "sdsds",
+    "serie": "dsdsds",
+    "assetId": "",
+    "area": "Recursos Humanos",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2022-07-01",
+    "proveedor": "dssdsds",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2022",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "6 meses",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "4",
+    "ip": "dsddd",
+    "mac": "dsdsd",
+    "usuariosAsignados": [
+      {
+        "nombre": "Nicole Pérez",
+        "correo": "nicole@gmail.com",
+        "cargo": "Gerentee"
+      },
+      {
+        "nombre": "Grecia Pérez",
+        "correo": "grecia@gmail.com",
+        "cargo": "Asistente"
+      }
+    ],
+    "observaciones": "sdsfdsfsf",
+    "empresaId": "72",
+    "sedeId": "30",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sucursal ate",
+    "empresa": "OBRASIN",
+    "sede": "Sucursal ate",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {},
+    "camposPersonalizadosArray": {},
+    "fotos": [],
+    "condicion_fisica": "BUENO"
+  }
+}
+-----
+{
+  "time": "2025-12-28T01:05:23.424Z",
+  "route": "/api/empresas/:empresaId/sedes/:sedeId/inventario (sede)",
+  "params": {
+    "empresaId": "72",
+    "sedeId": "30"
+  },
+  "bodyPreview": {
+    "nombre": "PC sdsds",
+    "categoria": "PC",
+    "fabricante": "dsd",
+    "modelo": "sdsds",
+    "serie": "dsdsds",
+    "assetId": "",
+    "area": "Recursos Humanos",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2022-07-01",
+    "proveedor": "dssdsds",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2022",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "6 meses",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "4",
+    "ip": "dsddd",
+    "mac": "dsdsd",
+    "usuariosAsignados": [
+      {
+        "nombre": "Nicole Pérez",
+        "correo": "nicole@gmail.com",
+        "cargo": "Gerentee"
+      },
+      {
+        "nombre": "Grecia Pérez",
+        "correo": "grecia@gmail.com",
+        "cargo": "Asistente"
+      }
+    ],
+    "observaciones": "sdsfdsfsf",
+    "empresaId": "72",
+    "sedeId": "30",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sucursal ate",
+    "empresa": "OBRASIN",
+    "sede": "Sucursal ate",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {},
+    "camposPersonalizadosArray": {},
+    "fotos": [],
+    "condicion_fisica": "BUENO"
+  },
+  "files": null,
+  "error": "Error: Categoría requerida para generar código automáticamente\n    at Object.crearInventario (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\services\\inventario.service.ts:195:15)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async createInventarioSede (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\controllers\\inventario.controller.ts:539:24)"
+}
+-----
+{
+  "time": "2025-12-28T01:08:45.287Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "PC dsds",
+    "categoria": "PC",
+    "fabricante": "Compatible",
+    "modelo": "dsds",
+    "serie": "dsdsd",
+    "assetId": "",
+    "area": "Recursos Humanos",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2023-07-01",
+    "proveedor": "sdsdsd",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2023",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "6 meses",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "3",
+    "ip": "sds",
+    "mac": "sdssd",
+    "usuariosAsignados": [
+      {
+        "nombre": "Nicole Pérez",
+        "correo": "nicole@gmail.com",
+        "cargo": "Asistente"
+      },
+      {
+        "nombre": "Grecia Pérez",
+        "correo": "grecia@gmail.com",
+        "cargo": "Administradora"
+      }
+    ],
+    "observaciones": "sdds",
+    "empresaId": "72",
+    "sedeId": "30",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sucursal ate",
+    "empresa": "OBRASIN",
+    "sede": "Sucursal ate",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {
+      "Procesador": "i7 12500",
+      "RAM": "",
+      "ALMACENAMIENTO": ""
+    },
+    "camposPersonalizadosArray": {
+      "RAM": [
+        {
+          "Tipo": "32",
+          "Cantidad": "ddr4"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "drr4",
+          "Cantidad": "500"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": "BUENO"
+  }
+}
+-----
+{
+  "time": "2025-12-28T01:31:29.027Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "PC xdxd",
+    "categoria": "PC",
+    "fabricante": "Asus",
+    "modelo": "xdxd",
+    "serie": "xdxd",
+    "assetId": "",
+    "area": "Recursos Humanos",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2028-01-01",
+    "proveedor": "dfdsfsdf",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2025",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "3 años",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "1",
+    "ip": "ddd",
+    "mac": "fdsdsd",
+    "usuariosAsignados": [
+      {
+        "nombre": "Roy Segura",
+        "correo": "roysegura@gmail.com",
+        "cargo": "Jefe"
+      },
+      {
+        "nombre": "Carlos Perez",
+        "correo": "carlosp@gmail.com",
+        "cargo": "Asistente"
+      }
+    ],
+    "observaciones": "dfd",
+    "empresaId": "72",
+    "sedeId": "30",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sucursal ate",
+    "empresa": "OBRASIN",
+    "sede": "Sucursal ate",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {
+      "Procesador": "i5 core ",
+      "RAM": "",
+      "ALMACENAMIENTO": ""
+    },
+    "camposPersonalizadosArray": {
+      "RAM": [
+        {
+          "Tipo": "16",
+          "Cantidad": "ddr4"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "ssd",
+          "Cantidad": "500"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": "BUENO"
+  }
+}
+-----
+{
+  "time": "2025-12-29T00:11:55.446Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "Laptop dsd",
+    "categoria": "Laptop",
+    "fabricante": "Asus",
+    "modelo": "dsd",
+    "serie": "sdsds",
+    "assetId": "",
+    "area": "Almacen",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2026-01-01",
+    "proveedor": "dsdsf",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2025",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "1 año",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "1",
+    "ip": "ds",
+    "mac": "sdds",
+    "codigoAccesoRemoto": "11225588999",
+    "usuariosAsignados": [
+      {
+        "nombre": "Mijhael Pérez",
+        "correo": "mijhael@gmail.com",
+        "cargo": "Responsable de ti"
+      }
+    ],
+    "observaciones": "ddfdf",
+    "empresaId": "72",
+    "sedeId": "30",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sucursal ate",
+    "empresa": "OBRASIN",
+    "sede": "Sucursal ate",
+    "lapCpu": "",
+    "lapCpuSerie": "",
+    "lapRams": [],
+    "lapStorages": [],
+    "lapGpuIntegrada": "",
+    "lapGpuDedicada": "",
+    "camposPersonalizados": {
+      "Procesador": "",
+      "ALMACENAMIENTO": "",
+      "RAM": ""
+    },
+    "camposPersonalizadosArray": {
+      "Procesador": [
+        {
+          "": "i7 12"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "SSD",
+          "Capacidad": "500"
+        }
+      ],
+      "RAM": [
+        {
+          "Tipo": "DRR4",
+          "Capacidad": "32"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": "BUENO"
+  }
+}
+-----
+{
+  "time": "2025-12-29T00:15:52.824Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "Laptop dsfsd",
+    "categoria": "Laptop",
+    "fabricante": "HP",
+    "modelo": "dsfsd",
+    "serie": "dsffsdfdss",
+    "assetId": "",
+    "area": "Almacen",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2026-01-01",
+    "proveedor": "fdsfs",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2025",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "1 año",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "1",
+    "ip": "sfdf",
+    "mac": "dsfdsfsd",
+    "codigoAccesoRemoto": "112334442",
+    "usuariosAsignados": [
+      {
+        "nombre": "Mijhael Perez Montes",
+        "correo": "mijhael@gmail.com",
+        "cargo": "TI"
+      }
+    ],
+    "observaciones": "vdfd",
+    "empresaId": "72",
+    "sedeId": "30",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sucursal ate",
+    "empresa": "OBRASIN",
+    "sede": "Sucursal ate",
+    "lapCpu": "",
+    "lapCpuSerie": "",
+    "lapRams": [],
+    "lapStorages": [],
+    "lapGpuIntegrada": "",
+    "lapGpuDedicada": "",
+    "camposPersonalizados": {
+      "Procesador": "",
+      "ALMACENAMIENTO": "",
+      "RAM": ""
+    },
+    "camposPersonalizadosArray": {
+      "Procesador": [
+        {
+          "": "i7"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "SSD",
+          "Capacidad": "500"
+        }
+      ],
+      "RAM": [
+        {
+          "Tipo": "DRR4",
+          "Capacidad": "32"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": "BUENO"
+  }
+}
+-----
+{
+  "time": "2025-12-29T00:18:51.598Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "Laptop dsfsd",
+    "categoria": "Laptop",
+    "fabricante": "HP",
+    "modelo": "dsfsd",
+    "serie": "ssdds",
+    "assetId": "",
+    "area": "Almacen",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2026-01-01",
+    "proveedor": "fdsfs",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2025",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "1 año",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": null,
+    "antiguedadCalculada": "1",
+    "ip": "sfdf",
+    "mac": "dsfdsfsd",
+    "codigoAccesoRemoto": "123456789",
+    "usuariosAsignados": [
+      {
+        "nombre": "mijhael perez",
+        "correo": "mijhael@gmail.com",
+        "cargo": "desde"
+      }
+    ],
+    "observaciones": "efe",
+    "empresaId": "72",
+    "sedeId": "30",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sucursal ate",
+    "empresa": "OBRASIN",
+    "sede": "Sucursal ate",
+    "lapCpu": "",
+    "lapCpuSerie": "",
+    "lapRams": [],
+    "lapStorages": [],
+    "lapGpuIntegrada": "",
+    "lapGpuDedicada": "",
+    "camposPersonalizados": {
+      "Procesador": "",
+      "ALMACENAMIENTO": "",
+      "RAM": ""
+    },
+    "camposPersonalizadosArray": {
+      "Procesador": [
+        {
+          "": "i7"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "SSD",
+          "Capacidad": "500"
+        }
+      ],
+      "RAM": [
+        {
+          "Tipo": "DRR4",
+          "Capacidad": "32"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": null,
+    "codigo_acceso_remoto": "123456789"
+  }
+}
+-----
+{
+  "time": "2025-12-29T00:24:49.036Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "Laptop dsfsd",
+    "categoria": "Laptop",
+    "fabricante": "Asus",
+    "modelo": "dsfsd",
+    "serie": "ssdds",
+    "assetId": "",
+    "area": "Almacen",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2026-01-01",
+    "proveedor": "fdsfs",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2025",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "1 año",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": null,
+    "antiguedadCalculada": "1",
+    "ip": "sfdf",
+    "mac": "dsfdsfsd",
+    "codigoAccesoRemoto": "123456789",
+    "usuariosAsignados": [
+      {
+        "nombre": "Mijhael Perez",
+        "correo": "mijhael@gmail.com",
+        "cargo": "TI"
+      }
+    ],
+    "observaciones": "",
+    "empresaId": "72",
+    "sedeId": "30",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sucursal ate",
+    "empresa": "OBRASIN",
+    "sede": "Sucursal ate",
+    "lapCpu": "",
+    "lapCpuSerie": "",
+    "lapRams": [],
+    "lapStorages": [],
+    "lapGpuIntegrada": "",
+    "lapGpuDedicada": "",
+    "camposPersonalizados": {
+      "Procesador": "",
+      "ALMACENAMIENTO": "",
+      "RAM": ""
+    },
+    "camposPersonalizadosArray": {
+      "Procesador": [
+        {
+          "": "i7"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "SSD",
+          "Capacidad": "500"
+        }
+      ],
+      "RAM": [
+        {
+          "Tipo": "DRR4",
+          "Capacidad": "32"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": null,
+    "codigo_acceso_remoto": "123456789"
+  }
+}
+-----
+{
+  "time": "2025-12-29T00:28:17.367Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "Laptop fds",
+    "categoria": "Laptop",
+    "fabricante": "Asus",
+    "modelo": "fds",
+    "serie": "dsdsfsd",
+    "assetId": "",
+    "area": "IT",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2023-01-01",
+    "proveedor": "fdsfs",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2022",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "1 año",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "4",
+    "ip": "dfsd",
+    "mac": "dsds",
+    "usuariosAsignados": [
+      {
+        "nombre": "dsd",
+        "correo": "sds@gmail.com",
+        "cargo": "cdscs"
+      }
+    ],
+    "observaciones": "dscs",
+    "empresaId": "73",
+    "sedeId": "31",
+    "empresaNombre": "swmdomwf",
+    "sedeNombre": "Sucursal Callao",
+    "empresa": "swmdomwf",
+    "sede": "Sucursal Callao",
+    "lapCpu": "",
+    "lapCpuSerie": "",
+    "lapRams": [],
+    "lapStorages": [],
+    "lapGpuIntegrada": "",
+    "lapGpuDedicada": "",
+    "camposPersonalizados": {
+      "Procesador": "",
+      "ALMACENAMIENTO": "",
+      "RAM": ""
+    },
+    "camposPersonalizadosArray": {
+      "Procesador": [
+        {
+          "": "esds"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "SSD",
+          "Capacidad": "500"
+        }
+      ],
+      "RAM": [
+        {
+          "Tipo": "DRR4",
+          "Capacidad": "32"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": "BUENO"
+  }
+}
+-----
+{
+  "time": "2025-12-29T00:29:42.526Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "Laptop fds",
+    "categoria": "Laptop",
+    "fabricante": "Asus",
+    "modelo": "fds",
+    "serie": "dsdsfsd",
+    "assetId": "",
+    "area": "IT",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2023-01-01",
+    "proveedor": "fdsfs",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2022",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "1 año",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "EXCELENTE",
+    "antiguedadCalculada": "4",
+    "ip": "dfsd",
+    "mac": "dsds",
+    "codigoAccesoRemoto": "11232323234",
+    "usuariosAsignados": [],
+    "observaciones": "dssdsds",
+    "empresaId": "73",
+    "sedeId": "31",
+    "empresaNombre": "swmdomwf",
+    "sedeNombre": "Sucursal Callao",
+    "empresa": "swmdomwf",
+    "sede": "Sucursal Callao",
+    "lapCpu": "",
+    "lapCpuSerie": "",
+    "lapRams": [],
+    "lapStorages": [],
+    "lapGpuIntegrada": "",
+    "lapGpuDedicada": "",
+    "camposPersonalizados": {
+      "Procesador": "",
+      "ALMACENAMIENTO": "",
+      "RAM": ""
+    },
+    "camposPersonalizadosArray": {
+      "Procesador": [
+        {
+          "": "sdsd"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "SSD",
+          "Capacidad": "500"
+        }
+      ],
+      "RAM": [
+        {
+          "Tipo": "DRR4",
+          "Capacidad": "32"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": "EXCELENTE",
+    "codigo_acceso_remoto": "11232323234"
+  }
+}
+-----
+{
+  "time": "2025-12-29T00:30:31.057Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "PC ds",
+    "categoria": "PC",
+    "fabricante": "Compatible",
+    "modelo": "ds",
+    "serie": "dscsdcs",
+    "assetId": "",
+    "area": "",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2026-01-01",
+    "proveedor": "ss",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2025",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "1 año",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": null,
+    "antiguedadCalculada": "1",
+    "ip": "sdd",
+    "mac": "dsd",
+    "codigoAccesoRemoto": "3243242424",
+    "usuariosAsignados": [
+      {
+        "nombre": "fds",
+        "correo": "fdfsd@gmail.com",
+        "cargo": "fdfd"
+      }
+    ],
+    "observaciones": "fd",
+    "empresaId": "73",
+    "sedeId": "31",
+    "empresaNombre": "swmdomwf",
+    "sedeNombre": "Sucursal Callao",
+    "empresa": "swmdomwf",
+    "sede": "Sucursal Callao",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {
+      "Procesador": "i7 core",
+      "RAM": "",
+      "ALMACENAMIENTO": ""
+    },
+    "camposPersonalizadosArray": {
+      "RAM": [
+        {
+          "Tipo": "16",
+          "Cantidad": "ds"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "23",
+          "Cantidad": "ded"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": null,
+    "codigo_acceso_remoto": "3243242424"
+  }
+}
+-----
+{
+  "time": "2025-12-29T00:31:17.703Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "PC ssc",
+    "categoria": "PC",
+    "fabricante": "Compatible",
+    "modelo": "ssc",
+    "serie": "sdds",
+    "assetId": "",
+    "area": "IT",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2026-01-01",
+    "proveedor": "ss",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2025",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "1 año",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "1",
+    "ip": "sdd",
+    "mac": "dsd",
+    "codigoAccesoRemoto": "3243242424",
+    "usuariosAsignados": [],
+    "observaciones": "",
+    "empresaId": "73",
+    "sedeId": "31",
+    "empresaNombre": "swmdomwf",
+    "sedeNombre": "Sucursal Callao",
+    "empresa": "swmdomwf",
+    "sede": "Sucursal Callao",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {
+      "Procesador": "i7 core",
+      "RAM": "",
+      "ALMACENAMIENTO": ""
+    },
+    "camposPersonalizadosArray": {
+      "RAM": [
+        {
+          "Tipo": "16",
+          "Cantidad": "ds"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "23",
+          "Cantidad": "ded"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": "BUENO",
+    "codigo_acceso_remoto": "3243242424"
+  }
+}
+-----
+{
+  "time": "2025-12-29T00:32:11.262Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "PC ssc",
+    "categoria": "PC",
+    "fabricante": "Compatible",
+    "modelo": "ssc",
+    "serie": "dsfds",
+    "assetId": "",
+    "area": "Almacen",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2027-01-01",
+    "proveedor": "ss",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2025",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "2 años",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "1",
+    "ip": "sdd",
+    "mac": "dsd",
+    "codigoAccesoRemoto": "3243242424",
+    "usuariosAsignados": [],
+    "observaciones": "",
+    "empresaId": "72",
+    "sedeId": "30",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sucursal ate",
+    "empresa": "OBRASIN",
+    "sede": "Sucursal ate",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {
+      "Procesador": "i7 core",
+      "RAM": "",
+      "ALMACENAMIENTO": ""
+    },
+    "camposPersonalizadosArray": {
+      "RAM": [
+        {
+          "Tipo": "16",
+          "Cantidad": "ds"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "23",
+          "Cantidad": "ded"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": "BUENO",
+    "codigo_acceso_remoto": "3243242424"
+  }
+}
+-----
+{
+  "time": "2025-12-29T00:52:16.233Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "Laptop fds",
+    "categoria": "Laptop",
+    "fabricante": "HP",
+    "modelo": "fds",
+    "serie": "dsdsfsd",
+    "assetId": "",
+    "area": "Recursos Humanos",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2022-07-01",
+    "proveedor": "fdsfs",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2022",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "6 meses",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "4",
+    "ip": "dfsd",
+    "mac": "dsds",
+    "codigoAccesoRemoto": "11232323234",
+    "usuariosAsignados": [
+      {
+        "nombre": "fds",
+        "correo": "fdsf@gmail.com",
+        "cargo": "dsdds"
+      }
+    ],
+    "observaciones": "sdds",
+    "empresaId": "72",
+    "sedeId": "30",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sucursal ate",
+    "empresa": "OBRASIN",
+    "sede": "Sucursal ate",
+    "lapCpu": "",
+    "lapCpuSerie": "",
+    "lapRams": [],
+    "lapStorages": [],
+    "lapGpuIntegrada": "",
+    "lapGpuDedicada": "",
+    "camposPersonalizados": {
+      "Procesador": "",
+      "ALMACENAMIENTO": "",
+      "RAM": ""
+    },
+    "camposPersonalizadosArray": {
+      "Procesador": [
+        {
+          "": "dfds"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "SSD",
+          "Capacidad": "500"
+        }
+      ],
+      "RAM": [
+        {
+          "Tipo": "DRR4",
+          "Capacidad": "32"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": "BUENO",
+    "codigo_acceso_remoto": "11232323234"
+  }
+}
+-----
+{
+  "time": "2025-12-29T01:05:59.601Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "PC ssc",
+    "categoria": "PC",
+    "fabricante": "Asus",
+    "modelo": "ssc",
+    "serie": "fdvdfvf",
+    "assetId": "",
+    "area": "Almacen",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2025-07-01",
+    "proveedor": "ss",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2025",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "6 meses",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": null,
+    "antiguedadCalculada": "1",
+    "ip": "sdd",
+    "mac": "dsd",
+    "codigoAccesoRemoto": "3243242424",
+    "usuariosAsignados": [
+      {
+        "nombre": "fdv",
+        "correo": "dcd@gmail.com",
+        "cargo": "dsdsd"
+      }
+    ],
+    "observaciones": "dsfs",
+    "empresaId": "72",
+    "sedeId": "30",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sucursal ate",
+    "empresa": "OBRASIN",
+    "sede": "Sucursal ate",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {
+      "Procesador": "i7 core",
+      "RAM": "",
+      "ALMACENAMIENTO": ""
+    },
+    "camposPersonalizadosArray": {
+      "RAM": [
+        {
+          "Tipo": "16",
+          "Cantidad": "ds"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "23",
+          "Cantidad": "ded"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": null,
+    "codigo_acceso_remoto": "3243242424"
+  }
+}
+-----
+{
+  "time": "2025-12-29T01:11:43.727Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "categoria": "PC",
+    "descripcion": "PC #1",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-29T01:11:43.741Z",
+  "route": "/api/empresas/:empresaId/sedes/:sedeId/inventario (sede)",
+  "params": {
+    "empresaId": "72",
+    "sedeId": "70"
+  },
+  "bodyPreview": {
+    "categoria": "PC",
+    "descripcion": "PC #1",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  },
+  "files": null,
+  "error": "Error: Sede no encontrada\n    at Object.crearInventario (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\services\\inventario.service.ts:143:22)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async createInventarioSede (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\controllers\\inventario.controller.ts:540:24)"
+}
+-----
+{
+  "time": "2025-12-29T01:12:02.139Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "categoria": "PC",
+    "descripcion": "PC #1",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-29T01:12:02.163Z",
+  "route": "/api/empresas/:empresaId/sedes/:sedeId/inventario (sede)",
+  "params": {
+    "empresaId": "72",
+    "sedeId": "30"
+  },
+  "bodyPreview": {
+    "categoria": "PC",
+    "descripcion": "PC #1",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  },
+  "files": null,
+  "error": "error: llave duplicada viola restricción de unicidad «activos_codigo_reserved_codigo_key»\n    at C:\\Users\\Grecia\\Documents\\intisoft-backend\\node_modules\\pg\\lib\\client.js:545:17\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async Object.reserveNextCode (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\repositories\\activos_codigo.repository.ts:150:31)\n    at async Object.crearInventario (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\services\\inventario.service.ts:199:27)\n    at async createInventarioSede (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\controllers\\inventario.controller.ts:540:24)"
+}
+-----
+{
+  "time": "2025-12-29T01:12:32.849Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "categoria": "PC",
+    "descripcion": "PC #1",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-29T01:12:32.873Z",
+  "route": "/api/empresas/:empresaId/sedes/:sedeId/inventario (sede)",
+  "params": {
+    "empresaId": "72",
+    "sedeId": "30"
+  },
+  "bodyPreview": {
+    "categoria": "PC",
+    "descripcion": "PC #1",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  },
+  "files": null,
+  "error": "error: llave duplicada viola restricción de unicidad «activos_codigo_reserved_codigo_key»\n    at C:\\Users\\Grecia\\Documents\\intisoft-backend\\node_modules\\pg\\lib\\client.js:545:17\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async Object.reserveNextCode (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\repositories\\activos_codigo.repository.ts:148:31)\n    at async Object.crearInventario (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\services\\inventario.service.ts:199:27)\n    at async createInventarioSede (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\controllers\\inventario.controller.ts:540:24)"
+}
+-----
+{
+  "time": "2025-12-29T01:18:48.720Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "categoria": "PC",
+    "descripcion": "PC #1",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-29T01:18:48.743Z",
+  "route": "/api/empresas/:empresaId/sedes/:sedeId/inventario (sede)",
+  "params": {
+    "empresaId": "72",
+    "sedeId": "30"
+  },
+  "bodyPreview": {
+    "categoria": "PC",
+    "descripcion": "PC #1",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  },
+  "files": null,
+  "error": "error: llave duplicada viola restricción de unicidad «activos_codigo_reserved_codigo_key»\n    at C:\\Users\\Grecia\\Documents\\intisoft-backend\\node_modules\\pg\\lib\\client.js:545:17\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async Object.reserveNextCode (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\repositories\\activos_codigo.repository.ts:148:31)\n    at async Object.crearInventario (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\services\\inventario.service.ts:199:27)\n    at async createInventarioSede (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\controllers\\inventario.controller.ts:540:24)"
+}
+-----
+{
+  "time": "2025-12-29T01:21:17.153Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "categoria": "PC",
+    "descripcion": "PC #1",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-29T01:21:17.174Z",
+  "route": "/api/empresas/:empresaId/sedes/:sedeId/inventario (sede)",
+  "params": {
+    "empresaId": "72",
+    "sedeId": "30"
+  },
+  "bodyPreview": {
+    "categoria": "PC",
+    "descripcion": "PC #1",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  },
+  "files": null,
+  "error": "error: llave duplicada viola restricción de unicidad «activos_codigo_reserved_codigo_key»\n    at C:\\Users\\Grecia\\Documents\\intisoft-backend\\node_modules\\pg\\lib\\client.js:545:17\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async Object.reserveNextCode (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\repositories\\activos_codigo.repository.ts:148:31)\n    at async Object.crearInventario (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\services\\inventario.service.ts:199:27)\n    at async createInventarioSede (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\controllers\\inventario.controller.ts:540:24)"
+}
+-----
+{
+  "time": "2025-12-29T01:22:07.700Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "categoria": "PC",
+    "descripcion": "PC #1",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-29T01:22:07.724Z",
+  "route": "/api/empresas/:empresaId/sedes/:sedeId/inventario (sede)",
+  "params": {
+    "empresaId": "72",
+    "sedeId": "30"
+  },
+  "bodyPreview": {
+    "categoria": "PC",
+    "descripcion": "PC #1",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  },
+  "files": null,
+  "error": "error: llave duplicada viola restricción de unicidad «activos_codigo_reserved_codigo_key»\n    at C:\\Users\\Grecia\\Documents\\intisoft-backend\\node_modules\\pg\\lib\\client.js:545:17\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async Object.reserveNextCode (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\repositories\\activos_codigo.repository.ts:150:31)\n    at async Object.crearInventario (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\services\\inventario.service.ts:199:27)\n    at async createInventarioSede (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\controllers\\inventario.controller.ts:540:24)"
+}
+-----
+{
+  "time": "2025-12-29T01:22:56.434Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "categoria": "PC",
+    "descripcion": "PC #1",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-29T01:22:56.458Z",
+  "route": "/api/empresas/:empresaId/sedes/:sedeId/inventario (sede)",
+  "params": {
+    "empresaId": "72",
+    "sedeId": "30"
+  },
+  "bodyPreview": {
+    "categoria": "PC",
+    "descripcion": "PC #1",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  },
+  "files": null,
+  "error": "error: llave duplicada viola restricción de unicidad «activos_codigo_reserved_codigo_key»\n    at C:\\Users\\Grecia\\Documents\\intisoft-backend\\node_modules\\pg\\lib\\client.js:545:17\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async Object.reserveNextCode (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\repositories\\activos_codigo.repository.ts:151:31)\n    at async Object.crearInventario (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\services\\inventario.service.ts:199:27)\n    at async createInventarioSede (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\controllers\\inventario.controller.ts:540:24)"
+}
+-----
+{
+  "time": "2025-12-29T01:24:39.379Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "categoria": "PC",
+    "descripcion": "Test PC",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-29T01:24:39.399Z",
+  "route": "/api/empresas/:empresaId/sedes/:sedeId/inventario (sede)",
+  "params": {
+    "empresaId": "72",
+    "sedeId": "30"
+  },
+  "bodyPreview": {
+    "categoria": "PC",
+    "descripcion": "Test PC",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  },
+  "files": null,
+  "error": "error: llave duplicada viola restricción de unicidad «activos_codigo_reserved_codigo_key»\n    at C:\\Users\\Grecia\\Documents\\intisoft-backend\\node_modules\\pg\\lib\\client.js:545:17\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async Object.reserveNextCode (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\repositories\\activos_codigo.repository.ts:151:31)\n    at async Object.crearInventario (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\services\\inventario.service.ts:199:27)\n    at async createInventarioSede (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\controllers\\inventario.controller.ts:540:24)"
+}
+-----
+{
+  "time": "2025-12-29T01:25:38.716Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "categoria": "PC",
+    "descripcion": "Test PC",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-29T01:25:47.116Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "categoria": "PC",
+    "descripcion": "PC #1",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-29T01:25:47.174Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "categoria": "PC",
+    "descripcion": "PC #2",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-29T01:25:47.227Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "categoria": "PC",
+    "descripcion": "PC #3",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-29T01:25:47.335Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "categoria": "PC",
+    "descripcion": "PC #4 - Debería ser 0002",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-29T01:26:33.895Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "categoria": "PC",
+    "descripcion": "PC #1",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-29T01:26:33.957Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "categoria": "PC",
+    "descripcion": "PC #2",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-29T01:26:34.015Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "categoria": "PC",
+    "descripcion": "PC #3",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-29T01:26:34.214Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "categoria": "PC",
+    "descripcion": "PC #4 - Debería ser 0002",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-29T01:26:57.327Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "categoria": "PC",
+    "descripcion": "Test PC",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-29T01:26:57.343Z",
+  "route": "/api/empresas/:empresaId/sedes/:sedeId/inventario (sede)",
+  "params": {
+    "empresaId": "72",
+    "sedeId": "30"
+  },
+  "bodyPreview": {
+    "categoria": "PC",
+    "descripcion": "Test PC",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  },
+  "files": null,
+  "error": "error: llave duplicada viola restricción de unicidad «activos_codigo_reserved_codigo_key»\n    at C:\\Users\\Grecia\\Documents\\intisoft-backend\\node_modules\\pg\\lib\\client.js:545:17\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async Object.reserveNextCode (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\repositories\\activos_codigo.repository.ts:151:31)\n    at async Object.crearInventario (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\services\\inventario.service.ts:199:27)\n    at async createInventarioSede (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\controllers\\inventario.controller.ts:540:24)"
+}
+-----
+{
+  "time": "2025-12-29T01:27:49.885Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "categoria": "PC",
+    "descripcion": "Test PC",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-29T01:27:59.355Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "categoria": "PC",
+    "descripcion": "Test PC",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-29T01:31:43.967Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "categoria": "PC",
+    "descripcion": "PC #1",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-29T01:31:44.026Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "categoria": "PC",
+    "descripcion": "PC #2",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-29T01:31:44.080Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "categoria": "PC",
+    "descripcion": "PC #3",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-29T01:31:44.131Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "categoria": "PC",
+    "descripcion": "PC #4",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-29T01:31:44.181Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "categoria": "PC",
+    "descripcion": "PC #5",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-29T01:34:11.968Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "categoria": "PC",
+    "descripcion": "Test PC",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-29T01:34:12.090Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "categoria": "PC",
+    "descripcion": "Test PC",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-29T03:44:17.539Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "PC sd",
+    "categoria": "PC",
+    "fabricante": "Asus",
+    "modelo": "sd",
+    "serie": "dsfds",
+    "assetId": "",
+    "area": "Almacen",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2026-01-01",
+    "proveedor": "ss",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2025",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "1 año",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "1",
+    "ip": "sdd",
+    "mac": "dsd",
+    "codigoAccesoRemoto": "3243242424",
+    "usuariosAsignados": [],
+    "observaciones": "dsdfd",
+    "empresaId": "72",
+    "sedeId": "30",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sucursal ate",
+    "empresa": "OBRASIN",
+    "sede": "Sucursal ate",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {
+      "Procesador": "i7 core",
+      "RAM": "",
+      "ALMACENAMIENTO": ""
+    },
+    "camposPersonalizadosArray": {
+      "RAM": [
+        {
+          "Tipo": "16",
+          "Cantidad": "ds"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "23",
+          "Cantidad": "ded"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": "BUENO",
+    "codigo_acceso_remoto": "3243242424"
+  }
+}
+-----
+{
+  "time": "2025-12-29T03:44:17.561Z",
+  "route": "/api/empresas/:empresaId/sedes/:sedeId/inventario (sede)",
+  "params": {
+    "empresaId": "72",
+    "sedeId": "30"
+  },
+  "bodyPreview": {
+    "nombre": "PC sd",
+    "categoria": "PC",
+    "fabricante": "Asus",
+    "modelo": "sd",
+    "serie": "dsfds",
+    "assetId": "",
+    "area": "Almacen",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2026-01-01",
+    "proveedor": "ss",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2025",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "1 año",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "1",
+    "ip": "sdd",
+    "mac": "dsd",
+    "codigoAccesoRemoto": "3243242424",
+    "usuariosAsignados": [],
+    "observaciones": "dsdfd",
+    "empresaId": "72",
+    "sedeId": "30",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sucursal ate",
+    "empresa": "OBRASIN",
+    "sede": "Sucursal ate",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {
+      "Procesador": "i7 core",
+      "RAM": "",
+      "ALMACENAMIENTO": ""
+    },
+    "camposPersonalizadosArray": {
+      "RAM": [
+        {
+          "Tipo": "16",
+          "Cantidad": "ds"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "23",
+          "Cantidad": "ded"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": "BUENO",
+    "codigo_acceso_remoto": "3243242424"
+  },
+  "files": null,
+  "error": "error: llave duplicada viola restricción de unicidad «activos_codigo_reserved_codigo_key»\n    at C:\\Users\\Grecia\\Documents\\intisoft-backend\\node_modules\\pg\\lib\\client.js:545:17\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async Object.reserveNextCode (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\repositories\\activos_codigo.repository.ts:151:31)\n    at async Object.crearInventario (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\services\\inventario.service.ts:199:27)\n    at async createInventarioSede (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\controllers\\inventario.controller.ts:540:24)"
+}
+-----
+{
+  "time": "2025-12-29T03:45:05.736Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "PC sd",
+    "categoria": "PC",
+    "fabricante": "Asus",
+    "modelo": "sd",
+    "serie": "dsfds",
+    "assetId": "",
+    "area": "Almacen",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2026-01-01",
+    "proveedor": "ss",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2025",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "1 año",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "1",
+    "ip": "sdd",
+    "mac": "dsd",
+    "codigoAccesoRemoto": "3243242424",
+    "usuariosAsignados": [],
+    "observaciones": "dsdfd",
+    "empresaId": "72",
+    "sedeId": "30",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sucursal ate",
+    "empresa": "OBRASIN",
+    "sede": "Sucursal ate",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {
+      "Procesador": "i7 core",
+      "RAM": "",
+      "ALMACENAMIENTO": ""
+    },
+    "camposPersonalizadosArray": {
+      "RAM": [
+        {
+          "Tipo": "16",
+          "Cantidad": "ds"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "23",
+          "Cantidad": "ded"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": "BUENO",
+    "codigo_acceso_remoto": "3243242424"
+  }
+}
+-----
+{
+  "time": "2025-12-29T03:45:05.755Z",
+  "route": "/api/empresas/:empresaId/sedes/:sedeId/inventario (sede)",
+  "params": {
+    "empresaId": "72",
+    "sedeId": "30"
+  },
+  "bodyPreview": {
+    "nombre": "PC sd",
+    "categoria": "PC",
+    "fabricante": "Asus",
+    "modelo": "sd",
+    "serie": "dsfds",
+    "assetId": "",
+    "area": "Almacen",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2026-01-01",
+    "proveedor": "ss",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2025",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "1 año",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "1",
+    "ip": "sdd",
+    "mac": "dsd",
+    "codigoAccesoRemoto": "3243242424",
+    "usuariosAsignados": [],
+    "observaciones": "dsdfd",
+    "empresaId": "72",
+    "sedeId": "30",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sucursal ate",
+    "empresa": "OBRASIN",
+    "sede": "Sucursal ate",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {
+      "Procesador": "i7 core",
+      "RAM": "",
+      "ALMACENAMIENTO": ""
+    },
+    "camposPersonalizadosArray": {
+      "RAM": [
+        {
+          "Tipo": "16",
+          "Cantidad": "ds"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "23",
+          "Cantidad": "ded"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": "BUENO",
+    "codigo_acceso_remoto": "3243242424"
+  },
+  "files": null,
+  "error": "error: llave duplicada viola restricción de unicidad «activos_codigo_reserved_codigo_key»\n    at C:\\Users\\Grecia\\Documents\\intisoft-backend\\node_modules\\pg\\lib\\client.js:545:17\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async Object.reserveNextCode (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\repositories\\activos_codigo.repository.ts:151:31)\n    at async Object.crearInventario (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\services\\inventario.service.ts:199:27)\n    at async createInventarioSede (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\controllers\\inventario.controller.ts:540:24)"
+}
+-----
+{
+  "time": "2025-12-29T03:45:38.388Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "PC dsds",
+    "categoria": "PC",
+    "fabricante": "Asus",
+    "modelo": "dsds",
+    "serie": "dssd",
+    "assetId": "",
+    "area": "Almacen",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2023-01-01",
+    "proveedor": "sdss",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2022",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "1 año",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "4",
+    "ip": "sdd",
+    "mac": "dsd",
+    "codigoAccesoRemoto": "32432424243",
+    "usuariosAsignados": [],
+    "observaciones": "dsd",
+    "empresaId": "72",
+    "sedeId": "30",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sucursal ate",
+    "empresa": "OBRASIN",
+    "sede": "Sucursal ate",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {
+      "Procesador": "i7 core",
+      "RAM": "",
+      "ALMACENAMIENTO": ""
+    },
+    "camposPersonalizadosArray": {
+      "RAM": [
+        {
+          "Tipo": "16",
+          "Cantidad": "ds"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "23",
+          "Cantidad": "ded"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": "BUENO",
+    "codigo_acceso_remoto": "32432424243"
+  }
+}
+-----
+{
+  "time": "2025-12-29T03:45:38.404Z",
+  "route": "/api/empresas/:empresaId/sedes/:sedeId/inventario (sede)",
+  "params": {
+    "empresaId": "72",
+    "sedeId": "30"
+  },
+  "bodyPreview": {
+    "nombre": "PC dsds",
+    "categoria": "PC",
+    "fabricante": "Asus",
+    "modelo": "dsds",
+    "serie": "dssd",
+    "assetId": "",
+    "area": "Almacen",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2023-01-01",
+    "proveedor": "sdss",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2022",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "1 año",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "4",
+    "ip": "sdd",
+    "mac": "dsd",
+    "codigoAccesoRemoto": "32432424243",
+    "usuariosAsignados": [],
+    "observaciones": "dsd",
+    "empresaId": "72",
+    "sedeId": "30",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sucursal ate",
+    "empresa": "OBRASIN",
+    "sede": "Sucursal ate",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {
+      "Procesador": "i7 core",
+      "RAM": "",
+      "ALMACENAMIENTO": ""
+    },
+    "camposPersonalizadosArray": {
+      "RAM": [
+        {
+          "Tipo": "16",
+          "Cantidad": "ds"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "23",
+          "Cantidad": "ded"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": "BUENO",
+    "codigo_acceso_remoto": "32432424243"
+  },
+  "files": null,
+  "error": "error: llave duplicada viola restricción de unicidad «activos_codigo_reserved_codigo_key»\n    at C:\\Users\\Grecia\\Documents\\intisoft-backend\\node_modules\\pg\\lib\\client.js:545:17\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async Object.reserveNextCode (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\repositories\\activos_codigo.repository.ts:151:31)\n    at async Object.crearInventario (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\services\\inventario.service.ts:199:27)\n    at async createInventarioSede (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\controllers\\inventario.controller.ts:540:24)"
+}
+-----
+{
+  "time": "2025-12-29T03:47:22.025Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "PC dsds",
+    "categoria": "PC",
+    "fabricante": "Asus",
+    "modelo": "dsds",
+    "serie": "dssd",
+    "assetId": "",
+    "area": "Almacen",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2023-01-01",
+    "proveedor": "sdss",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2022",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "1 año",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "4",
+    "ip": "sdd",
+    "mac": "dsd",
+    "codigoAccesoRemoto": "32432424243",
+    "usuariosAsignados": [],
+    "observaciones": "dsd",
+    "empresaId": "72",
+    "sedeId": "30",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sucursal ate",
+    "empresa": "OBRASIN",
+    "sede": "Sucursal ate",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {
+      "Procesador": "i7 core",
+      "RAM": "",
+      "ALMACENAMIENTO": ""
+    },
+    "camposPersonalizadosArray": {
+      "RAM": [
+        {
+          "Tipo": "16",
+          "Cantidad": "ds"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "23",
+          "Cantidad": "ded"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": "BUENO",
+    "codigo_acceso_remoto": "32432424243"
+  }
+}
+-----
+{
+  "time": "2025-12-29T03:47:22.039Z",
+  "route": "/api/empresas/:empresaId/sedes/:sedeId/inventario (sede)",
+  "params": {
+    "empresaId": "72",
+    "sedeId": "30"
+  },
+  "bodyPreview": {
+    "nombre": "PC dsds",
+    "categoria": "PC",
+    "fabricante": "Asus",
+    "modelo": "dsds",
+    "serie": "dssd",
+    "assetId": "",
+    "area": "Almacen",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2023-01-01",
+    "proveedor": "sdss",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2022",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "1 año",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "4",
+    "ip": "sdd",
+    "mac": "dsd",
+    "codigoAccesoRemoto": "32432424243",
+    "usuariosAsignados": [],
+    "observaciones": "dsd",
+    "empresaId": "72",
+    "sedeId": "30",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sucursal ate",
+    "empresa": "OBRASIN",
+    "sede": "Sucursal ate",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {
+      "Procesador": "i7 core",
+      "RAM": "",
+      "ALMACENAMIENTO": ""
+    },
+    "camposPersonalizadosArray": {
+      "RAM": [
+        {
+          "Tipo": "16",
+          "Cantidad": "ds"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "23",
+          "Cantidad": "ded"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": "BUENO",
+    "codigo_acceso_remoto": "32432424243"
+  },
+  "files": null,
+  "error": "error: llave duplicada viola restricción de unicidad «activos_codigo_reserved_codigo_key»\n    at C:\\Users\\Grecia\\Documents\\intisoft-backend\\node_modules\\pg\\lib\\client.js:545:17\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async Object.reserveNextCode (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\repositories\\activos_codigo.repository.ts:151:31)\n    at async Object.crearInventario (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\services\\inventario.service.ts:199:27)\n    at async createInventarioSede (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\controllers\\inventario.controller.ts:540:24)"
+}
+-----
+{
+  "time": "2025-12-29T03:47:35.864Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "PC dsds",
+    "categoria": "PC",
+    "fabricante": "Asus",
+    "modelo": "dsds",
+    "serie": "dssd",
+    "assetId": "",
+    "area": "Almacen",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2023-01-01",
+    "proveedor": "sdss",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2022",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "1 año",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "4",
+    "ip": "sdd",
+    "mac": "dsd",
+    "codigoAccesoRemoto": "32432424243",
+    "usuariosAsignados": [],
+    "observaciones": "dsd",
+    "empresaId": "72",
+    "sedeId": "30",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sucursal ate",
+    "empresa": "OBRASIN",
+    "sede": "Sucursal ate",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {
+      "Procesador": "i7 core",
+      "RAM": "",
+      "ALMACENAMIENTO": ""
+    },
+    "camposPersonalizadosArray": {
+      "RAM": [
+        {
+          "Tipo": "16",
+          "Cantidad": "ds"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "23",
+          "Cantidad": "ded"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": "BUENO",
+    "codigo_acceso_remoto": "32432424243"
+  }
+}
+-----
+{
+  "time": "2025-12-29T03:47:35.890Z",
+  "route": "/api/empresas/:empresaId/sedes/:sedeId/inventario (sede)",
+  "params": {
+    "empresaId": "72",
+    "sedeId": "30"
+  },
+  "bodyPreview": {
+    "nombre": "PC dsds",
+    "categoria": "PC",
+    "fabricante": "Asus",
+    "modelo": "dsds",
+    "serie": "dssd",
+    "assetId": "",
+    "area": "Almacen",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2023-01-01",
+    "proveedor": "sdss",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2022",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "1 año",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "4",
+    "ip": "sdd",
+    "mac": "dsd",
+    "codigoAccesoRemoto": "32432424243",
+    "usuariosAsignados": [],
+    "observaciones": "dsd",
+    "empresaId": "72",
+    "sedeId": "30",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sucursal ate",
+    "empresa": "OBRASIN",
+    "sede": "Sucursal ate",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {
+      "Procesador": "i7 core",
+      "RAM": "",
+      "ALMACENAMIENTO": ""
+    },
+    "camposPersonalizadosArray": {
+      "RAM": [
+        {
+          "Tipo": "16",
+          "Cantidad": "ds"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "23",
+          "Cantidad": "ded"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": "BUENO",
+    "codigo_acceso_remoto": "32432424243"
+  },
+  "files": null,
+  "error": "error: llave duplicada viola restricción de unicidad «activos_codigo_reserved_codigo_key»\n    at C:\\Users\\Grecia\\Documents\\intisoft-backend\\node_modules\\pg\\lib\\client.js:545:17\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async Object.reserveNextCode (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\repositories\\activos_codigo.repository.ts:151:31)\n    at async Object.crearInventario (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\services\\inventario.service.ts:199:27)\n    at async createInventarioSede (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\controllers\\inventario.controller.ts:540:24)"
+}
+-----
+{
+  "time": "2025-12-29T03:47:39.408Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "PC dsds",
+    "categoria": "PC",
+    "fabricante": "Asus",
+    "modelo": "dsds",
+    "serie": "dssd",
+    "assetId": "",
+    "area": "Almacen",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2023-01-01",
+    "proveedor": "sdss",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2022",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "1 año",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "4",
+    "ip": "sdd",
+    "mac": "dsd",
+    "codigoAccesoRemoto": "32432424243",
+    "usuariosAsignados": [],
+    "observaciones": "dsd",
+    "empresaId": "72",
+    "sedeId": "30",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sucursal ate",
+    "empresa": "OBRASIN",
+    "sede": "Sucursal ate",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {
+      "Procesador": "i7 core",
+      "RAM": "",
+      "ALMACENAMIENTO": ""
+    },
+    "camposPersonalizadosArray": {
+      "RAM": [
+        {
+          "Tipo": "16",
+          "Cantidad": "ds"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "23",
+          "Cantidad": "ded"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": "BUENO",
+    "codigo_acceso_remoto": "32432424243"
+  }
+}
+-----
+{
+  "time": "2025-12-29T03:47:39.421Z",
+  "route": "/api/empresas/:empresaId/sedes/:sedeId/inventario (sede)",
+  "params": {
+    "empresaId": "72",
+    "sedeId": "30"
+  },
+  "bodyPreview": {
+    "nombre": "PC dsds",
+    "categoria": "PC",
+    "fabricante": "Asus",
+    "modelo": "dsds",
+    "serie": "dssd",
+    "assetId": "",
+    "area": "Almacen",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2023-01-01",
+    "proveedor": "sdss",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2022",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "1 año",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "4",
+    "ip": "sdd",
+    "mac": "dsd",
+    "codigoAccesoRemoto": "32432424243",
+    "usuariosAsignados": [],
+    "observaciones": "dsd",
+    "empresaId": "72",
+    "sedeId": "30",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sucursal ate",
+    "empresa": "OBRASIN",
+    "sede": "Sucursal ate",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {
+      "Procesador": "i7 core",
+      "RAM": "",
+      "ALMACENAMIENTO": ""
+    },
+    "camposPersonalizadosArray": {
+      "RAM": [
+        {
+          "Tipo": "16",
+          "Cantidad": "ds"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "23",
+          "Cantidad": "ded"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": "BUENO",
+    "codigo_acceso_remoto": "32432424243"
+  },
+  "files": null,
+  "error": "error: llave duplicada viola restricción de unicidad «activos_codigo_reserved_codigo_key»\n    at C:\\Users\\Grecia\\Documents\\intisoft-backend\\node_modules\\pg\\lib\\client.js:545:17\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async Object.reserveNextCode (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\repositories\\activos_codigo.repository.ts:151:31)\n    at async Object.crearInventario (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\services\\inventario.service.ts:199:27)\n    at async createInventarioSede (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\controllers\\inventario.controller.ts:540:24)"
+}
+-----
+{
+  "time": "2025-12-29T03:48:19.797Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "Laptop fds",
+    "categoria": "Laptop",
+    "fabricante": "HP",
+    "modelo": "fds",
+    "serie": "dsdsfsd",
+    "assetId": "",
+    "area": "Recursos Humanos",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2023-01-01",
+    "proveedor": "fdsfs",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2022",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "1 año",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "4",
+    "ip": "dfsd",
+    "mac": "dsds",
+    "codigoAccesoRemoto": "11232323234",
+    "usuariosAsignados": [],
+    "observaciones": "",
+    "empresaId": "72",
+    "sedeId": "30",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sucursal ate",
+    "empresa": "OBRASIN",
+    "sede": "Sucursal ate",
+    "lapCpu": "",
+    "lapCpuSerie": "",
+    "lapRams": [],
+    "lapStorages": [],
+    "lapGpuIntegrada": "",
+    "lapGpuDedicada": "",
+    "camposPersonalizados": {
+      "Procesador": "",
+      "ALMACENAMIENTO": "",
+      "RAM": ""
+    },
+    "camposPersonalizadosArray": {
+      "Procesador": [
+        {
+          "": "i7 12"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "ssd",
+          "Capacidad": "500"
+        }
+      ],
+      "RAM": [
+        {
+          "Tipo": "DRR4",
+          "Capacidad": "32"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": "BUENO",
+    "codigo_acceso_remoto": "11232323234"
+  }
+}
+-----
+{
+  "time": "2025-12-29T03:50:29.266Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "Laptop ddsd",
+    "categoria": "Laptop",
+    "fabricante": "Asus",
+    "modelo": "ddsd",
+    "serie": "dsds",
+    "assetId": "",
+    "area": "Recursos Humanos",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2026-01-01",
+    "proveedor": "dsdsf",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2025",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "1 año",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "1",
+    "ip": "ds",
+    "mac": "sdds",
+    "codigoAccesoRemoto": "11225588999",
+    "usuariosAsignados": [],
+    "observaciones": "",
+    "empresaId": "72",
+    "sedeId": "30",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sucursal ate",
+    "empresa": "OBRASIN",
+    "sede": "Sucursal ate",
+    "lapCpu": "",
+    "lapCpuSerie": "",
+    "lapRams": [],
+    "lapStorages": [],
+    "lapGpuIntegrada": "",
+    "lapGpuDedicada": "",
+    "camposPersonalizados": {
+      "Procesador": "",
+      "ALMACENAMIENTO": "",
+      "RAM": ""
+    },
+    "camposPersonalizadosArray": {
+      "Procesador": [
+        {
+          "": "i7 12"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "ssd",
+          "Capacidad": "500"
+        }
+      ],
+      "RAM": [
+        {
+          "Tipo": "DRR4",
+          "Capacidad": "32"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": "BUENO",
+    "codigo_acceso_remoto": "11225588999"
+  }
+}
+-----
+{
+  "time": "2025-12-29T03:50:29.281Z",
+  "route": "/api/empresas/:empresaId/sedes/:sedeId/inventario (sede)",
+  "params": {
+    "empresaId": "72",
+    "sedeId": "30"
+  },
+  "bodyPreview": {
+    "nombre": "Laptop ddsd",
+    "categoria": "Laptop",
+    "fabricante": "Asus",
+    "modelo": "ddsd",
+    "serie": "dsds",
+    "assetId": "",
+    "area": "Recursos Humanos",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2026-01-01",
+    "proveedor": "dsdsf",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2025",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "1 año",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "1",
+    "ip": "ds",
+    "mac": "sdds",
+    "codigoAccesoRemoto": "11225588999",
+    "usuariosAsignados": [],
+    "observaciones": "",
+    "empresaId": "72",
+    "sedeId": "30",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sucursal ate",
+    "empresa": "OBRASIN",
+    "sede": "Sucursal ate",
+    "lapCpu": "",
+    "lapCpuSerie": "",
+    "lapRams": [],
+    "lapStorages": [],
+    "lapGpuIntegrada": "",
+    "lapGpuDedicada": "",
+    "camposPersonalizados": {
+      "Procesador": "",
+      "ALMACENAMIENTO": "",
+      "RAM": ""
+    },
+    "camposPersonalizadosArray": {
+      "Procesador": [
+        {
+          "": "i7 12"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "ssd",
+          "Capacidad": "500"
+        }
+      ],
+      "RAM": [
+        {
+          "Tipo": "DRR4",
+          "Capacidad": "32"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": "BUENO",
+    "codigo_acceso_remoto": "11225588999"
+  },
+  "files": null,
+  "error": "error: llave duplicada viola restricción de unicidad «activos_codigo_reserved_codigo_key»\n    at C:\\Users\\Grecia\\Documents\\intisoft-backend\\node_modules\\pg\\lib\\client.js:545:17\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async Object.reserveNextCode (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\repositories\\activos_codigo.repository.ts:151:31)\n    at async Object.crearInventario (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\services\\inventario.service.ts:199:27)\n    at async createInventarioSede (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\controllers\\inventario.controller.ts:540:24)"
+}
+-----
+{
+  "time": "2025-12-29T04:00:26.412Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "Laptop ddsd",
+    "categoria": "Laptop",
+    "fabricante": "Asus",
+    "modelo": "ddsd",
+    "serie": "dsds",
+    "assetId": "",
+    "area": "Recursos Humanos",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2026-01-01",
+    "proveedor": "dsdsf",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2025",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "1 año",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "1",
+    "ip": "ds",
+    "mac": "sdds",
+    "codigoAccesoRemoto": "11225588999",
+    "usuariosAsignados": [],
+    "observaciones": "",
+    "empresaId": "72",
+    "sedeId": "30",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sucursal ate",
+    "empresa": "OBRASIN",
+    "sede": "Sucursal ate",
+    "lapCpu": "",
+    "lapCpuSerie": "",
+    "lapRams": [],
+    "lapStorages": [],
+    "lapGpuIntegrada": "",
+    "lapGpuDedicada": "",
+    "camposPersonalizados": {
+      "Procesador": "",
+      "ALMACENAMIENTO": "",
+      "RAM": ""
+    },
+    "camposPersonalizadosArray": {
+      "Procesador": [
+        {
+          "": "i7 12"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "ssd",
+          "Capacidad": "500"
+        }
+      ],
+      "RAM": [
+        {
+          "Tipo": "DRR4",
+          "Capacidad": "32"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": "BUENO",
+    "codigo_acceso_remoto": "11225588999"
+  }
+}
+-----
+{
+  "time": "2025-12-29T04:00:26.434Z",
+  "route": "/api/empresas/:empresaId/sedes/:sedeId/inventario (sede)",
+  "params": {
+    "empresaId": "72",
+    "sedeId": "30"
+  },
+  "bodyPreview": {
+    "nombre": "Laptop ddsd",
+    "categoria": "Laptop",
+    "fabricante": "Asus",
+    "modelo": "ddsd",
+    "serie": "dsds",
+    "assetId": "",
+    "area": "Recursos Humanos",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2026-01-01",
+    "proveedor": "dsdsf",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2025",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "1 año",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "1",
+    "ip": "ds",
+    "mac": "sdds",
+    "codigoAccesoRemoto": "11225588999",
+    "usuariosAsignados": [],
+    "observaciones": "",
+    "empresaId": "72",
+    "sedeId": "30",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sucursal ate",
+    "empresa": "OBRASIN",
+    "sede": "Sucursal ate",
+    "lapCpu": "",
+    "lapCpuSerie": "",
+    "lapRams": [],
+    "lapStorages": [],
+    "lapGpuIntegrada": "",
+    "lapGpuDedicada": "",
+    "camposPersonalizados": {
+      "Procesador": "",
+      "ALMACENAMIENTO": "",
+      "RAM": ""
+    },
+    "camposPersonalizadosArray": {
+      "Procesador": [
+        {
+          "": "i7 12"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "ssd",
+          "Capacidad": "500"
+        }
+      ],
+      "RAM": [
+        {
+          "Tipo": "DRR4",
+          "Capacidad": "32"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": "BUENO",
+    "codigo_acceso_remoto": "11225588999"
+  },
+  "files": null,
+  "error": "error: llave duplicada viola restricción de unicidad «activos_codigo_reserved_codigo_key»\n    at C:\\Users\\Grecia\\Documents\\intisoft-backend\\node_modules\\pg\\lib\\client.js:545:17\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async Object.reserveNextCode (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\repositories\\activos_codigo.repository.ts:151:31)\n    at async Object.crearInventario (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\services\\inventario.service.ts:199:27)\n    at async createInventarioSede (C:\\Users\\Grecia\\Documents\\intisoft-backend\\src\\modules\\empresas\\controllers\\inventario.controller.ts:540:24)"
+}
+-----
+{
+  "time": "2025-12-29T04:11:51.861Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "PC dsds",
+    "categoria": "PC",
+    "fabricante": "Compatible",
+    "modelo": "dsds",
+    "serie": "dssd",
+    "assetId": "",
+    "area": "Recursos Humanos",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "",
+    "proveedor": "sdss",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2022",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": null,
+    "antiguedadCalculada": "4",
+    "ip": "sdd",
+    "mac": "dsd",
+    "codigoAccesoRemoto": "32432424243",
+    "usuariosAsignados": [],
+    "observaciones": "",
+    "empresaId": "72",
+    "sedeId": "30",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sucursal ate",
+    "empresa": "OBRASIN",
+    "sede": "Sucursal ate",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {
+      "Procesador": "i7 core",
+      "RAM": "",
+      "ALMACENAMIENTO": ""
+    },
+    "camposPersonalizadosArray": {
+      "RAM": [
+        {
+          "Tipo": "16",
+          "Cantidad": "ds"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "14",
+          "Cantidad": "w"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": null,
+    "codigo_acceso_remoto": "32432424243"
+  }
+}
+-----
+{
+  "time": "2025-12-29T04:12:18.020Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "PC dsds",
+    "categoria": "PC",
+    "fabricante": "Compatible",
+    "modelo": "dsds",
+    "serie": "dssd",
+    "assetId": "",
+    "area": "Almacen",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "",
+    "proveedor": "sdss",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2022",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": null,
+    "antiguedadCalculada": "4",
+    "ip": "sdd",
+    "mac": "dsd",
+    "codigoAccesoRemoto": "32432424243",
+    "usuariosAsignados": [],
+    "observaciones": "",
+    "empresaId": "72",
+    "sedeId": "30",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sucursal ate",
+    "empresa": "OBRASIN",
+    "sede": "Sucursal ate",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {
+      "Procesador": "i7 core",
+      "RAM": "",
+      "ALMACENAMIENTO": ""
+    },
+    "camposPersonalizadosArray": {
+      "RAM": [
+        {
+          "Tipo": "16",
+          "Cantidad": "ds"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "14",
+          "Cantidad": "w"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": null,
+    "codigo_acceso_remoto": "32432424243"
+  }
+}
+-----
+{
+  "time": "2025-12-29T04:22:03.668Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "categoria": "PC",
+    "descripcion": "PC #1",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-29T04:22:03.727Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "categoria": "PC",
+    "descripcion": "PC #2",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-29T04:22:03.780Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "categoria": "PC",
+    "descripcion": "PC #3",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-29T04:22:06.843Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "categoria": "PC",
+    "descripcion": "PC #4",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-29T04:22:09.908Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "categoria": "PC",
+    "descripcion": "PC #5",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-29T04:23:27.062Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "categoria": "PC",
+    "descripcion": "Test PC",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-29T04:23:38.885Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "categoria": "PC",
+    "descripcion": "Test PC",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-29T04:26:57.687Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "PC dsds",
+    "categoria": "PC",
+    "fabricante": "Compatible",
+    "modelo": "dsds",
+    "serie": "dssd",
+    "assetId": "",
+    "area": "Recursos Humanos",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2023-01-01",
+    "proveedor": "sdss",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2022",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "1 año",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "4",
+    "ip": "sdd",
+    "mac": "dsd",
+    "codigoAccesoRemoto": "32432424243",
+    "usuariosAsignados": [],
+    "observaciones": "",
+    "empresaId": "72",
+    "sedeId": "30",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sucursal ate",
+    "empresa": "OBRASIN",
+    "sede": "Sucursal ate",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {
+      "Procesador": "i7 core",
+      "RAM": "",
+      "ALMACENAMIENTO": ""
+    },
+    "camposPersonalizadosArray": {
+      "RAM": [
+        {
+          "Tipo": "16",
+          "Cantidad": "ds"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "14",
+          "Cantidad": "w"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": "BUENO",
+    "codigo_acceso_remoto": "32432424243"
+  }
+}
+-----
+{
+  "time": "2025-12-29T04:37:46.776Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "categoria": "PC",
+    "descripcion": "Test PC",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-29T04:37:56.961Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "categoria": "PC",
+    "descripcion": "Test PC",
+    "modelo": "Test",
+    "marca": "Test",
+    "condicionActual": "nuevo",
+    "garantia": false,
+    "condicion_fisica": null,
+    "condicionFisica": null
+  }
+}
+-----
+{
+  "time": "2025-12-29T04:40:31.301Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "PC dsds",
+    "categoria": "PC",
+    "fabricante": "Compatible",
+    "modelo": "dsds",
+    "serie": "dssd",
+    "assetId": "",
+    "area": "Almacen",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2024-01-01",
+    "proveedor": "sdss",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2022",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "2 años",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "4",
+    "ip": "sdd",
+    "mac": "dsd",
+    "codigoAccesoRemoto": "32432424243",
+    "usuariosAsignados": [],
+    "observaciones": "",
+    "empresaId": "72",
+    "sedeId": "30",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sucursal ate",
+    "empresa": "OBRASIN",
+    "sede": "Sucursal ate",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {
+      "Procesador": "i7 core",
+      "RAM": "",
+      "ALMACENAMIENTO": ""
+    },
+    "camposPersonalizadosArray": {
+      "RAM": [
+        {
+          "Tipo": "16",
+          "Cantidad": "ds"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "14",
+          "Cantidad": "w"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": "BUENO",
+    "codigo_acceso_remoto": "32432424243"
+  }
+}
+-----
+{
+  "time": "2025-12-29T04:40:54.048Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "Laptop ssc",
+    "categoria": "Laptop",
+    "fabricante": "Asus",
+    "modelo": "ssc",
+    "serie": "fdvdfvf",
+    "assetId": "",
+    "area": "Almacen",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2026-01-01",
+    "proveedor": "ss",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2025",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "1 año",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "1",
+    "ip": "sdd",
+    "mac": "dsd",
+    "codigoAccesoRemoto": "3243242424",
+    "usuariosAsignados": [],
+    "observaciones": "",
+    "empresaId": "72",
+    "sedeId": "30",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sucursal ate",
+    "empresa": "OBRASIN",
+    "sede": "Sucursal ate",
+    "lapCpu": "",
+    "lapCpuSerie": "",
+    "lapRams": [],
+    "lapStorages": [],
+    "lapGpuIntegrada": "",
+    "lapGpuDedicada": "",
+    "camposPersonalizados": {
+      "Procesador": "",
+      "ALMACENAMIENTO": "",
+      "RAM": ""
+    },
+    "camposPersonalizadosArray": {
+      "Procesador": [
+        {
+          "": "i7 12"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "ssd",
+          "Capacidad": "500"
+        }
+      ],
+      "RAM": [
+        {
+          "Tipo": "DRR4",
+          "Capacidad": "32"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": "BUENO",
+    "codigo_acceso_remoto": "3243242424"
+  }
+}
+-----
+{
+  "time": "2025-12-29T04:41:24.830Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "Laptop ssc",
+    "categoria": "Laptop",
+    "fabricante": "Asus",
+    "modelo": "ssc",
+    "serie": "fdvdfvf",
+    "assetId": "",
+    "area": "Almacen",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2025-07-01",
+    "proveedor": "ss",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2025",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "6 meses",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "1",
+    "ip": "sdd",
+    "mac": "dsd",
+    "codigoAccesoRemoto": "3243242424",
+    "usuariosAsignados": [],
+    "observaciones": "",
+    "empresaId": "72",
+    "sedeId": "30",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sucursal ate",
+    "empresa": "OBRASIN",
+    "sede": "Sucursal ate",
+    "lapCpu": "",
+    "lapCpuSerie": "",
+    "lapRams": [],
+    "lapStorages": [],
+    "lapGpuIntegrada": "",
+    "lapGpuDedicada": "",
+    "camposPersonalizados": {
+      "Procesador": "",
+      "ALMACENAMIENTO": "",
+      "RAM": ""
+    },
+    "camposPersonalizadosArray": {
+      "Procesador": [
+        {
+          "": "i7 12"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "ssd",
+          "Capacidad": "500"
+        }
+      ],
+      "RAM": [
+        {
+          "Tipo": "DRR4",
+          "Capacidad": "32"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": "BUENO",
+    "codigo_acceso_remoto": "3243242424"
+  }
+}
+-----
+{
+  "time": "2025-12-29T04:42:37.175Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "Laptop ssc",
+    "categoria": "Laptop",
+    "fabricante": "HP",
+    "modelo": "ssc",
+    "serie": "fdvdfvf",
+    "assetId": "",
+    "area": "Almacen",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2023-01-01",
+    "proveedor": "ss",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2022",
+    "fechaCompraUnknown": true,
+    "purchaseDocumentDescription": "",
+    "garantia": "1 año",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "4",
+    "ip": "sdd",
+    "mac": "dsd",
+    "codigoAccesoRemoto": "3243242424",
+    "usuariosAsignados": [],
+    "observaciones": "",
+    "empresaId": "72",
+    "sedeId": "32",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sede Lima",
+    "empresa": "OBRASIN",
+    "sede": "Sede Lima",
+    "lapCpu": "",
+    "lapCpuSerie": "",
+    "lapRams": [],
+    "lapStorages": [],
+    "lapGpuIntegrada": "",
+    "lapGpuDedicada": "",
+    "camposPersonalizados": {
+      "Procesador": "",
+      "ALMACENAMIENTO": "",
+      "RAM": ""
+    },
+    "camposPersonalizadosArray": {
+      "Procesador": [
+        {
+          "": "i7 12s"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "ssd",
+          "Capacidad": "500"
+        }
+      ],
+      "RAM": [
+        {
+          "Tipo": "DRR4",
+          "Capacidad": "32"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": "BUENO",
+    "codigo_acceso_remoto": "3243242424"
+  }
+}
+-----

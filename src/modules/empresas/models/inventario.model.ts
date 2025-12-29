@@ -72,6 +72,7 @@ export interface Inventario {
   antiguedadMeses?: number | null;
   antiguedadText?: string | null;
   etiquetaToken?: string | null;
+  codigoAccesoRemoto?: string | null;
   creadoEn?: Date;
   actualizadoEn?: Date;
 }
