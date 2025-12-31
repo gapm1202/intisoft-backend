@@ -72,6 +72,9 @@ app.use((req, res, next) => {
 // Serve uploaded files from /uploads
 app.use('/uploads', express.static(path.resolve(process.cwd(), 'uploads')));
 
+// Serve public assets (logo, images, etc) from /public
+app.use(express.static(path.resolve(process.cwd(), 'public')));
+
 app.use("/api/auth", authRoutes);
 app.use("/api/categorias", categoriasRoutes);
 app.use("/api/empresas", empresaRoutes);

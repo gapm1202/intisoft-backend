@@ -206,6 +206,224 @@ export class SLAController {
       res.status(400).json({ error: error.message });
     }
   }
+
+  /**
+   * GET /api/sla/schema/:seccion
+   * Obtener la estructura/esquema esperado para una sección específica
+   * Útil para el frontend para saber qué datos enviar
+   */
+  async getSchema(req: Request, res: Response): Promise<void> {
+    try {
+      const { seccion } = req.params;
+
+      const schemas: Record<string, any> = {
+        incidentes: {
+          descripcion: 'Gestión de Incidentes - Categorización y priorización',
+          estructura: {
+            categoriaITIL: {
+              tipo: 'string',
+              obligatorio: false,
+              valores: ['usuario', 'infraestructura', 'aplicacion', 'seguridad'],
+              descripcion: 'Categoría ITIL del incidente'
+            },
+            impacto: {
+              tipo: 'string',
+              obligatorio: true,
+              valores: ['alto', 'medio', 'bajo'],
+              valorPorDefecto: 'medio',
+              descripcion: 'Nivel de impacto del incidente'
+            },
+            urgencia: {
+              tipo: 'string',
+              obligatorio: true,
+              valores: ['alta', 'media', 'baja'],
+              valorPorDefecto: 'media',
+              descripcion: 'Nivel de urgencia del incidente'
+            },
+            prioridadCalculada: {
+              tipo: 'string',
+              obligatorio: false,
+              valores: ['Alta', 'Media', 'Baja'],
+              valorPorDefecto: 'Media',
+              descripcion: 'Prioridad calculada basada en impacto y urgencia'
+            }
+          },
+          ejemploMinimo: {
+            impacto: 'medio',
+            urgencia: 'media'
+          },
+          ejemploCompleto: {
+            categoriaITIL: 'infraestructura',
+            impacto: 'alto',
+            urgencia: 'alta',
+            prioridadCalculada: 'Alta'
+          }
+        },
+        alcance: {
+          descripcion: 'Alcance del SLA - Define qué cubre el acuerdo',
+          estructura: {
+            slaActivo: { tipo: 'boolean', obligatorio: false, valorPorDefecto: false },
+            aplicaA: { tipo: 'string', obligatorio: false, valores: ['incidentes'], valorPorDefecto: 'incidentes' },
+            tipoServicioCubierto: { tipo: 'string', obligatorio: false, valorPorDefecto: 'incidente' }
+          }
+        },
+        tiempos: {
+          descripcion: 'Tiempos de respuesta y resolución por prioridad',
+          estructura: {
+            medicionSLA: { tipo: 'string', obligatorio: false, valores: ['horasHabiles', 'horasCalendario'] },
+            tiemposPorPrioridad: { tipo: 'array', obligatorio: true, descripcion: 'Lista de tiempos por prioridad' }
+          }
+        }
+      };
+
+      if (!seccion) {
+        // Retornar lista de secciones disponibles
+        res.json({
+          secciones: Object.keys(schemas),
+          mensaje: 'Use GET /api/sla/schema/:seccion para obtener el esquema de una sección específica'
+        });
+        return;
+      }
+
+      const schema = schemas[seccion];
+      if (!schema) {
+        res.status(404).json({
+          error: `Sección '${seccion}' no encontrada`,
+          seccionesDisponibles: Object.keys(schemas)
+        });
+        return;
+      }
+
+      res.json(schema);
+    } catch (error: any) {
+      console.error('Error en getSchema:', error);
+      res.status(500).json({ error: error.message });
+    }
+  }
+
+  /**
+   * GET /api/sla/defaults/:seccion
+   * Obtener valores por defecto para una sección específica
+   * Útil para inicializar formularios en el frontend
+   */
+  async getDefaults(req: Request, res: Response): Promise<void> {
+    try {
+      const { seccion } = req.params;
+
+      // Valores por defecto exactos del backend
+      const defaults: Record<string, any> = {
+        incidentes: {
+          impacto: 'medio',
+          urgencia: 'media',
+          prioridadCalculada: 'Media'
+        },
+        alcance: {
+          slaActivo: false,
+          aplicaA: 'incidentes',
+          tipoServicioCubierto: 'incidente',
+          serviciosCubiertos: {
+            soporteRemoto: false,
+            soportePresencial: false,
+            atencionEnSede: false
+          },
+          activosCubiertos: {
+            tipo: 'todos',
+            categorias: [],
+            categoriasPersonalizadas: []
+          },
+          sedesCubiertas: {
+            tipo: 'todas',
+            sedes: []
+          },
+          observaciones: ''
+        },
+        tiempos: {
+          medicionSLA: 'horasHabiles',
+          tiemposPorPrioridad: []
+        },
+        horarios: {
+          dias: {
+            Lunes: { atiende: true, horaInicio: '08:00', horaFin: '18:00' },
+            Martes: { atiende: true, horaInicio: '08:00', horaFin: '18:00' },
+            Miercoles: { atiende: true, horaInicio: '08:00', horaFin: '18:00' },
+            Jueves: { atiende: true, horaInicio: '08:00', horaFin: '18:00' },
+            Viernes: { atiende: true, horaInicio: '08:00', horaFin: '18:00' },
+            Sabado: { atiende: false, horaInicio: '08:00', horaFin: '18:00' },
+            Domingo: { atiende: false, horaInicio: '08:00', horaFin: '18:00' }
+          },
+          excluirFeriados: true,
+          calendarioFeriados: ['1 de Enero - Año Nuevo'],
+          atencionFueraHorario: false,
+          aplicaSLAFueraHorario: false
+        },
+        requisitos: {
+          obligacionesCliente: {
+            autorizarIntervencion: false,
+            accesoEquipo: false,
+            infoClara: false
+          },
+          condicionesTecnicas: {
+            equipoEncendido: false,
+            conectividadActiva: false,
+            accesoRemoto: false
+          },
+          responsabilidadesProveedor: {
+            tecnicoAsignado: false,
+            registroAtencion: false,
+            informeTecnico: false
+          }
+        },
+        exclusiones: {
+          flags: {
+            pendienteRespuestaCliente: false,
+            esperandoRepuestos: false,
+            esperandoProveedorExterno: false,
+            fueraDeAlcance: false,
+            fuerzaMayor: false
+          }
+        },
+        alertas: {
+          umbrales: [50, 75, 90],
+          notificarA: {
+            tecnicoAsignado: true,
+            supervisor: true
+          },
+          accionAutomatica: 'notificar',
+          estadosVisibles: ['🟢 Cumpliendo', '🟡 En riesgo', '🔴 Incumplido']
+        }
+      };
+
+      if (!seccion) {
+        res.json({
+          secciones: Object.keys(defaults),
+          mensaje: 'Use GET /api/sla/defaults/:seccion para obtener valores por defecto de una sección'
+        });
+        return;
+      }
+
+      const defaultValue = defaults[seccion];
+      if (!defaultValue) {
+        res.status(404).json({
+          error: `Sección '${seccion}' no encontrada`,
+          seccionesDisponibles: Object.keys(defaults)
+        });
+        return;
+      }
+
+      res.json({
+        seccion,
+        defaults: defaultValue,
+        ejemplo: {
+          seccion,
+          data: defaultValue,
+          motivo: 'Ejemplo de payload para guardar'
+        }
+      });
+    } catch (error: any) {
+      console.error('Error en getDefaults:', error);
+      res.status(500).json({ error: error.message });
+    }
+  }
 }
 
 export default new SLAController();

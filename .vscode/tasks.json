@@ -8,6 +8,13 @@
 			"isBackground": false,
 			"problemMatcher": [],
 			"group": "build"
+		},
+		{
+			"label": "Run Backend Server",
+			"type": "shell",
+			"command": "npx ts-node src/server/index.ts",
+			"isBackground": true,
+			"problemMatcher": []
 		}
 	]
 }

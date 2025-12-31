@@ -21,13 +21,7 @@ export interface SLAAlcance {
 }
 
 export interface SLAGestionIncidentes {
-  tipos: {
-    hardware: boolean;
-    software: boolean;
-    red: boolean;
-    accesos: boolean;
-    otros: boolean;
-  };
+  tipos?: any; // Obsoleto - se acepta pero no se valida (puede ser array vacío, objeto vacío, o undefined)
   categoriaITIL?: string; // 'usuario' | 'infraestructura' | 'aplicacion' | 'seguridad'
   impacto: string; // 'alto' | 'medio' | 'bajo'
   urgencia: string; // 'alta' | 'media' | 'baja'
@@ -167,14 +161,6 @@ export const DEFAULT_SLA_VALUES = {
     observaciones: '',
   },
   gestionIncidentes: {
-    tipos: {
-      hardware: false,
-      software: false,
-      red: false,
-      accesos: false,
-      otros: false,
-    },
-    categoriaITIL: undefined,
     impacto: 'medio',
     urgencia: 'media',
     prioridadCalculada: 'Media',

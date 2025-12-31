@@ -222,9 +222,23 @@ export class SLAService {
         break;
 
       case 'incidentes':
-        if (!data.tipos || typeof data.tipos !== 'object') {
-          throw new Error('tipos debe ser un objeto');
+        // Validar impacto (requerido)
+        if (data.impacto && !['alto', 'medio', 'bajo'].includes(data.impacto)) {
+          throw new Error('impacto debe ser: alto, medio o bajo');
         }
+        // Validar urgencia (requerido)
+        if (data.urgencia && !['alta', 'media', 'baja'].includes(data.urgencia)) {
+          throw new Error('urgencia debe ser: alta, media o baja');
+        }
+        // Validar prioridad calculada (opcional)
+        if (data.prioridadCalculada && !['Alta', 'Media', 'Baja'].includes(data.prioridadCalculada)) {
+          throw new Error('prioridadCalculada debe ser: Alta, Media o Baja');
+        }
+        // Validar categoriaITIL (opcional)
+        if (data.categoriaITIL && !['usuario', 'infraestructura', 'aplicacion', 'seguridad'].includes(data.categoriaITIL)) {
+          throw new Error('categoriaITIL debe ser uno de: usuario, infraestructura, aplicacion, seguridad');
+        }
+        // Campo tipos es opcional y se acepta como array vacío, objeto vacío, o undefined
         break;
 
       case 'tiempos':

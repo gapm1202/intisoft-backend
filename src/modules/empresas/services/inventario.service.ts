@@ -234,15 +234,7 @@ export const crearInventario = async (inv: Inventario): Promise<Inventario> => {
   const created = await repo.createInventario(inv as any);
   console.log('crearInventario - creado en BD id=', (created as any).id, 'assetId=', (created as any).assetId);
   
-  // Confirm the reservation if one exists
-  if (reservationIdToConfirm && (created as any).id) {
-    try {
-      await codigoRepo.confirmReservation(reservationIdToConfirm, (created as any).id);
-      console.log(`✅ Reserva confirmada: reservation_id=${reservationIdToConfirm}, activo_id=${(created as any).id}`);
-    } catch (e) {
-      console.warn('⚠️ Error confirmando reserva (no es crítico):', e);
-    }
-  }
+  // Ya no hay tabla de reservas, no se necesita confirmar
   
   return created as Inventario;
 };

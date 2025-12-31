@@ -52,11 +52,7 @@ export const assignCodeToActivo = async (
   categoriaId: number,
   reservationId?: number
 ): Promise<{ code: string; activo_id: number }> => {
-  if (reservationId) {
-    // Confirm the reservation
-    await repo.confirmReservation(reservationId, activoId);
-  }
-
+  // Ya no hay tabla de reservas, simplemente retornar el código
   return {
     code: assetCode,
     activo_id: activoId
@@ -66,55 +62,25 @@ export const assignCodeToActivo = async (
 /**
  * Validate if a code was properly reserved (for security)
  * Used to ensure code collision prevention
+ * NOTA: Sin tabla de reservas, siempre retorna válido
  */
 export const isCodeValidForCreation = async (
   codigo: string,
   empresaId: number,
   reservationId?: number
 ): Promise<{ valid: boolean; reason?: string }> => {
-  const reservation = await repo.getReservation(codigo);
-
-  if (!reservation) {
-    return {
-      valid: false,
-      reason: "Código no está reservado. Use el endpoint /next-code primero."
-    };
-  }
-
-  if (reservation.empresa_id !== empresaId) {
-    return {
-      valid: false,
-      reason: "Código reservado para una empresa diferente."
-    };
-  }
-
-  if (new Date(reservation.expires_at) < new Date()) {
-    return {
-      valid: false,
-      reason: "La reserva de código ha expirado. Solicite uno nuevo."
-    };
-  }
-
-  if (reservation.confirmed) {
-    return {
-      valid: false,
-      reason: "Este código ya ha sido utilizado."
-    };
-  }
-
-  if (reservationId && reservation.id !== reservationId) {
-    return {
-      valid: false,
-      reason: "El ID de reserva no coincide con el código proporcionado."
-    };
-  }
-
-  return { valid: true };
+  // Sin tabla de reservas, el código se genera en el momento
+  // y siempre es válido
+  return {
+    valid: true
+  };
 };
 
 /**
  * Clean up expired code reservations (call periodically, e.g., via cron)
+ * NOTA: Sin tabla de reservas, esta función ya no hace nada
  */
 export const cleanupExpiredCodes = async (): Promise<number> => {
-  return repo.cleanupExpiredReservations();
+  return 0; // No hay reservas que limpiar
 };
+

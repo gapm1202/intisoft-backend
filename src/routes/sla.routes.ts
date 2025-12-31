@@ -25,4 +25,12 @@ router.get('/historial/:empresaId', authenticate, slaController.getHistorial);
 // Eliminar configuración SLA (soft delete)
 router.delete('/configuracion/:empresaId', authenticate, slaController.deleteConfiguracion);
 
+// Obtener esquema/estructura de una sección (útil para el frontend)
+router.get('/schema', slaController.getSchema);
+router.get('/schema/:seccion', slaController.getSchema);
+
+// Obtener valores por defecto de una sección (útil para inicializar formularios)
+router.get('/defaults', slaController.getDefaults);
+router.get('/defaults/:seccion', slaController.getDefaults);
+
 export default router;

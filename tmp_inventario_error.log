@@ -4139,3 +4139,75 @@
   }
 }
 -----
+{
+  "time": "2025-12-29T18:04:50.670Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "Laptop Compatible",
+    "categoria": "Laptop",
+    "fabricante": "Asus",
+    "modelo": "Compatible",
+    "serie": "6555454",
+    "assetId": "",
+    "area": "Almacen",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "",
+    "proveedor": "dsdsd",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2025",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": null,
+    "antiguedadCalculada": "1",
+    "ip": "sdd",
+    "mac": "dsd",
+    "codigoAccesoRemoto": "3243242424 ",
+    "usuariosAsignados": [],
+    "observaciones": "",
+    "empresaId": "72",
+    "sedeId": "30",
+    "empresaNombre": "OBRASIN",
+    "sedeNombre": "Sucursal ate",
+    "empresa": "OBRASIN",
+    "sede": "Sucursal ate",
+    "lapCpu": "",
+    "lapCpuSerie": "",
+    "lapRams": [],
+    "lapStorages": [],
+    "lapGpuIntegrada": "",
+    "lapGpuDedicada": "",
+    "camposPersonalizados": {
+      "Procesador": "",
+      "ALMACENAMIENTO": "",
+      "RAM": ""
+    },
+    "camposPersonalizadosArray": {
+      "Procesador": [
+        {
+          "": "i7 12"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "DRR4",
+          "Capacidad": "32"
+        }
+      ],
+      "RAM": [
+        {
+          "Tipo": "DRR4",
+          "Capacidad": "32"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": null,
+    "codigo_acceso_remoto": "3243242424 "
+  }
+}
+-----
