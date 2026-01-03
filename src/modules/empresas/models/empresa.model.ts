@@ -30,7 +30,6 @@ export interface Empresa {
   provincia?: string;
   tipoEmpresa?: string; // sector empresarial
   paginaWeb?: string;
-  estadoContrato?: 'Activo' | 'Suspendido' | 'No renovado';
   contactosAdmin?: ContactoAdmin[];
   contactosTecnicos?: ContactoTecnico[];
   observacionesGenerales?: string;

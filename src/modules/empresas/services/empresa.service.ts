@@ -1,5 +1,6 @@
 import * as repo from "../repositories/empresa.repository";
 import * as sedeService from "./sede.service";
+import * as contractRepo from "../repositories/contract.repository";
 import { Empresa } from "../models/empresa.model";
 import { pool } from "../../../config/db";
 
@@ -10,6 +11,7 @@ export const listEmpresas = async (): Promise<Empresa[]> => {
 export const getEmpresa = async (id: number): Promise<Empresa | null> => {
   const empresa = await repo.getById(id);
   if (!empresa) return null;
+  
   // attach sedes
   try {
     const sedes = await sedeService.listSedes(id);
@@ -18,6 +20,21 @@ export const getEmpresa = async (id: number): Promise<Empresa | null> => {
     // ignore sedes errors to not break empresa retrieval
     console.error('Could not load sedes for empresa', id, err);
   }
+  
+  // attach contrato activo (incluye estado_contrato)
+  try {
+    const contratoActivoId = await contractRepo.getActiveByEmpresa(id);
+    if (contratoActivoId) {
+      const contrato = await contractRepo.getByIdWithDetails(contratoActivoId);
+      (empresa as any).contrato = contrato;
+    } else {
+      (empresa as any).contrato = null;
+    }
+  } catch (err) {
+    console.error('Could not load contrato for empresa', id, err);
+    (empresa as any).contrato = null;
+  }
+  
   return empresa;
 };
 

@@ -20,14 +20,6 @@ export interface SLAAlcance {
   observaciones?: string;
 }
 
-export interface SLAGestionIncidentes {
-  tipos?: any; // Obsoleto - se acepta pero no se valida (puede ser array vacío, objeto vacío, o undefined)
-  categoriaITIL?: string; // 'usuario' | 'infraestructura' | 'aplicacion' | 'seguridad'
-  impacto: string; // 'alto' | 'medio' | 'bajo'
-  urgencia: string; // 'alta' | 'media' | 'baja'
-  prioridadCalculada: string; // 'Alta' | 'Media' | 'Baja'
-}
-
 export interface SLATiempoPrioridad {
   prioridad: string; // 'critica' | 'alta' | 'media' | 'baja'
   tiempoRespuesta: string;
@@ -106,7 +98,6 @@ export interface SLAConfiguracion {
   id: number;
   empresaId: number;
   alcance: SLAAlcance;
-  gestionIncidentes: SLAGestionIncidentes;
   tiempos: SLATiempos;
   horarios: SLAHorarios;
   requisitos: SLARequisitos;
@@ -159,11 +150,6 @@ export const DEFAULT_SLA_VALUES = {
       sedes: [],
     },
     observaciones: '',
-  },
-  gestionIncidentes: {
-    impacto: 'medio',
-    urgencia: 'media',
-    prioridadCalculada: 'Media',
   },
   tiempos: {
     medicionSLA: 'horasHabiles',

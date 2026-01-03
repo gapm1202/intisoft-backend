@@ -12,8 +12,4 @@ router.get('/subcategorias', authenticate, controller.listSubcategorias.bind(con
 router.post('/subcategorias', authenticate, controller.createSubcategoria.bind(controller));
 router.put('/subcategorias/:id', authenticate, controller.updateSubcategoria.bind(controller));
 
-router.get('/tipos', authenticate, controller.listTipos.bind(controller));
-router.post('/tipos', authenticate, controller.createTipo.bind(controller));
-router.delete('/tipos/:tipo', authenticate, controller.deleteTipo.bind(controller));
-
 export default router;

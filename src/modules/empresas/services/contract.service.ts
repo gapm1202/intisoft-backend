@@ -58,25 +58,47 @@ export const getActiveContract = async (empresaId: number): Promise<ContractWith
 };
 
 export const createContract = async (input: ContractCreateInput): Promise<ContractWithDetails> => {
-  // Calcular estado automáticamente según la fecha de fin
+  // Calcular estado automáticamente según las fechas del contrato
   let estado: ContractEstado | undefined = undefined;
   const hoy = new Date();
+  hoy.setHours(0, 0, 0, 0); // Normalizar a medianoche para comparación de fechas
+  
+  // Si se especifica manualmente como suspendido, respetarlo
   if (input.estadoContrato === 'suspendido') {
     estado = 'suspendido';
   } else if (input.fechaFin) {
     const fechaFin = new Date(input.fechaFin);
+    fechaFin.setHours(0, 0, 0, 0);
+    
     if (isNaN(fechaFin.getTime())) {
       throw new Error('fechaFin inválida');
     }
     if (input.fechaInicio && new Date(input.fechaFin) < new Date(input.fechaInicio)) {
       throw new Error('fechaFin debe ser mayor o igual a fechaInicio');
     }
-    if (fechaFin >= hoy) {
-      estado = 'activo';
-    } else {
+    
+    // Lógica de cálculo según especificación:
+    // - Si fechaFin < hoy → "VENCIDO"
+    // - Si fechaInicio <= hoy <= fechaFin → "ACTIVO"
+    if (fechaFin < hoy) {
       estado = 'vencido';
+    } else if (input.fechaInicio) {
+      const fechaInicio = new Date(input.fechaInicio);
+      fechaInicio.setHours(0, 0, 0, 0);
+      
+      if (fechaInicio <= hoy && hoy <= fechaFin) {
+        estado = 'activo';
+      } else if (fechaInicio > hoy) {
+        // Contrato futuro - podría considerarse pendiente, pero por ahora lo dejamos sin estado
+        // o se podría establecer como 'activo' si el frontend lo requiere
+        estado = 'activo'; // Se activa desde que se crea
+      }
+    } else {
+      // Solo hay fechaFin, asumir activo si no ha vencido
+      estado = 'activo';
     }
   }
+  
   // Si no hay estado calculado, no incluir estadoContrato en el inputFinal
   const inputFinal = estado ? { ...input, estadoContrato: estado } : { ...input };
   // Ya no se exige horasMensualesIncluidas al crear contrato tipo bolsa_horas

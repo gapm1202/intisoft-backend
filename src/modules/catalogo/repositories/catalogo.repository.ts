@@ -10,7 +10,6 @@ interface ListCategoriaOptions {
   forTickets?: boolean;
   includeInactivas?: boolean;
   estado?: 'activos' | 'inactivos' | 'todos';
-  tipo?: string;
   limit?: number;
   offset?: number;
 }
@@ -20,7 +19,6 @@ interface ListSubcategoriaOptions {
   forTickets?: boolean;
   includeInactivas?: boolean;
   estado?: 'activos' | 'inactivos' | 'todos';
-  tipo?: string;
   limit?: number;
   offset?: number;
 }
@@ -35,7 +33,6 @@ export class CatalogoRepository {
       codigo: row.codigo,
       nombre: row.nombre,
       descripcion: row.descripcion,
-      tipoTicket: row.tipo_ticket,
       activo: row.activo,
       visibleEnTickets: row.visible_en_tickets,
       createdAt: row.created_at,
@@ -44,28 +41,21 @@ export class CatalogoRepository {
   }
 
   private mapSubcategoria(row: any): CatalogoSubcategoria {
-    const tipoCategoria = row.categoria_tipo_ticket ?? null;
-    const heredaTipo = row.hereda_tipo;
-    const tipoPropio = row.tipo_ticket ?? null;
-
     return {
       id: row.id,
       categoriaId: row.categoria_id,
       codigo: row.codigo,
       nombre: row.nombre,
       descripcion: row.descripcion,
-      tipoTicket: tipoPropio,
-      heredaTipo,
       requiereValidacion: row.requiere_validacion,
       activo: row.activo,
       createdAt: row.created_at,
       updatedAt: row.updated_at,
-      tipoTicketEfectivo: heredaTipo ? tipoCategoria : tipoPropio,
     };
   }
 
   async listCategorias(options: ListCategoriaOptions = {}): Promise<CatalogoCategoria[]> {
-    const { forTickets = false, includeInactivas = false, estado, tipo, limit, offset } = options;
+    const { forTickets = false, includeInactivas = false, estado, limit, offset } = options;
 
     if (!(await this.tableExists('catalogo_categorias'))) {
       return [];
@@ -83,11 +73,6 @@ export class CatalogoRepository {
     if (estado === 'activos') where.push('c.activo = TRUE');
     if (estado === 'inactivos') where.push('c.activo = FALSE');
 
-    if (tipo) {
-      params.push(tipo);
-      where.push(`c.tipo_ticket = $${params.length}`);
-    }
-
     let sql = `
       SELECT c.*
       FROM catalogo_categorias c
@@ -96,7 +81,7 @@ export class CatalogoRepository {
     `;
 
     if (limit && Number.isFinite(limit) && limit > 0) {
-      sql += ` LIMIT ${Math.min(limit, 500)}`; // hard cap
+      sql += ` LIMIT ${Math.min(limit, 500)}`;
       if (offset && Number.isFinite(offset) && offset >= 0) {
         sql += ` OFFSET ${offset}`;
       }
@@ -113,10 +98,10 @@ export class CatalogoRepository {
 
   async createCategoria(data: CategoriaInput): Promise<CatalogoCategoria> {
     const result = await pool.query(
-      `INSERT INTO catalogo_categorias (codigo, nombre, descripcion, tipo_ticket, activo, visible_en_tickets)
-       VALUES ($1, $2, $3, $4, COALESCE($5, TRUE), COALESCE($6, TRUE))
+      `INSERT INTO catalogo_categorias (codigo, nombre, descripcion, activo, visible_en_tickets)
+       VALUES ($1, $2, $3, COALESCE($4, TRUE), COALESCE($5, TRUE))
        RETURNING *`,
-      [data.codigo, data.nombre, data.descripcion ?? null, data.tipoTicket ?? null, data.activo, data.visibleEnTickets]
+      [data.codigo, data.nombre, data.descripcion ?? null, data.activo, data.visibleEnTickets]
     );
 
     return this.mapCategoria(result.rows[0]);
@@ -137,10 +122,6 @@ export class CatalogoRepository {
     if (data.descripcion !== undefined) {
       params.push(data.descripcion);
       sets.push(`descripcion = $${params.length}`);
-    }
-    if (data.tipoTicket !== undefined) {
-      params.push(data.tipoTicket);
-      sets.push(`tipo_ticket = $${params.length}`);
     }
     if (data.activo !== undefined) {
       params.push(data.activo);
@@ -172,7 +153,7 @@ export class CatalogoRepository {
   }
 
   async listSubcategorias(options: ListSubcategoriaOptions = {}): Promise<CatalogoSubcategoria[]> {
-    const { categoriaId, forTickets = false, includeInactivas = false, estado, tipo, limit, offset } = options;
+    const { categoriaId, forTickets = false, includeInactivas = false, estado, limit, offset } = options;
     if (!(await this.tableExists('catalogo_subcategorias')) || !(await this.tableExists('catalogo_categorias'))) {
       return [];
     }
@@ -194,13 +175,8 @@ export class CatalogoRepository {
     if (estado === 'activos') where.push('s.activo = TRUE');
     if (estado === 'inactivos') where.push('s.activo = FALSE');
 
-    if (tipo) {
-      params.push(tipo);
-      where.push(`COALESCE(s.tipo_ticket, c.tipo_ticket) = $${params.length}`);
-    }
-
     let sql = `
-      SELECT s.*, c.tipo_ticket AS categoria_tipo_ticket
+      SELECT s.*
       FROM catalogo_subcategorias s
       JOIN catalogo_categorias c ON c.id = s.categoria_id
       ${where.length ? 'WHERE ' + where.join(' AND ') : ''}
@@ -220,7 +196,7 @@ export class CatalogoRepository {
 
   async findSubcategoriaById(id: number): Promise<CatalogoSubcategoria | null> {
     const result = await pool.query(
-      `SELECT s.*, c.tipo_ticket AS categoria_tipo_ticket
+      `SELECT s.*
        FROM catalogo_subcategorias s
        JOIN catalogo_categorias c ON c.id = s.categoria_id
        WHERE s.id = $1`,
@@ -232,16 +208,14 @@ export class CatalogoRepository {
 
   async createSubcategoria(data: SubcategoriaInput): Promise<CatalogoSubcategoria> {
     const result = await pool.query(
-      `INSERT INTO catalogo_subcategorias (categoria_id, codigo, nombre, descripcion, tipo_ticket, hereda_tipo, requiere_validacion, activo)
-       VALUES ($1, $2, $3, $4, $5, COALESCE($6, TRUE), COALESCE($7, FALSE), COALESCE($8, TRUE))
+      `INSERT INTO catalogo_subcategorias (categoria_id, codigo, nombre, descripcion, requiere_validacion, activo)
+       VALUES ($1, $2, $3, $4, COALESCE($5, FALSE), COALESCE($6, TRUE))
        RETURNING *`,
       [
         data.categoriaId,
         data.codigo,
         data.nombre,
         data.descripcion ?? null,
-        data.tipoTicket ?? null,
-        data.heredaTipo,
         data.requiereValidacion,
         data.activo,
       ]
@@ -251,86 +225,26 @@ export class CatalogoRepository {
   }
 
   async listTipos(): Promise<string[]> {
-    // Prefer dedicated table if exists
-    if (await this.tableExists('catalogo_tipos')) {
-      const result = await pool.query('SELECT tipo FROM catalogo_tipos ORDER BY tipo ASC');
-      return result.rows.map((r: any) => String(r.tipo).toLowerCase());
-    }
-
-    // Fallback: collect distinct tipos from categorias and subcategorias (normalized lower-case)
-    const tipos: Set<string> = new Set();
-    if (await this.tableExists('catalogo_categorias')) {
-      const res1 = await pool.query('SELECT DISTINCT tipo_ticket AS tipo FROM catalogo_categorias WHERE tipo_ticket IS NOT NULL');
-      res1.rows.forEach((r: any) => { if (r.tipo) tipos.add(String(r.tipo).trim().toLowerCase()); });
-    }
-    if (await this.tableExists('catalogo_subcategorias')) {
-      const res2 = await pool.query('SELECT DISTINCT tipo_ticket AS tipo FROM catalogo_subcategorias WHERE tipo_ticket IS NOT NULL');
-      res2.rows.forEach((r: any) => { if (r.tipo) tipos.add(String(r.tipo).trim().toLowerCase()); });
-    }
-    return Array.from(tipos).sort();
+    // Tipos no longer supported - return empty array
+    return [];
   }
 
   async createTipo(tipo: string): Promise<string> {
-    // Ensure table exists and backfill existing tipos
-    if (!(await this.tableExists('catalogo_tipos')) ) {
-      await pool.query(`
-        CREATE TABLE IF NOT EXISTS catalogo_tipos (
-          tipo VARCHAR(120) PRIMARY KEY,
-          created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-          updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-        )
-      `);
-
-      if (await this.tableExists('catalogo_categorias')) {
-        await pool.query(`
-          INSERT INTO catalogo_tipos(tipo)
-          SELECT DISTINCT LOWER(tipo_ticket) FROM catalogo_categorias WHERE tipo_ticket IS NOT NULL
-          ON CONFLICT DO NOTHING
-        `);
-      }
-      if (await this.tableExists('catalogo_subcategorias')) {
-        await pool.query(`
-          INSERT INTO catalogo_tipos(tipo)
-          SELECT DISTINCT LOWER(tipo_ticket) FROM catalogo_subcategorias WHERE tipo_ticket IS NOT NULL
-          ON CONFLICT DO NOTHING
-        `);
-      }
-    }
-
-    const result = await pool.query('INSERT INTO catalogo_tipos(tipo) VALUES ($1) RETURNING tipo', [tipo]);
-    return result.rows[0].tipo;
+    throw new Error('Tipos de ticket no son soportados');
   }
 
   async isTipoReferenced(tipo: string): Promise<boolean> {
-    const params: any[] = [tipo];
-    if (await this.tableExists('catalogo_categorias')) {
-      const r = await pool.query('SELECT 1 FROM catalogo_categorias WHERE tipo_ticket = $1 LIMIT 1', params);
-      if (r.rows.length > 0) return true;
-    }
-    if (await this.tableExists('catalogo_subcategorias')) {
-      const r2 = await pool.query('SELECT 1 FROM catalogo_subcategorias WHERE tipo_ticket = $1 LIMIT 1', params);
-      if (r2.rows.length > 0) return true;
-    }
     return false;
   }
 
   async deleteTipo(tipo: string): Promise<void> {
-    if (await this.isTipoReferenced(tipo)) {
-      const err = new Error('Tipo está en uso') as any;
-      err.status = 400;
-      throw err;
-    }
-    const result = await pool.query('DELETE FROM catalogo_tipos WHERE tipo = $1', [tipo]);
-    if (result.rowCount === 0) {
-      const err = new Error('Tipo no encontrado') as any;
-      err.status = 404;
-      throw err;
-    }
+    throw new Error('Tipos de ticket no son soportados');
   }
 
   async updateSubcategoria(id: number, data: Partial<SubcategoriaInput>): Promise<CatalogoSubcategoria | null> {
     const sets: string[] = [];
     const params: any[] = [];
+    
     if (data.categoriaId !== undefined) {
       params.push(data.categoriaId);
       sets.push(`categoria_id = $${params.length}`);
@@ -346,14 +260,6 @@ export class CatalogoRepository {
     if (data.descripcion !== undefined) {
       params.push(data.descripcion);
       sets.push(`descripcion = $${params.length}`);
-    }
-    if (data.tipoTicket !== undefined) {
-      params.push(data.tipoTicket);
-      sets.push(`tipo_ticket = $${params.length}`);
-    }
-    if (data.heredaTipo !== undefined) {
-      params.push(data.heredaTipo);
-      sets.push(`hereda_tipo = $${params.length}`);
     }
     if (data.requiereValidacion !== undefined) {
       params.push(data.requiereValidacion);

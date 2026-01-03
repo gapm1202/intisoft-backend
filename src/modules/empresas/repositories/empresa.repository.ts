@@ -4,7 +4,7 @@ import { Empresa } from "../models/empresa.model";
 const RETURNING_FIELDS = `id, nombre, codigo AS "codigo", codigo_cliente AS "codigoCliente", ruc,
   direccion_fiscal AS "direccionFiscal", direccion_operativa AS "direccionOperativa",
   ciudad, provincia, tipo_empresa AS "tipoEmpresa",
-  pagina_web AS "paginaWeb", estado_contrato AS "estadoContrato",
+  pagina_web AS "paginaWeb",
   contactos_admin AS "contactosAdmin",
   contactos_tecnicos AS "contactosTecnicos",
   observaciones_generales AS "observacionesGenerales",
@@ -23,8 +23,8 @@ export const getById = async (id: number): Promise<Empresa | null> => {
 
 export const create = async (empresa: Empresa): Promise<Empresa> => {
   const res = await pool.query(
-    `INSERT INTO empresas (nombre, codigo, codigo_cliente, ruc, direccion_fiscal, direccion_operativa, ciudad, provincia, tipo_empresa, pagina_web, estado_contrato, contactos_admin, contactos_tecnicos, observaciones_generales, autorizacion_facturacion)
-     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12::jsonb,$13::jsonb,$14,$15)
+    `INSERT INTO empresas (nombre, codigo, codigo_cliente, ruc, direccion_fiscal, direccion_operativa, ciudad, provincia, tipo_empresa, pagina_web, contactos_admin, contactos_tecnicos, observaciones_generales, autorizacion_facturacion)
+     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11::jsonb,$12::jsonb,$13,$14)
      RETURNING ${RETURNING_FIELDS}`,
     [
       empresa.nombre,
@@ -37,7 +37,7 @@ export const create = async (empresa: Empresa): Promise<Empresa> => {
       empresa.provincia || null,
       empresa.tipoEmpresa || null,
       empresa.paginaWeb || null,
-      empresa.estadoContrato || null,
+      // estado_contrato se inicializa como NULL - se asigna solo al guardar contrato
       empresa.contactosAdmin ? JSON.stringify(empresa.contactosAdmin) : JSON.stringify([]),
       empresa.contactosTecnicos ? JSON.stringify(empresa.contactosTecnicos) : JSON.stringify([]),
       empresa.observacionesGenerales || null,
@@ -58,12 +58,11 @@ export const updateById = async (id: number, empresa: Partial<Empresa>): Promise
       provincia = COALESCE($6, provincia),
       tipo_empresa = COALESCE($7, tipo_empresa),
       pagina_web = COALESCE($8, pagina_web),
-      estado_contrato = COALESCE($9, estado_contrato),
-      contactos_admin = COALESCE($10::jsonb, contactos_admin),
-      contactos_tecnicos = COALESCE($11::jsonb, contactos_tecnicos),
-      observaciones_generales = COALESCE($12, observaciones_generales),
-      autorizacion_facturacion = COALESCE($13, autorizacion_facturacion)
-     WHERE id = $14
+      contactos_admin = COALESCE($9::jsonb, contactos_admin),
+      contactos_tecnicos = COALESCE($10::jsonb, contactos_tecnicos),
+      observaciones_generales = COALESCE($11, observaciones_generales),
+      autorizacion_facturacion = COALESCE($12, autorizacion_facturacion)
+     WHERE id = $13
      RETURNING ${RETURNING_FIELDS}`,
     [
       empresa.nombre || null,
@@ -74,7 +73,6 @@ export const updateById = async (id: number, empresa: Partial<Empresa>): Promise
       empresa.provincia || null,
       empresa.tipoEmpresa || null,
       empresa.paginaWeb || null,
-      empresa.estadoContrato || null,
       empresa.contactosAdmin ? JSON.stringify(empresa.contactosAdmin) : null,
       empresa.contactosTecnicos ? JSON.stringify(empresa.contactosTecnicos) : null,
       empresa.observacionesGenerales || null,

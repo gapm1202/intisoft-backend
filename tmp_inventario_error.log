@@ -4211,3 +4211,159 @@
   }
 }
 -----
+{
+  "time": "2026-01-02T15:55:53.879Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "Laptop fdsfs",
+    "categoria": "Laptop",
+    "fabricante": "Asus",
+    "modelo": "fdsfs",
+    "serie": "53435",
+    "assetId": "",
+    "area": "IT",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2022-07-01",
+    "proveedor": "ggg",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2022",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "6 meses",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "EXCELENTE",
+    "antiguedadCalculada": "4",
+    "ip": "2234",
+    "mac": "77666",
+    "codigoAccesoRemoto": "123456789",
+    "usuariosAsignados": [
+      {
+        "nombre": "Grecia Perez",
+        "correo": "perezmontesgreciaanelhy@gmail.com",
+        "cargo": "Asistente"
+      }
+    ],
+    "observaciones": "",
+    "empresaId": "74",
+    "sedeId": "33",
+    "empresaNombre": "TECNO",
+    "sedeNombre": "Sede Los Olivos",
+    "empresa": "TECNO",
+    "sede": "Sede Los Olivos",
+    "lapCpu": "",
+    "lapCpuSerie": "",
+    "lapRams": [],
+    "lapStorages": [],
+    "lapGpuIntegrada": "",
+    "lapGpuDedicada": "",
+    "camposPersonalizados": {
+      "Procesador": "",
+      "ALMACENAMIENTO": "",
+      "RAM": ""
+    },
+    "camposPersonalizadosArray": {
+      "Procesador": [
+        {
+          "": "i7"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "ssd",
+          "Capacidad": "500"
+        }
+      ],
+      "RAM": [
+        {
+          "Tipo": "ddr4",
+          "Capacidad": "16"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": "EXCELENTE",
+    "codigo_acceso_remoto": "123456789"
+  }
+}
+-----
+{
+  "time": "2026-01-02T17:20:02.266Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "Laptop dde",
+    "categoria": "Laptop",
+    "fabricante": "Asus",
+    "modelo": "dde",
+    "serie": "1333",
+    "assetId": "",
+    "area": "Recursos Humanos",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2022-07-01",
+    "proveedor": "fgf",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2022",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "6 meses",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "4",
+    "ip": "2324",
+    "mac": "43232",
+    "codigoAccesoRemoto": "123456789",
+    "usuariosAsignados": [
+      {
+        "nombre": "Grecia Perez Montes",
+        "correo": "perezmontesgreciaa@gmail.com",
+        "cargo": "TI"
+      }
+    ],
+    "observaciones": "",
+    "empresaId": "85",
+    "sedeId": "34",
+    "empresaNombre": "OBRASIN SAC",
+    "sedeNombre": "Sede Ate",
+    "empresa": "OBRASIN SAC",
+    "sede": "Sede Ate",
+    "lapCpu": "",
+    "lapCpuSerie": "",
+    "lapRams": [],
+    "lapStorages": [],
+    "lapGpuIntegrada": "",
+    "lapGpuDedicada": "",
+    "camposPersonalizados": {
+      "Procesador": "",
+      "ALMACENAMIENTO": "",
+      "RAM": ""
+    },
+    "camposPersonalizadosArray": {
+      "Procesador": [
+        {
+          "": "i7"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "ssd",
+          "Capacidad": "500"
+        }
+      ],
+      "RAM": [
+        {
+          "Tipo": "ddr4",
+          "Capacidad": "16"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": "BUENO",
+    "codigo_acceso_remoto": "123456789"
+  }
+}
+-----

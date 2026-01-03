@@ -14,6 +14,8 @@ import uploadsRoutes from "../routes/uploads.routes";
 import publicRoutes from "../routes/public.routes";
 import slaRoutes from "../routes/sla.routes";
 import catalogoRoutes from "../modules/catalogo/routes/catalogo.routes";
+import serviciosRoutes from "../modules/catalogo/routes/servicios.routes";
+import tiposTicketRoutes from "../modules/tipos-ticket/routes/tipos-ticket.routes";
 import { authenticate } from '../middlewares/auth.middleware';
 
 
@@ -87,28 +89,8 @@ app.use("/api/informes", informesRoutes);
 app.use("/api/uploads", uploadsRoutes);
 app.use("/api/sla", slaRoutes);
 app.use("/api/catalogo", catalogoRoutes);
-
-// Ensure tipos endpoints are available (defensive fix if router mounting missed them)
-import catalogoController from '../modules/catalogo/controllers/catalogo.controller';
-app.get('/api/catalogo/tipos', authenticate, catalogoController.listTipos.bind(catalogoController));
-app.post('/api/catalogo/tipos', authenticate, catalogoController.createTipo.bind(catalogoController));
-app.delete('/api/catalogo/tipos/:tipo', authenticate, catalogoController.deleteTipo.bind(catalogoController));
-
-// Defensive middleware: catch requests directly to /api/catalogo/tipos if they somehow bypass the router
-app.use((req, res, next) => {
-  try {
-    if (req.path === '/api/catalogo/tipos') {
-      if (req.method === 'GET') return authenticate(req as any, res as any, () => catalogoController.listTipos(req as any, res as any));
-      if (req.method === 'POST') return authenticate(req as any, res as any, () => catalogoController.createTipo(req as any, res as any));
-    }
-    if (req.path && req.path.startsWith('/api/catalogo/tipos/') && req.method === 'DELETE') {
-      return authenticate(req as any, res as any, () => catalogoController.deleteTipo(req as any, res as any));
-    }
-  } catch (e) {
-    // ignore; fall through to next
-  }
-  next();
-});
+app.use("/api/catalogo/servicios", serviciosRoutes);
+app.use("/api/catalogo/tipos-ticket", tiposTicketRoutes);
 
 app.use('/public', publicRoutes);
 

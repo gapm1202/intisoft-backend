@@ -2,7 +2,6 @@ import { pool } from '../config/db';
 import {
   SLAConfiguracion,
   SLAAlcance,
-  SLAGestionIncidentes,
   SLATiempos,
   SLAHorarios,
   SLARequisitos,
@@ -22,7 +21,6 @@ export class SLARepository {
         id,
         empresa_id as "empresaId",
         alcance,
-        gestion_incidentes as "gestionIncidentes",
         tiempos,
         horarios,
         requisitos,
@@ -95,21 +93,19 @@ export class SLARepository {
           `UPDATE sla_configuracion
            SET 
              alcance = COALESCE($2, alcance),
-             gestion_incidentes = COALESCE($3, gestion_incidentes),
-             tiempos = COALESCE($4, tiempos),
-             horarios = COALESCE($5, horarios),
-             requisitos = COALESCE($6, requisitos),
-             exclusiones = COALESCE($7, exclusiones),
-             alertas = COALESCE($8, alertas),
-             fuera_de_horario = COALESCE($9, fuera_de_horario),
-             requisitos_personalizados = COALESCE($10, requisitos_personalizados),
+             tiempos = COALESCE($3, tiempos),
+             horarios = COALESCE($4, horarios),
+             requisitos = COALESCE($5, requisitos),
+             exclusiones = COALESCE($6, exclusiones),
+             alertas = COALESCE($7, alertas),
+             fuera_de_horario = COALESCE($8, fuera_de_horario),
+             requisitos_personalizados = COALESCE($9, requisitos_personalizados),
              updated_at = CURRENT_TIMESTAMP
            WHERE empresa_id = $1 AND deleted_at IS NULL
            RETURNING id`,
           [
             empresaId,
             data.alcance ? JSON.stringify(data.alcance) : null,
-            data.gestionIncidentes ? JSON.stringify(data.gestionIncidentes) : null,
             data.tiempos ? JSON.stringify(data.tiempos) : null,
             data.horarios ? JSON.stringify(data.horarios) : null,
             data.requisitos ? JSON.stringify(data.requisitos) : null,
@@ -124,13 +120,12 @@ export class SLARepository {
         // Crear
         const createResult = await client.query(
           `INSERT INTO sla_configuracion 
-           (empresa_id, alcance, gestion_incidentes, tiempos, horarios, requisitos, exclusiones, alertas, fuera_de_horario, requisitos_personalizados)
-           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+           (empresa_id, alcance, tiempos, horarios, requisitos, exclusiones, alertas, fuera_de_horario, requisitos_personalizados)
+           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
            RETURNING id`,
           [
             empresaId,
             JSON.stringify(data.alcance || {}),
-            JSON.stringify(data.gestionIncidentes || {}),
             JSON.stringify(data.tiempos || {}),
             JSON.stringify(data.horarios || {}),
             JSON.stringify(data.requisitos || {}),
@@ -202,8 +197,8 @@ export class SLARepository {
       if (!config) {
         // Crear configuración base si no existe
         const createResult = await client.query(
-          `INSERT INTO sla_configuracion (empresa_id, alcance, gestion_incidentes, tiempos, horarios, requisitos, exclusiones, alertas)
-           VALUES ($1, '{}', '{}', '{}', '{}', '{}', '{}', '{}')
+          `INSERT INTO sla_configuracion (empresa_id, alcance, tiempos, horarios, requisitos, exclusiones, alertas)
+           VALUES ($1, '{}', '{}', '{}', '{}', '{}', '{}')
            RETURNING *`,
           [empresaId]
         );
@@ -566,11 +561,10 @@ export class SLARepository {
 
       // Mapear secciones a nombres estándar si llegaron nombres BD
       const standardSecciones = secciones.map((s) => {
-        if (s === 'gestion_incidentes') return 'incidentes';
         return s;
       });
 
-      const allSecciones = ['alcance', 'incidentes', 'tiempos', 'horarios', 'requisitos', 'exclusiones', 'alertas'];
+      const allSecciones = ['alcance', 'tiempos', 'horarios', 'requisitos', 'exclusiones', 'alertas'];
       
       console.log('[SLA][repo.limpiarSecciones] mapping result', {
         input: secciones,
@@ -731,7 +725,6 @@ export class SLARepository {
   private getColumnName(seccion: string): string {
     const map: Record<string, string> = {
       alcance: 'alcance',
-      incidentes: 'gestion_incidentes',
       tiempos: 'tiempos',
       horarios: 'horarios',
       requisitos: 'requisitos',
@@ -760,7 +753,6 @@ export class SLARepository {
 
     return (
       this.hasContent(config.alcance) &&
-      this.hasContent(config.gestion_incidentes) &&
       this.hasContent(config.tiempos) &&
       this.hasContent(config.horarios) &&
       this.hasContent(config.requisitos) &&
@@ -772,7 +764,6 @@ export class SLARepository {
   private getNombreSeccion(seccion: string): string {
     const nombres: Record<string, string> = {
       alcance: 'Alcance del SLA',
-      incidentes: 'Gestión de Incidentes',
       tiempos: 'Tiempos',
       horarios: 'Horarios',
       requisitos: 'Requisitos',

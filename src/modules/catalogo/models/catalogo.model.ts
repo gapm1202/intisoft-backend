@@ -3,7 +3,6 @@ export interface CatalogoCategoria {
   codigo: string;
   nombre: string;
   descripcion?: string | null;
-  tipoTicket?: string | null;
   activo: boolean;
   visibleEnTickets: boolean;
   createdAt: Date;
@@ -16,20 +15,16 @@ export interface CatalogoSubcategoria {
   codigo: string;
   nombre: string;
   descripcion?: string | null;
-  tipoTicket?: string | null;
-  heredaTipo: boolean;
   requiereValidacion: boolean;
   activo: boolean;
   createdAt: Date;
   updatedAt: Date;
-  tipoTicketEfectivo?: string | null;
 }
 
 export interface CategoriaInput {
   codigo?: string;
   nombre: string;
   descripcion?: string;
-  tipoTicket?: string;
   activo?: boolean;
   visibleEnTickets?: boolean;
 }
@@ -39,8 +34,6 @@ export interface SubcategoriaInput {
   codigo?: string;
   nombre: string;
   descripcion?: string;
-  tipoTicket?: string;
-  heredaTipo?: boolean;
   requiereValidacion?: boolean;
   activo?: boolean;
 }
