@@ -36,6 +36,7 @@ export interface UsuarioEmpresaInput {
   telefono?: string;
   observaciones?: string;
   activoAsignadoId?: string | null;
+  activosIds?: string[]; // Array de IDs de activos para asignación M:N
 }
 
 export interface UsuarioEmpresaUpdateInput {

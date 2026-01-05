@@ -1,0 +1,9 @@
+{
+  "empresaId": "86",
+  "sedeId": "35",
+  "nombreCompleto": "Test Multiple Activos",
+  "correo": "test.multi@gmail.com",
+  "cargo": "Tester",
+  "activoAsignadoId": null,
+  "activosIds": ["62", "61"]
+}

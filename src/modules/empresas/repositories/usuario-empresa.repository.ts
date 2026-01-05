@@ -41,6 +41,7 @@ export async function getAllByEmpresa(empresaId: string, incluirInactivos = fals
           JSON_BUILD_OBJECT(
             'id', inv.id,
             'assetId', inv.asset_id,
+            'codigo', inv.asset_id,
             'nombre', inv.categoria,
             'categoria', inv.categoria,
             'fabricante', inv.fabricante,
@@ -98,6 +99,7 @@ export async function getById(id: string): Promise<UsuarioEmpresa | null> {
           JSON_BUILD_OBJECT(
             'id', inv.id,
             'assetId', inv.asset_id,
+            'codigo', inv.asset_id,
             'nombre', inv.categoria,
             'categoria', inv.categoria,
             'fabricante', inv.fabricante,
@@ -203,7 +205,45 @@ export async function create(data: UsuarioEmpresaInput): Promise<UsuarioEmpresa>
     const nuevoUsuario = insertResult.rows[0];
     console.log('[USUARIO-EMPRESA] ✅ Usuario insertado, ID:', nuevoUsuario.id);
     
-    // 2. Asignar activo si se especificó (usando tabla M:N usuarios_activos)
+    // 2a. Procesar array activosIds (si se proporciona)
+    if (data.activosIds && Array.isArray(data.activosIds) && data.activosIds.length > 0) {
+      console.log('[USUARIO-EMPRESA] 🎯 Array activosIds recibido:', data.activosIds);
+      
+      for (const activoIdStr of data.activosIds) {
+        const activoIdNum = parseInt(activoIdStr);
+        
+        // Verificar que el activo existe
+        const activoCheckResult = await client.query(
+          'SELECT id FROM inventario WHERE id = $1',
+          [activoIdNum]
+        );
+        
+        if (activoCheckResult.rows.length === 0) {
+          console.log(`[USUARIO-EMPRESA] ⚠️ Activo ${activoIdNum} no encontrado - saltando`);
+          continue;
+        }
+        
+        // Verificar que NO exista ya la relación usuario-activo (evitar duplicados)
+        const duplicadoCheck = await client.query(
+          'SELECT id FROM usuarios_activos WHERE usuario_id = $1 AND activo_id = $2 AND activo = TRUE',
+          [nuevoUsuario.id, activoIdNum]
+        );
+        
+        if (duplicadoCheck.rows.length > 0) {
+          console.log(`[USUARIO-EMPRESA] ⚠️ Usuario ya tiene activo ${activoIdNum} - saltando`);
+        } else {
+          // Insertar en tabla M:N usuarios_activos
+          await client.query(
+            `INSERT INTO usuarios_activos (usuario_id, activo_id, fecha_asignacion, motivo, activo)
+             VALUES ($1, $2, NOW(), 'Asignación inicial al crear usuario', TRUE)`,
+            [nuevoUsuario.id, activoIdNum]
+          );
+          console.log(`[USUARIO-EMPRESA] ✅ Activo ${activoIdNum} asignado en usuarios_activos`);
+        }
+      }
+    }
+    
+    // 2b. Asignar activo si se especificó activoAsignadoId (campo singular legacy)
     if (activoId) {
       console.log('[USUARIO-EMPRESA] 🎯 Activo a asignar:', activoId);
       

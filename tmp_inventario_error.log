@@ -4796,3 +4796,74 @@
   }
 }
 -----
+{
+  "time": "2026-01-05T01:48:45.185Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "PC sd",
+    "categoria": "PC",
+    "fabricante": "Compatible",
+    "modelo": "sd",
+    "serie": "sds",
+    "assetId": "",
+    "area": "Ventas",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2027-01-01",
+    "proveedor": "sddsds",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2025",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "2 años",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "1",
+    "ip": "sad",
+    "mac": "da",
+    "codigoAccesoRemoto": "123456789",
+    "observaciones": "",
+    "motivo": "",
+    "empresaId": "86",
+    "sedeId": "35",
+    "empresaNombre": "Huancatex",
+    "sedeNombre": "pruebaaa",
+    "empresa": "Huancatex",
+    "sede": "pruebaaa",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {
+      "Procesador": "i7",
+      "RAM": "",
+      "ALMACENAMIENTO": ""
+    },
+    "camposPersonalizadosArray": {
+      "RAM": [
+        {
+          "Tipo": "12",
+          "Cantidad": "dd"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "de",
+          "Cantidad": "ddd"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": "BUENO",
+    "codigo_acceso_remoto": "123456789"
+  }
+}
+-----
