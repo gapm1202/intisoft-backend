@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import * as usuarioEmpresaService from '../services/usuario-empresa.service';
 import { UsuarioEmpresaInput, UsuarioEmpresaUpdateInput } from '../models/usuario-empresa.model';
+import { enviarEmailBienvenida } from '../../../services/email.service';
 
 /**
  * GET /api/empresas/:empresaId/usuarios
@@ -71,6 +72,12 @@ export async function create(req: Request, res: Response): Promise<void> {
     };
     
     const nuevoUsuario = await usuarioEmpresaService.create(data);
+    
+    // Enviar email de bienvenida de forma asíncrona (no bloquear respuesta)
+    enviarEmailBienvenida(nuevoUsuario.id).catch(error => {
+      console.error('[USUARIO-CONTROLLER] Error enviando email de bienvenida:', error);
+      // No fallar la creación del usuario si el email falla
+    });
     
     res.status(201).json({
       success: true,
