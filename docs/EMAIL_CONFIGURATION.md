@@ -8,8 +8,8 @@ Agrega las siguientes variables a tu archivo `.env`:
 # SMTP Configuration for email notifications
 SMTP_HOST=smtp.gmail.com
 SMTP_PORT=587
-SMTP_USER=greciaaperez1212@gmail.com
-SMTP_PASS=pyug arrk wcce ybcd
+SMTP_USER=CORREO
+SMTP_PASS=CALVE_PRIVADA
 
 # Frontend URL for email links (opcional, por defecto usa localhost:5173)
 FRONTEND_PUBLIC_URL=http://localhost:5173
