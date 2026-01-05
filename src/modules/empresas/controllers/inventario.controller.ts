@@ -430,6 +430,35 @@ export const createInventario = async (req: Request, res: Response) => {
     } as any);
 
     console.log('createInventario - created:', inventario);
+    
+    // 🔴 PROCESAR ASIGNACIONES M:N (Migration 066)
+    // Si el frontend envía usuariosAsignadosIds, insertar en tabla usuarios_activos
+    const usuariosAsignadosIds = data.usuariosAsignadosIds || data.usuariosAsignados;
+    if (usuariosAsignadosIds && Array.isArray(usuariosAsignadosIds) && (inventario as any).id) {
+      console.log('createInventario - procesando usuariosAsignadosIds:', usuariosAsignadosIds);
+      const { pool } = require('../../../config/db');
+      
+      try {
+        const activoId = (inventario as any).id;
+        const motivo = data.motivo || data.reason || 'Creación inicial de activo';
+        const authenticatedUserId = (req as any).user ? (req as any).user.id : null;
+        
+        for (const usuarioId of usuariosAsignadosIds) {
+          if (!usuarioId) continue; // Skip null/undefined
+          await pool.query(
+            `INSERT INTO usuarios_activos 
+             (usuario_id, activo_id, fecha_asignacion, asignado_por, motivo, activo)
+             VALUES ($1, $2, NOW(), $3, $4, true)`,
+            [parseInt(usuarioId), activoId, authenticatedUserId || null, motivo]
+          );
+        }
+        console.log(`createInventario - ${usuariosAsignadosIds.length} usuarios asignados correctamente`);
+      } catch (m2nError) {
+        console.error('createInventario - Error procesando M:N:', m2nError);
+        // No bloqueamos la creación del activo si falla M:N, pero logueamos
+      }
+    }
+    
     // Re-fetch the row from DB to return canonical persisted data (includes fotos JSONB)
     try {
       const persisted = await service.obtenerInventario((inventario as any).id);
@@ -582,6 +611,35 @@ export const createInventarioSede = async (req: Request, res: Response) => {
     } as any);
 
     console.log('createInventarioSede - created:', inventario);
+    
+    // 🔴 PROCESAR ASIGNACIONES M:N (Migration 066)
+    // Si el frontend envía usuariosAsignadosIds, insertar en tabla usuarios_activos
+    const usuariosAsignadosIds = data.usuariosAsignadosIds || data.usuariosAsignados;
+    if (usuariosAsignadosIds && Array.isArray(usuariosAsignadosIds) && (inventario as any).id) {
+      console.log('createInventarioSede - procesando usuariosAsignadosIds:', usuariosAsignadosIds);
+      const { pool } = require('../../../config/db');
+      
+      try {
+        const activoId = (inventario as any).id;
+        const motivo = data.motivo || data.reason || 'Creación inicial de activo';
+        const authenticatedUserId = (req as any).user ? (req as any).user.id : null;
+        
+        for (const usuarioId of usuariosAsignadosIds) {
+          if (!usuarioId) continue; // Skip null/undefined
+          await pool.query(
+            `INSERT INTO usuarios_activos 
+             (usuario_id, activo_id, fecha_asignacion, asignado_por, motivo, activo)
+             VALUES ($1, $2, NOW(), $3, $4, true)`,
+            [parseInt(usuarioId), activoId, authenticatedUserId || null, motivo]
+          );
+        }
+        console.log(`createInventarioSede - ${usuariosAsignadosIds.length} usuarios asignados correctamente`);
+      } catch (m2nError) {
+        console.error('createInventarioSede - Error procesando M:N:', m2nError);
+        // No bloqueamos la creación del activo si falla M:N, pero logueamos
+      }
+    }
+    
     // Re-fetch the row from DB to return canonical persisted data (includes fotos JSONB)
     try {
       const persisted = await service.obtenerInventario((inventario as any).id);
@@ -726,8 +784,41 @@ export const updateInventarioSede = async (req: Request, res: Response) => {
       data.condicion_fisica = cond;
       data.condicionFisica = cond;
     } catch (e) { console.warn('updateInventarioSede - error resolving condicion_fisica', e); }
+    
     // Delegate to service to update the inventario and handle fotos logic
     const updated = await service.actualizarInventario(activoId, data, { empresaId, sedeId, motivo: data.motivo || data.reason || null }, usuarioId);
+
+    // 🔴 PROCESAR ASIGNACIONES M:N (Migration 066)
+    // Si el frontend envía usuariosAsignadosIds, actualizar tabla usuarios_activos
+    const usuariosAsignadosIds = data.usuariosAsignadosIds || data.usuariosAsignados;
+    if (usuariosAsignadosIds && Array.isArray(usuariosAsignadosIds)) {
+      console.log('updateInventarioSede - procesando usuariosAsignadosIds:', usuariosAsignadosIds);
+      const { pool } = require('../../../config/db');
+      
+      try {
+        // 1. Eliminar asignaciones antiguas de este activo
+        await pool.query(
+          'DELETE FROM usuarios_activos WHERE activo_id = $1 AND activo = true',
+          [activoId]
+        );
+        
+        // 2. Insertar nuevas asignaciones
+        const motivo = data.motivo || data.reason || 'Actualización de asignaciones desde frontend';
+        for (const usuarioId of usuariosAsignadosIds) {
+          if (!usuarioId) continue; // Skip null/undefined
+          await pool.query(
+            `INSERT INTO usuarios_activos 
+             (usuario_id, activo_id, fecha_asignacion, asignado_por, motivo, activo)
+             VALUES ($1, $2, NOW(), $3, $4, true)`,
+            [parseInt(usuarioId), activoId, usuarioId || null, motivo]
+          );
+        }
+        console.log(`updateInventarioSede - ${usuariosAsignadosIds.length} usuarios asignados correctamente`);
+      } catch (m2nError) {
+        console.error('updateInventarioSede - Error procesando M:N:', m2nError);
+        // No bloqueamos la actualización del activo si falla M:N, pero logueamos
+      }
+    }
 
     // Re-fetch persisted canonical row
     const persisted = await service.obtenerInventario(activoId);

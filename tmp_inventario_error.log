@@ -4367,3 +4367,432 @@
   }
 }
 -----
+{
+  "time": "2026-01-03T21:30:07.847Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "Laptop wds",
+    "categoria": "Laptop",
+    "fabricante": "Asus",
+    "modelo": "wds",
+    "serie": "sdsds",
+    "assetId": "",
+    "area": "Recursos Humanos",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2022-07-01",
+    "proveedor": "ytfhf",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2022",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "6 meses",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "REGULAR",
+    "antiguedadCalculada": "4",
+    "ip": "sdsd",
+    "mac": "sdsd",
+    "codigoAccesoRemoto": "123456789",
+    "usuariosAsignados": [],
+    "observaciones": "",
+    "empresaId": "85",
+    "sedeId": "34",
+    "empresaNombre": "OBRASIN SAC",
+    "sedeNombre": "Sede Ate",
+    "empresa": "OBRASIN SAC",
+    "sede": "Sede Ate",
+    "lapCpu": "",
+    "lapCpuSerie": "",
+    "lapRams": [],
+    "lapStorages": [],
+    "lapGpuIntegrada": "",
+    "lapGpuDedicada": "",
+    "camposPersonalizados": {
+      "Procesador": "",
+      "ALMACENAMIENTO": "",
+      "RAM": ""
+    },
+    "camposPersonalizadosArray": {
+      "Procesador": [
+        {
+          "": "i7"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "ssd",
+          "Capacidad": "500"
+        }
+      ],
+      "RAM": [
+        {
+          "Tipo": "ddr4",
+          "Capacidad": "16"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": "REGULAR",
+    "codigo_acceso_remoto": "123456789"
+  }
+}
+-----
+{
+  "time": "2026-01-04T03:45:24.741Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "Laptop ddd",
+    "categoria": "Laptop",
+    "fabricante": "Asus",
+    "modelo": "ddd",
+    "serie": "sdsd",
+    "assetId": "",
+    "area": "Ventas",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2025-01-01",
+    "proveedor": "sds",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2024",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "1 año",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "EXCELENTE",
+    "antiguedadCalculada": "2",
+    "ip": "sdsd",
+    "mac": "sdsd",
+    "codigoAccesoRemoto": "123456789",
+    "usuarioAsignadoId": "11",
+    "observaciones": "",
+    "empresaId": "86",
+    "sedeId": "35",
+    "empresaNombre": "Huancatex",
+    "sedeNombre": "pruebaaa",
+    "empresa": "Huancatex",
+    "sede": "pruebaaa",
+    "lapCpu": "",
+    "lapCpuSerie": "",
+    "lapRams": [],
+    "lapStorages": [],
+    "lapGpuIntegrada": "",
+    "lapGpuDedicada": "",
+    "camposPersonalizados": {
+      "Procesador": "",
+      "ALMACENAMIENTO": "",
+      "RAM": ""
+    },
+    "camposPersonalizadosArray": {
+      "Procesador": [
+        {
+          "": "i9"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "ssd",
+          "Capacidad": "500"
+        }
+      ],
+      "RAM": [
+        {
+          "Tipo": "ddr4",
+          "Capacidad": "16"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": "EXCELENTE",
+    "codigo_acceso_remoto": "123456789"
+  }
+}
+-----
+{
+  "time": "2026-01-04T03:46:21.242Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "PC gfd",
+    "categoria": "PC",
+    "fabricante": "Compatible",
+    "modelo": "gfd",
+    "serie": "435",
+    "assetId": "",
+    "area": "Ventas",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2024-01-01",
+    "proveedor": "dfg",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2023",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "1 año",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "3",
+    "ip": "jiron",
+    "mac": "gg",
+    "codigoAccesoRemoto": "123457895",
+    "usuarioAsignadoId": "11",
+    "observaciones": "",
+    "empresaId": "86",
+    "sedeId": "35",
+    "empresaNombre": "Huancatex",
+    "sedeNombre": "pruebaaa",
+    "empresa": "Huancatex",
+    "sede": "pruebaaa",
+    "pcCpu": "",
+    "pcCpuGen": "",
+    "pcCooler": "",
+    "pcPlacaBase": "",
+    "pcChipset": "",
+    "pcRams": [],
+    "pcStorages": [],
+    "pcGpuIntegrada": "",
+    "pcGpuDedicada": "",
+    "pcFuente": "",
+    "camposPersonalizados": {
+      "Procesador": "t",
+      "RAM": "",
+      "ALMACENAMIENTO": ""
+    },
+    "camposPersonalizadosArray": {
+      "RAM": [
+        {
+          "Tipo": "34",
+          "Cantidad": "de"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "fr",
+          "Cantidad": "fr"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": "BUENO",
+    "codigo_acceso_remoto": "123457895"
+  }
+}
+-----
+{
+  "time": "2026-01-04T18:03:46.645Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "Laptop ddd",
+    "categoria": "Laptop",
+    "fabricante": "Asus",
+    "modelo": "ddd",
+    "serie": "sdsd",
+    "assetId": "",
+    "area": "Ventas",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2024-07-01",
+    "proveedor": "sds",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2024",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "6 meses",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "EXCELENTE",
+    "antiguedadCalculada": "2",
+    "ip": "sdsd",
+    "mac": "sdsd",
+    "observaciones": "",
+    "motivo": "",
+    "empresaId": "86",
+    "sedeId": "36",
+    "empresaNombre": "Huancatex",
+    "sedeNombre": "probando123",
+    "empresa": "Huancatex",
+    "sede": "probando123",
+    "lapCpu": "",
+    "lapCpuSerie": "",
+    "lapRams": [],
+    "lapStorages": [],
+    "lapGpuIntegrada": "",
+    "lapGpuDedicada": "",
+    "camposPersonalizados": {
+      "Procesador": "",
+      "ALMACENAMIENTO": "",
+      "RAM": ""
+    },
+    "camposPersonalizadosArray": {
+      "Procesador": [
+        {
+          "": "dd"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "dd",
+          "Capacidad": "16"
+        }
+      ],
+      "RAM": [
+        {
+          "Tipo": "ddr4",
+          "Capacidad": "16"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": "EXCELENTE"
+  }
+}
+-----
+{
+  "time": "2026-01-05T00:23:53.402Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "Laptop fdfdf",
+    "categoria": "Laptop",
+    "fabricante": "Asus",
+    "modelo": "fdfdf",
+    "serie": "ffdf",
+    "assetId": "",
+    "area": "Recursos Humanos",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2026-01-01",
+    "proveedor": "fdf",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2025",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "1 año",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "BUENO",
+    "antiguedadCalculada": "1",
+    "ip": "frdf",
+    "mac": "dfdf",
+    "codigoAccesoRemoto": "123456789",
+    "observaciones": "",
+    "motivo": "",
+    "empresaId": "85",
+    "sedeId": "34",
+    "empresaNombre": "OBRASIN SAC",
+    "sedeNombre": "Sede Ate",
+    "empresa": "OBRASIN SAC",
+    "sede": "Sede Ate",
+    "lapCpu": "",
+    "lapCpuSerie": "",
+    "lapRams": [],
+    "lapStorages": [],
+    "lapGpuIntegrada": "",
+    "lapGpuDedicada": "",
+    "camposPersonalizados": {
+      "Procesador": "",
+      "ALMACENAMIENTO": "",
+      "RAM": ""
+    },
+    "camposPersonalizadosArray": {
+      "Procesador": [
+        {
+          "": "fdd"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "df",
+          "Capacidad": "23"
+        }
+      ],
+      "RAM": [
+        {
+          "Tipo": "dfd",
+          "Capacidad": "34"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": "BUENO",
+    "codigo_acceso_remoto": "123456789"
+  }
+}
+-----
+{
+  "time": "2026-01-05T00:44:09.283Z",
+  "location": "createInventarioSede - pre-insert diagnostic",
+  "payload": {
+    "nombre": "Laptop fd",
+    "categoria": "Laptop",
+    "fabricante": "HP",
+    "modelo": "fd",
+    "serie": "sfsdfsd",
+    "assetId": "",
+    "area": "Ventas",
+    "estadoActivo": "activo",
+    "estadoOperativo": "operativo",
+    "fechaCompra": "",
+    "fechaFinGarantia": "2025-01-01",
+    "proveedor": "sdfd",
+    "tipoDocumentoCompra": "Desconocido",
+    "numeroDocumentoCompra": "",
+    "fechaCompraAprox": "2023",
+    "fechaCompraUnknown": false,
+    "purchaseDocumentDescription": "",
+    "garantia": "2 años",
+    "warrantyDocumentDescription": "",
+    "condicionFisica": "EXCELENTE",
+    "antiguedadCalculada": "3",
+    "ip": "d",
+    "mac": "fdf",
+    "codigoAccesoRemoto": "123456789",
+    "observaciones": "",
+    "motivo": "",
+    "empresaId": "86",
+    "sedeId": "35",
+    "empresaNombre": "Huancatex",
+    "sedeNombre": "pruebaaa",
+    "empresa": "Huancatex",
+    "sede": "pruebaaa",
+    "lapCpu": "",
+    "lapCpuSerie": "",
+    "lapRams": [],
+    "lapStorages": [],
+    "lapGpuIntegrada": "",
+    "lapGpuDedicada": "",
+    "camposPersonalizados": {
+      "Procesador": "",
+      "ALMACENAMIENTO": "",
+      "RAM": ""
+    },
+    "camposPersonalizadosArray": {
+      "Procesador": [
+        {
+          "": "dsf"
+        }
+      ],
+      "ALMACENAMIENTO": [
+        {
+          "Tipo": "df",
+          "Capacidad": "16"
+        }
+      ],
+      "RAM": [
+        {
+          "Tipo": "e",
+          "Capacidad": "34"
+        }
+      ]
+    },
+    "fotos": [],
+    "condicion_fisica": "EXCELENTE",
+    "codigo_acceso_remoto": "123456789"
+  }
+}
+-----

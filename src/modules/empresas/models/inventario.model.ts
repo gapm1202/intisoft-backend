@@ -56,6 +56,8 @@ export interface Inventario {
   ip?: string;
   mac?: string;
   usuarioAsignado?: string;
+  usuarioAsignadoId?: string | number | null;
+  usuarioAsignadoData?: any; // Datos del usuario asignado (JOIN)
   usuariosAsignados?: any[];
   observaciones?: string;
   ram?: RAM[];

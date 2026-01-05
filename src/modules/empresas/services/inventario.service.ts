@@ -234,7 +234,19 @@ export const crearInventario = async (inv: Inventario): Promise<Inventario> => {
   const created = await repo.createInventario(inv as any);
   console.log('crearInventario - creado en BD id=', (created as any).id, 'assetId=', (created as any).assetId);
   
-  // Ya no hay tabla de reservas, no se necesita confirmar
+  // 🔄 SINCRONIZACIÓN: Si se especificó usuarioAsignadoId, actualizar
+  if (inv.usuarioAsignadoId) {
+    const usuarioId = typeof inv.usuarioAsignadoId === 'string' ? parseInt(inv.usuarioAsignadoId) : inv.usuarioAsignadoId;
+    console.log('[INVENTARIO-CREATE] 🔄 Asignando usuario:', usuarioId, 'a activo:', (created as any).id);
+    
+    const { pool } = require('../../../config/db');
+    await pool.query(
+      'UPDATE inventario SET usuario_asignado_id = $1 WHERE id = $2',
+      [usuarioId, (created as any).id]
+    );
+    
+    console.log('[INVENTARIO-CREATE] ✅ Usuario asignado correctamente (trigger sincronizará usuarios_empresas)');
+  }
   
   return created as Inventario;
 };
@@ -280,6 +292,91 @@ export const actualizarInventario = async (inventarioId: number, data: any, opts
     throw new Error('Sede no encontrada o mismatch');
   }
 
+  // 🔄 SINCRONIZACIÓN BIDIRECCIONAL: Manejar asignación de usuario desde inventario
+  if (data.usuarioAsignadoId !== undefined) {
+    const nuevoUsuarioId = data.usuarioAsignadoId ? parseInt(data.usuarioAsignadoId) : null;
+    const usuarioAnteriorId = existing.usuarioAsignadoId ? parseInt(existing.usuarioAsignadoId as string) : null;
+    
+    console.log('[INVENTARIO-SYNC] 🔄 Sincronización bidireccional activo ↔ usuario');
+    console.log('[INVENTARIO-SYNC] Usuario anterior:', usuarioAnteriorId);
+    console.log('[INVENTARIO-SYNC] Usuario nuevo:', nuevoUsuarioId);
+    
+    // Si cambió el usuario asignado, actualizar usuarios_empresas
+    if (nuevoUsuarioId !== usuarioAnteriorId) {
+      const { pool } = require('../../../config/db');
+      const client = await pool.connect();
+      
+      try {
+        await client.query('BEGIN');
+        
+        // 1. Liberar el usuario anterior (si existía)
+        if (usuarioAnteriorId) {
+          console.log('[INVENTARIO-SYNC] 📤 Liberando usuario anterior:', usuarioAnteriorId);
+          await client.query(
+            'UPDATE usuarios_empresas SET activo_asignado_id = NULL WHERE id = $1',
+            [usuarioAnteriorId]
+          );
+        }
+        
+        // 2. Liberar cualquier usuario que tuviera este activo asignado
+        console.log('[INVENTARIO-SYNC] 🔍 Verificando si otro usuario tenía este activo:', inventarioId);
+        const otherUserResult = await client.query(
+          'SELECT id FROM usuarios_empresas WHERE activo_asignado_id = $1 AND id != $2',
+          [inventarioId, nuevoUsuarioId || 0]
+        );
+        
+        if (otherUserResult.rows.length > 0) {
+          console.log('[INVENTARIO-SYNC] 📤 Liberando otros usuarios con este activo:', otherUserResult.rows.map((r: any) => r.id));
+          await client.query(
+            'UPDATE usuarios_empresas SET activo_asignado_id = NULL WHERE activo_asignado_id = $1',
+            [inventarioId]
+          );
+        }
+        
+        // 3. Si hay nuevo usuario, verificar que exista y asignarle este activo
+        if (nuevoUsuarioId) {
+          const userCheck = await client.query(
+            'SELECT id, activo_asignado_id FROM usuarios_empresas WHERE id = $1 AND activo = TRUE',
+            [nuevoUsuarioId]
+          );
+          
+          if (userCheck.rows.length === 0) {
+            await client.query('ROLLBACK');
+            throw new Error(`Usuario ${nuevoUsuarioId} no encontrado o inactivo`);
+          }
+          
+          const usuarioActivoAnterior = userCheck.rows[0].activo_asignado_id;
+          
+          // Si el usuario tenía otro activo, liberarlo
+          if (usuarioActivoAnterior && usuarioActivoAnterior !== inventarioId) {
+            console.log('[INVENTARIO-SYNC] 📤 Usuario tenía otro activo asignado, liberando:', usuarioActivoAnterior);
+            await client.query(
+              'UPDATE inventario SET usuario_asignado_id = NULL WHERE id = $1',
+              [usuarioActivoAnterior]
+            );
+          }
+          
+          // Asignar este activo al nuevo usuario
+          console.log('[INVENTARIO-SYNC] ✅ Asignando activo a usuario:', nuevoUsuarioId);
+          await client.query(
+            'UPDATE usuarios_empresas SET activo_asignado_id = $1 WHERE id = $2',
+            [inventarioId, nuevoUsuarioId]
+          );
+        }
+        
+        await client.query('COMMIT');
+        console.log('[INVENTARIO-SYNC] 🎉 Sincronización completada exitosamente');
+        
+      } catch (error) {
+        await client.query('ROLLBACK');
+        console.error('[INVENTARIO-SYNC] ❌ Error en sincronización, ROLLBACK ejecutado:', error);
+        throw error;
+      } finally {
+        client.release();
+      }
+    }
+  }
+  
   // Prepare partial update object
   const updateObj: any = {
     fabricante: data.fabricante,
@@ -293,6 +390,7 @@ export const actualizarInventario = async (inventarioId: number, data: any, opts
     ip: data.ip,
     mac: data.mac,
     usuariosAsignados: data.usuariosAsignados || data.usuarioAsignado,
+    usuarioAsignadoId: data.usuarioAsignadoId !== undefined ? (data.usuarioAsignadoId ? parseInt(data.usuarioAsignadoId) : null) : undefined,
     camposPersonalizados: data.camposPersonalizados || data.dynamicFields || data.campos || data.especificacion,
     camposPersonalizadosArray: data.camposPersonalizadosArray || data.dynamicArrayFields || data.storages,
     observaciones: data.observaciones,

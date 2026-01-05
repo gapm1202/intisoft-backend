@@ -214,6 +214,19 @@ export class SLAService {
         if (data.aplicaA && data.aplicaA !== 'incidentes') {
           throw new Error('aplicaA debe ser "incidentes"');
         }
+        // Validar serviciosCatalogoSLA si está presente
+        if (data.serviciosCatalogoSLA) {
+          const scs = data.serviciosCatalogoSLA;
+          if (!scs.tipo || !['todos', 'seleccionados'].includes(scs.tipo)) {
+            throw new Error('serviciosCatalogoSLA.tipo debe ser "todos" o "seleccionados"');
+          }
+          if (!Array.isArray(scs.servicios)) {
+            throw new Error('serviciosCatalogoSLA.servicios debe ser un array');
+          }
+          if (scs.tipo === 'seleccionados' && scs.servicios.length === 0) {
+            console.warn('⚠️  serviciosCatalogoSLA: tipo "seleccionados" con array vacío');
+          }
+        }
         break;
 
       case 'tiempos':

@@ -7,6 +7,7 @@ import cors from "cors";
 import path from 'path';
 import authRoutes from "../routes/auth.routes";
 import empresaRoutes from "../routes/empresa.routes";
+import usuariosRoutes from "../routes/usuarios.routes";
 import categoriasRoutes from "../modules/empresas/routes/categorias.routes";
 import activosRoutes from "../routes/activos.routes";
 import informesRoutes from "../routes/informes.routes";
@@ -16,33 +17,21 @@ import slaRoutes from "../routes/sla.routes";
 import catalogoRoutes from "../modules/catalogo/routes/catalogo.routes";
 import serviciosRoutes from "../modules/catalogo/routes/servicios.routes";
 import tiposTicketRoutes from "../modules/tipos-ticket/routes/tipos-ticket.routes";
+import usuarioEmpresaRoutes from "../modules/empresas/routes/usuario-empresa.routes";
+import usuarioActivoRoutes from "../modules/empresas/routes/usuario-activo.routes";
+import usuarioHistorialRoutes from "../modules/empresas/routes/usuario-historial.routes";
+import contractRoutes, { globalRouter as empresaContractGlobalRoutes } from "../modules/empresas/routes/contract.routes";
 import { authenticate } from '../middlewares/auth.middleware';
 
-
-
 const app = express();
+
+// CORS configuration
 app.use(cors({
 	origin: '*',
 	methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
 	allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
 	credentials: false,
 }));
-import usuariosRoutes from "../routes/usuarios.routes";
-app.use("/api/usuarios", usuariosRoutes);
-
-
-
-
-app.use(cors({
-	origin: '*',
-	methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-	allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
-	credentials: false,
-}));
-
-// Responder a preflight OPTIONS para todos los endpoints
-
-// Manejo manual de preflight OPTIONS para CORS
 
 // Manejo global de preflight OPTIONS para CORS
 app.use((req, res, next) => {
@@ -54,8 +43,8 @@ app.use((req, res, next) => {
 	}
 	next();
 });
+
 app.use(express.json());
-// Also accept urlencoded form bodies (from forms or some frontend libraries)
 app.use(express.urlencoded({ extended: true }));
 
 // Debug ALL requests
@@ -77,13 +66,20 @@ app.use('/uploads', express.static(path.resolve(process.cwd(), 'uploads')));
 // Serve public assets (logo, images, etc) from /public
 app.use(express.static(path.resolve(process.cwd(), 'public')));
 
+// Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/usuarios", usuariosRoutes);
 app.use("/api/categorias", categoriasRoutes);
 app.use("/api/empresas", empresaRoutes);
 // Registrar rutas de contratos (específicas primero)
-import contractRoutes, { globalRouter as empresaContractGlobalRoutes } from "../modules/empresas/routes/contract.routes";
 app.use("/api/contratos", contractRoutes); // PRIMERO - rutas específicas
 app.use("/api", empresaContractGlobalRoutes); // DESPUÉS - rutas dinámicas
+// Registrar rutas de usuarios de empresas
+app.use("/api/empresas/:empresaId/usuarios", usuarioEmpresaRoutes);
+// Registrar rutas de historial y asignaciones de usuarios (NUEVAS - Migration 067)
+app.use("/api/empresas", usuarioHistorialRoutes);
+// Registrar rutas M:N de usuarios-activos (con authenticate middleware)
+app.use("/api", authenticate, usuarioActivoRoutes);
 app.use("/api/activos", activosRoutes);
 app.use("/api/informes", informesRoutes);
 app.use("/api/uploads", uploadsRoutes);
@@ -91,7 +87,6 @@ app.use("/api/sla", slaRoutes);
 app.use("/api/catalogo", catalogoRoutes);
 app.use("/api/catalogo/servicios", serviciosRoutes);
 app.use("/api/catalogo/tipos-ticket", tiposTicketRoutes);
-
 app.use('/public', publicRoutes);
 
 // Debug endpoint to list registered routes (temporary)

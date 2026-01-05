@@ -17,6 +17,10 @@ export interface SLAAlcance {
     tipo: string; // 'todas' | 'seleccionadas'
     sedes: number[]; // IDs de sedes
   };
+  serviciosCatalogoSLA?: {
+    tipo: 'todos' | 'seleccionados';
+    servicios: string[]; // IDs de servicios del catálogo
+  };
   observaciones?: string;
 }
 

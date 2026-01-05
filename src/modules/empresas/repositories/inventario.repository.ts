@@ -370,19 +370,45 @@ export const createInventario = async (inv: Inventario): Promise<Inventario> => 
 export const getInventarioById = async (id: number): Promise<Inventario | null> => {
   const query = `
     SELECT
-      id, empresa_id, sede_id,
-      asset_id, categoria, area, fabricante, modelo, serie,
-      estado_activo, estado_operativo, fecha_compra,
-      proveedor, ip, mac, usuarios_asignados,
-      campos_personalizados, campos_personalizados_array, observaciones, fotos,
-      purchase_document_url, warranty_document_url, purchase_document_description, warranty_document_description,
-      tipo_documento_compra, numero_documento_compra, fecha_compra_aprox_year,
-      garantia,
-      condicion_fisica,
-      antiguedad_anios, antiguedad_meses, antiguedad_text,
-      codigo_acceso_remoto,
-      created_at, updated_at
-    FROM inventario WHERE id = $1`;
+      i.id, i.empresa_id, i.sede_id,
+      i.asset_id, i.categoria, i.area, i.fabricante, i.modelo, i.serie,
+      i.estado_activo, i.estado_operativo, i.fecha_compra,
+      i.proveedor, i.ip, i.mac, i.usuarios_asignados,
+      i.campos_personalizados, i.campos_personalizados_array, i.observaciones, i.fotos,
+      i.purchase_document_url, i.warranty_document_url, i.purchase_document_description, i.warranty_document_description,
+      i.tipo_documento_compra, i.numero_documento_compra, i.fecha_compra_aprox_year,
+      i.garantia,
+      i.condicion_fisica,
+      i.antiguedad_anios, i.antiguedad_meses, i.antiguedad_text,
+      i.codigo_acceso_remoto,
+      i.usuario_asignado_id,
+      i.created_at, i.updated_at,
+      u.nombre_completo as usuario_asignado_nombre,
+      u.correo as usuario_asignado_correo,
+      u.cargo as usuario_asignado_cargo,
+      COALESCE(
+        (SELECT JSON_AGG(
+          JSON_BUILD_OBJECT(
+            'id', ue.id,
+            'nombreCompleto', ue.nombre_completo,
+            'correo', ue.correo,
+            'cargo', ue.cargo,
+            'telefono', ue.telefono,
+            'fechaAsignacion', ua.fecha_asignacion
+          )
+        )
+        FROM usuarios_activos ua
+        INNER JOIN usuarios_empresas ue ON ua.usuario_id = ue.id
+        WHERE ua.activo_id = i.id AND ua.activo = TRUE AND ue.activo = TRUE),
+        '[]'::json
+      ) as usuarios_asignados_m2n,
+      (SELECT COUNT(*)
+        FROM usuarios_activos ua
+        WHERE ua.activo_id = i.id AND ua.activo = TRUE
+      ) as cantidad_usuarios_asignados
+    FROM inventario i
+    LEFT JOIN usuarios_empresas u ON i.usuario_asignado_id = u.id AND u.activo = TRUE
+    WHERE i.id = $1`;
   const result = await pool.query(query, [id]);
   const row = result.rows[0];
   console.log('GET inventario - row completo (by id):', row);
@@ -394,12 +420,21 @@ export const getInventarioById = async (id: number): Promise<Inventario | null> 
     return v;
   };
 
-  const parsedUsuario = parseIfString(row.usuarios_asignados);
-  const usuariosAsignados = Array.isArray(parsedUsuario) ? parsedUsuario : (parsedUsuario ? [parsedUsuario] : []);
+  const usuariosAsignadosM2N = Array.isArray(row.usuarios_asignados_m2n) 
+    ? row.usuarios_asignados_m2n 
+    : (row.usuarios_asignados_m2n ? JSON.parse(row.usuarios_asignados_m2n) : []);
 
   const camposPersonalizados = parseIfString(row.campos_personalizados);
   const camposPersonalizadosArray = parseIfString(row.campos_personalizados_array);
   const fotos = normalizeFotosArray(parseIfString(row.fotos));
+
+  // Compatibilidad con campo legacy usuario_asignado_id
+  const usuarioAsignado = row.usuario_asignado_id ? {
+    id: row.usuario_asignado_id,
+    nombreCompleto: row.usuario_asignado_nombre,
+    correo: row.usuario_asignado_correo,
+    cargo: row.usuario_asignado_cargo
+  } : null;
 
   return {
     id: row.id,
@@ -431,8 +466,13 @@ export const getInventarioById = async (id: number): Promise<Inventario | null> 
     antiguedadMeses: row.antiguedad_meses,
     antiguedadText: row.antiguedad_text,
     codigoAccesoRemoto: row.codigo_acceso_remoto,
-    usuarioAsignado: usuariosAsignados.length > 0 ? usuariosAsignados[0] : null,
-    usuariosAsignados: usuariosAsignados,
+    // Campos legacy (compatibilidad con frontend antiguo)
+    usuarioAsignadoId: row.usuario_asignado_id,
+    usuarioAsignadoData: usuarioAsignado,
+    usuarioAsignado: usuariosAsignadosM2N.length > 0 ? usuariosAsignadosM2N[0] : usuarioAsignado,
+    // Campos M:N nuevos
+    usuariosAsignados: usuariosAsignadosM2N,
+    cantidadUsuariosAsignados: parseInt(row.cantidad_usuarios_asignados) || 0,
     camposPersonalizados: camposPersonalizados,
     camposPersonalizadosArray: camposPersonalizadosArray,
     campos_personalizados: row.campos_personalizados,
@@ -447,19 +487,45 @@ export const getInventarioById = async (id: number): Promise<Inventario | null> 
   export const getInventarioByEmpresa = async (empresaId: number): Promise<Inventario[]> => {
     const query = `
       SELECT
-        id, empresa_id, sede_id, sede_original_id,
-        asset_id, categoria, area, fabricante, modelo, serie,
-        estado_activo, estado_operativo, fecha_compra,
-        proveedor, ip, mac, usuarios_asignados,
-        campos_personalizados, campos_personalizados_array, observaciones, fotos,
-        purchase_document_url, warranty_document_url, purchase_document_description, warranty_document_description,
-        tipo_documento_compra, numero_documento_compra, fecha_compra_aprox_year,
-        garantia,
-        condicion_fisica,
-        antiguedad_anios, antiguedad_meses, antiguedad_text,
-        codigo_acceso_remoto,
-        created_at, updated_at
-      FROM inventario WHERE empresa_id = $1 ORDER BY created_at DESC`;
+        i.id, i.empresa_id, i.sede_id, i.sede_original_id,
+        i.asset_id, i.categoria, i.area, i.fabricante, i.modelo, i.serie,
+        i.estado_activo, i.estado_operativo, i.fecha_compra,
+        i.proveedor, i.ip, i.mac, i.usuarios_asignados,
+        i.campos_personalizados, i.campos_personalizados_array, i.observaciones, i.fotos,
+        i.purchase_document_url, i.warranty_document_url, i.purchase_document_description, i.warranty_document_description,
+        i.tipo_documento_compra, i.numero_documento_compra, i.fecha_compra_aprox_year,
+        i.garantia,
+        i.condicion_fisica,
+        i.antiguedad_anios, i.antiguedad_meses, i.antiguedad_text,
+        i.codigo_acceso_remoto,
+        i.usuario_asignado_id,
+        i.created_at, i.updated_at,
+        u.nombre_completo as usuario_asignado_nombre,
+        u.correo as usuario_asignado_correo,
+        u.cargo as usuario_asignado_cargo,
+        COALESCE(
+          (SELECT JSON_AGG(
+            JSON_BUILD_OBJECT(
+              'id', ue.id,
+              'nombreCompleto', ue.nombre_completo,
+              'correo', ue.correo,
+              'cargo', ue.cargo,
+              'telefono', ue.telefono,
+              'fechaAsignacion', ua.fecha_asignacion
+            )
+          )
+          FROM usuarios_activos ua
+          INNER JOIN usuarios_empresas ue ON ua.usuario_id = ue.id
+          WHERE ua.activo_id = i.id AND ua.activo = TRUE AND ue.activo = TRUE),
+          '[]'::json
+        ) as usuarios_asignados_m2n,
+        (SELECT COUNT(*)
+          FROM usuarios_activos ua
+          WHERE ua.activo_id = i.id AND ua.activo = TRUE
+        ) as cantidad_usuarios_asignados
+      FROM inventario i
+      LEFT JOIN usuarios_empresas u ON i.usuario_asignado_id = u.id AND u.activo = TRUE
+      WHERE i.empresa_id = $1 ORDER BY i.created_at DESC`;
     const result = await pool.query(query, [empresaId]);
     const parseIfString = (v: any) => {
       if (typeof v === 'string') {
@@ -469,11 +535,20 @@ export const getInventarioById = async (id: number): Promise<Inventario | null> 
     };
 
     return result.rows.map((row: any) => {
-      const parsedUsuario = parseIfString(row.usuarios_asignados);
-      const usuariosAsignados = Array.isArray(parsedUsuario) ? parsedUsuario : (parsedUsuario ? [parsedUsuario] : []);
+      const usuariosAsignadosM2N = Array.isArray(row.usuarios_asignados_m2n) 
+        ? row.usuarios_asignados_m2n 
+        : (row.usuarios_asignados_m2n ? JSON.parse(row.usuarios_asignados_m2n) : []);
+      
       const camposPersonalizados = parseIfString(row.campos_personalizados);
       const camposPersonalizadosArray = parseIfString(row.campos_personalizados_array);
       const fotos = normalizeFotosArray(parseIfString(row.fotos));
+
+      const usuarioAsignado = row.usuario_asignado_id ? {
+        id: row.usuario_asignado_id,
+        nombreCompleto: row.usuario_asignado_nombre,
+        correo: row.usuario_asignado_correo,
+        cargo: row.usuario_asignado_cargo
+      } : null;
 
       return {
         id: row.id,
@@ -504,8 +579,13 @@ export const getInventarioById = async (id: number): Promise<Inventario | null> 
         antiguedadMeses: row.antiguedad_meses,
         antiguedadText: row.antiguedad_text,
         codigoAccesoRemoto: row.codigo_acceso_remoto,
-        usuarioAsignado: usuariosAsignados.length > 0 ? usuariosAsignados[0] : null,
-        usuariosAsignados: usuariosAsignados,
+        // Campos legacy (compatibilidad con frontend antiguo)
+        usuarioAsignadoId: row.usuario_asignado_id,
+        usuarioAsignadoData: usuarioAsignado,
+        usuarioAsignado: usuariosAsignadosM2N.length > 0 ? usuariosAsignadosM2N[0] : usuarioAsignado,
+        // Campos M:N nuevos
+        usuariosAsignados: usuariosAsignadosM2N,
+        cantidadUsuariosAsignados: parseInt(row.cantidad_usuarios_asignados) || 0,
         camposPersonalizados: camposPersonalizados,
         camposPersonalizadosArray: camposPersonalizadosArray,
         observaciones: row.observaciones,
@@ -524,26 +604,52 @@ export const getInventarioBySede = async (sedeId: number, empresaId: number, sol
   // Campo trasladado = (sede_id != sede_original_id) indica si fue trasladado
   // Frontend usa sede_id === sedeActual para determinar si es operativo o bloqueado
   const whereClause = soloSedeActual 
-    ? 'WHERE empresa_id = $1 AND (sede_id = $2 OR sede_original_id = $2)' 
-    : 'WHERE empresa_id = $1';
+    ? 'WHERE i.empresa_id = $1 AND (i.sede_id = $2 OR i.sede_original_id = $2)' 
+    : 'WHERE i.empresa_id = $1';
   const params = soloSedeActual ? [empresaId, sedeId] : [empresaId];
   
   const query = `
     SELECT
-      id, empresa_id, sede_id, sede_original_id,
-      asset_id, categoria, area, fabricante, modelo, serie,
-      estado_activo, estado_operativo, fecha_compra,
-      proveedor, ip, mac, usuarios_asignados,
-      campos_personalizados, campos_personalizados_array, observaciones, fotos,
-      purchase_document_url, warranty_document_url, purchase_document_description, warranty_document_description,
-      tipo_documento_compra, numero_documento_compra, fecha_compra_aprox_year,
-      garantia,
-      condicion_fisica,
-      antiguedad_anios, antiguedad_meses, antiguedad_text,
-      codigo_acceso_remoto,
-      created_at, updated_at,
-      (sede_id IS DISTINCT FROM sede_original_id) as trasladado
-    FROM inventario ${whereClause} ORDER BY created_at DESC`;
+      i.id, i.empresa_id, i.sede_id, i.sede_original_id,
+      i.asset_id, i.categoria, i.area, i.fabricante, i.modelo, i.serie,
+      i.estado_activo, i.estado_operativo, i.fecha_compra,
+      i.proveedor, i.ip, i.mac, i.usuarios_asignados,
+      i.campos_personalizados, i.campos_personalizados_array, i.observaciones, i.fotos,
+      i.purchase_document_url, i.warranty_document_url, i.purchase_document_description, i.warranty_document_description,
+      i.tipo_documento_compra, i.numero_documento_compra, i.fecha_compra_aprox_year,
+      i.garantia,
+      i.condicion_fisica,
+      i.antiguedad_anios, i.antiguedad_meses, i.antiguedad_text,
+      i.codigo_acceso_remoto,
+      i.usuario_asignado_id,
+      i.created_at, i.updated_at,
+      (i.sede_id IS DISTINCT FROM i.sede_original_id) as trasladado,
+      u.nombre_completo as usuario_asignado_nombre,
+      u.correo as usuario_asignado_correo,
+      u.cargo as usuario_asignado_cargo,
+      COALESCE(
+        (SELECT JSON_AGG(
+          JSON_BUILD_OBJECT(
+            'id', ue.id,
+            'nombreCompleto', ue.nombre_completo,
+            'correo', ue.correo,
+            'cargo', ue.cargo,
+            'telefono', ue.telefono,
+            'fechaAsignacion', ua.fecha_asignacion
+          )
+        )
+        FROM usuarios_activos ua
+        INNER JOIN usuarios_empresas ue ON ua.usuario_id = ue.id
+        WHERE ua.activo_id = i.id AND ua.activo = TRUE AND ue.activo = TRUE),
+        '[]'::json
+      ) as usuarios_asignados_m2n,
+      (SELECT COUNT(*)
+        FROM usuarios_activos ua
+        WHERE ua.activo_id = i.id AND ua.activo = TRUE
+      ) as cantidad_usuarios_asignados
+    FROM inventario i
+    LEFT JOIN usuarios_empresas u ON i.usuario_asignado_id = u.id AND u.activo = TRUE
+    ${whereClause} ORDER BY i.created_at DESC`;
     try {
     const result = await pool.query(query, params);
     console.log('getInventarioBySede - empresaId=', empresaId, 'sedeId=', sedeId, 'soloSedeActual=', soloSedeActual, 'WHERE=', whereClause, 'rows=', result.rows.length);
@@ -569,11 +675,20 @@ export const getInventarioBySede = async (sedeId: number, empresaId: number, sol
     };
 
     return result.rows.map((row: any) => {
-      const parsedUsuario = parseIfString(row.usuarios_asignados);
-      const usuariosAsignados = Array.isArray(parsedUsuario) ? parsedUsuario : (parsedUsuario ? [parsedUsuario] : []);
+      const usuariosAsignadosM2N = Array.isArray(row.usuarios_asignados_m2n) 
+        ? row.usuarios_asignados_m2n 
+        : (row.usuarios_asignados_m2n ? JSON.parse(row.usuarios_asignados_m2n) : []);
+      
       const camposPersonalizados = parseIfString(row.campos_personalizados);
       const camposPersonalizadosArray = parseIfString(row.campos_personalizados_array);
       const fotos = normalizeFotosArray(parseIfString(row.fotos));
+
+      const usuarioAsignado = row.usuario_asignado_id ? {
+        id: row.usuario_asignado_id,
+        nombreCompleto: row.usuario_asignado_nombre,
+        correo: row.usuario_asignado_correo,
+        cargo: row.usuario_asignado_cargo
+      } : null;
 
       return {
         id: row.id,
@@ -608,8 +723,13 @@ export const getInventarioBySede = async (sedeId: number, empresaId: number, sol
         antiguedadMeses: row.antiguedad_meses,
         antiguedadText: row.antiguedad_text,
         codigoAccesoRemoto: row.codigo_acceso_remoto,
-        usuarioAsignado: usuariosAsignados.length > 0 ? usuariosAsignados[0] : null,
-        usuariosAsignados: usuariosAsignados,
+        // Campos legacy (compatibilidad con frontend antiguo)
+        usuarioAsignadoId: row.usuario_asignado_id,
+        usuarioAsignadoData: usuarioAsignado,
+        usuarioAsignado: usuariosAsignadosM2N.length > 0 ? usuariosAsignadosM2N[0] : usuarioAsignado,
+        // Campos M:N nuevos
+        usuariosAsignados: usuariosAsignadosM2N,
+        cantidadUsuariosAsignados: parseInt(row.cantidad_usuarios_asignados) || 0,
         // correo and cargo removed from table
         camposPersonalizados: camposPersonalizados,
         camposPersonalizadosArray: camposPersonalizadosArray,
