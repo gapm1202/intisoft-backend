@@ -50,6 +50,28 @@ export async function create(data: UsuarioEmpresaInput): Promise<UsuarioEmpresa>
     throw new Error('sedeId es obligatorio');
   }
   
+  // Validar nuevos campos obligatorios Migration 070
+  if (!data.tipoDocumento || data.tipoDocumento.trim() === '') {
+    throw new Error('tipoDocumento es obligatorio');
+  }
+  
+  if (!data.numeroDocumento || data.numeroDocumento.trim() === '') {
+    throw new Error('numeroDocumento es obligatorio');
+  }
+  
+  // Validar que tipo_documento sea válido
+  const tiposValidos = ['DNI', 'CE', 'Pasaporte', 'RUC', 'Otro'];
+  if (!tiposValidos.includes(data.tipoDocumento)) {
+    throw new Error(`tipoDocumento debe ser uno de: ${tiposValidos.join(', ')}`);
+  }
+  
+  // Validar tipoDocumentoPersonalizado cuando tipoDocumento = 'Otro' (Migration 071)
+  if (data.tipoDocumento === 'Otro') {
+    if (!data.tipoDocumentoPersonalizado || data.tipoDocumentoPersonalizado.trim() === '') {
+      throw new Error('tipoDocumentoPersonalizado es requerido cuando tipoDocumento es "Otro"');
+    }
+  }
+  
   // Validar que la sede exista y pertenezca a la empresa
   const sedeValida = await usuarioEmpresaRepo.sedeExistsInEmpresa(data.sedeId, data.empresaId);
   if (!sedeValida) {
@@ -60,6 +82,14 @@ export async function create(data: UsuarioEmpresaInput): Promise<UsuarioEmpresa>
   const correoExiste = await usuarioEmpresaRepo.existsCorreoEnEmpresa(data.correo, data.empresaId);
   if (correoExiste) {
     throw new Error('Ya existe un usuario con ese correo en la empresa');
+  }
+  
+  // Validar área si se proporcionó
+  if (data.areaId && data.areaId !== '') {
+    const areaValida = await usuarioEmpresaRepo.areaExistsInEmpresa(data.areaId, data.empresaId);
+    if (!areaValida) {
+      throw new Error('El área no existe o no pertenece a la empresa');
+    }
   }
   
   // Validar activo si se proporcionó

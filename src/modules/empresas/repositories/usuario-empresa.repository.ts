@@ -31,8 +31,13 @@ export async function getAllByEmpresa(empresaId: string, incluirInactivos = fals
       u.activo,
       u.created_at,
       u.updated_at,
+      u.codigo_usuario,
+      u.tipo_documento,
+      u.numero_documento,
+      u.area_id,
       s.nombre AS sede_name,
       e.nombre AS empresa_name,
+      a.nombre AS area_nombre,
       i.asset_id AS activo_codigo,
       i.categoria AS activo_nombre,
       i.modelo AS activo_modelo,
@@ -62,6 +67,7 @@ export async function getAllByEmpresa(empresaId: string, incluirInactivos = fals
     LEFT JOIN sedes s ON u.sede_id = s.id
     LEFT JOIN empresas e ON u.empresa_id = e.id
     LEFT JOIN inventario i ON u.activo_asignado_id = i.id
+    LEFT JOIN areas a ON u.area_id = a.id
     ${whereClause}
     ORDER BY u.nombre_completo ASC
   `;
@@ -89,8 +95,13 @@ export async function getById(id: string): Promise<UsuarioEmpresa | null> {
       u.activo,
       u.created_at,
       u.updated_at,
+      u.codigo_usuario,
+      u.tipo_documento,
+      u.numero_documento,
+      u.area_id,
       s.nombre AS sede_name,
       e.nombre AS empresa_name,
+      a.nombre AS area_nombre,
       i.asset_id AS activo_codigo,
       i.categoria AS activo_nombre,
       i.modelo AS activo_modelo,
@@ -120,6 +131,7 @@ export async function getById(id: string): Promise<UsuarioEmpresa | null> {
     LEFT JOIN sedes s ON u.sede_id = s.id
     LEFT JOIN empresas e ON u.empresa_id = e.id
     LEFT JOIN inventario i ON u.activo_asignado_id = i.id
+    LEFT JOIN areas a ON u.area_id = a.id
     WHERE u.id = $1
   `;
 
@@ -171,6 +183,42 @@ export async function isActivoDisponible(activoId: string, currentUsuarioId?: st
 /**
  * Crear usuario
  */
+/**
+ * Generar código único de usuario: {EMPRESA_PREFIX}-USR-{CONTADOR}
+ * Ejemplo: HUA-USR-0001, HUA-USR-0002, etc.
+ */
+async function generarCodigoUsuario(empresaId: string, client: any): Promise<string> {
+  // 1. Obtener nombre de la empresa
+  const empresaResult = await client.query(
+    'SELECT nombre FROM empresas WHERE id = $1',
+    [parseInt(empresaId)]
+  );
+  
+  if (empresaResult.rows.length === 0) {
+    throw new Error(`Empresa ${empresaId} no encontrada`);
+  }
+  
+  const empresaNombre = empresaResult.rows[0].nombre;
+  
+  // 2. Generar prefijo: primeras 3 letras en mayúsculas
+  const prefix = empresaNombre.substring(0, 3).toUpperCase();
+  
+  // 3. Contar usuarios existentes en esta empresa
+  const countResult = await client.query(
+    'SELECT COUNT(*) as count FROM usuarios_empresas WHERE empresa_id = $1',
+    [parseInt(empresaId)]
+  );
+  
+  const count = parseInt(countResult.rows[0].count);
+  const contador = (count + 1).toString().padStart(4, '0'); // 0001, 0002, etc.
+  
+  // 4. Generar código final
+  const codigo = `${prefix}-USR-${contador}`;
+  
+  console.log('[USUARIO-EMPRESA] 🔖 Código generado:', codigo);
+  return codigo;
+}
+
 export async function create(data: UsuarioEmpresaInput): Promise<UsuarioEmpresa> {
   const client = await pool.connect();
   
@@ -179,17 +227,22 @@ export async function create(data: UsuarioEmpresaInput): Promise<UsuarioEmpresa>
     console.log('[USUARIO-EMPRESA] 📝 Datos:', JSON.stringify(data, null, 2));
     await client.query('BEGIN');
     
-    // 1. Crear usuario
+    // 1. Generar código de usuario
+    const codigoUsuario = await generarCodigoUsuario(data.empresaId, client);
+    
+    // 2. Crear usuario
     const insertQuery = `
       INSERT INTO usuarios_empresas (
         empresa_id, sede_id, nombre_completo, correo, cargo, 
-        telefono, observaciones, activo_asignado_id, activo
+        telefono, observaciones, activo_asignado_id, activo,
+        codigo_usuario, tipo_documento, numero_documento, area_id, tipo_documento_personalizado
       )
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, TRUE)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, TRUE, $9, $10, $11, $12, $13)
       RETURNING *
     `;
     
     const activoId = data.activoAsignadoId && data.activoAsignadoId !== '' ? parseInt(data.activoAsignadoId) : null;
+    const areaId = data.areaId && data.areaId !== '' ? parseInt(data.areaId) : null;
     
     const insertResult = await client.query(insertQuery, [
       parseInt(data.empresaId),
@@ -200,6 +253,11 @@ export async function create(data: UsuarioEmpresaInput): Promise<UsuarioEmpresa>
       data.telefono || null,
       data.observaciones || null,
       activoId,
+      codigoUsuario, // $9
+      data.tipoDocumento, // $10 - Obligatorio
+      data.numeroDocumento, // $11 - Obligatorio
+      areaId, // $12 - Opcional
+      data.tipoDocumentoPersonalizado || null, // $13 - Requerido si tipoDocumento = 'Otro'
     ]);
     
     const nuevoUsuario = insertResult.rows[0];
@@ -360,6 +418,28 @@ export async function update(id: string, data: UsuarioEmpresaUpdateInput): Promi
     if (data.activo !== undefined) {
       fields.push(`activo = $${paramIndex++}`);
       values.push(data.activo);
+    }
+    
+    // Nuevos campos Migration 070
+    if (data.tipoDocumento !== undefined) {
+      fields.push(`tipo_documento = $${paramIndex++}`);
+      values.push(data.tipoDocumento);
+    }
+    
+    if (data.numeroDocumento !== undefined) {
+      fields.push(`numero_documento = $${paramIndex++}`);
+      values.push(data.numeroDocumento);
+    }
+    
+    if (data.areaId !== undefined) {
+      const areaIdValue = data.areaId && data.areaId !== '' ? parseInt(data.areaId) : null;
+      fields.push(`area_id = $${paramIndex++}`);
+      values.push(areaIdValue);
+    }
+    
+    if (data.tipoDocumentoPersonalizado !== undefined) {
+      fields.push(`tipo_documento_personalizado = $${paramIndex++}`);
+      values.push(data.tipoDocumentoPersonalizado || null);
     }
     
     if (data.activoAsignadoId !== undefined) {
@@ -527,6 +607,18 @@ export async function activoExists(activoId: string): Promise<boolean> {
 }
 
 /**
+ * Verificar que el área existe y pertenece a la empresa
+ */
+export async function areaExistsInEmpresa(areaId: string, empresaId: string): Promise<boolean> {
+  const result = await pool.query(
+    'SELECT COUNT(*) as count FROM areas WHERE id = $1 AND empresa_id = $2',
+    [parseInt(areaId), parseInt(empresaId)]
+  );
+  
+  return parseInt(result.rows[0].count) > 0;
+}
+
+/**
  * Mapear fila de BD a objeto UsuarioEmpresa
  */
 function mapRowToUsuario(row: any): UsuarioEmpresa {
@@ -548,12 +640,20 @@ function mapRowToUsuario(row: any): UsuarioEmpresa {
     activo: row.activo,
     createdAt: row.created_at,
     updatedAt: row.updated_at,
+    // Nuevos campos Migration 070
+    codigoUsuario: row.codigo_usuario,
+    tipoDocumento: row.tipo_documento,
+    numeroDocumento: row.numero_documento,
+    areaId: row.area_id ? row.area_id.toString() : null,
+    tipoDocumentoPersonalizado: row.tipo_documento_personalizado,
+    // Campos relacionados (JOINs)
     sedeName: row.sede_name,
     empresaName: row.empresa_name,
+    areaNombre: row.area_nombre,
     activoCodigo: row.activo_codigo,
     activoNombre: row.activo_nombre,
     activoModelo: row.activo_modelo,
-    // Campos M:N nuevos
+    // Campos M:N
     activosAsignados: activosAsignadosM2N,
     cantidadActivosAsignados: parseInt(row.cantidad_activos_asignados) || 0,
   };

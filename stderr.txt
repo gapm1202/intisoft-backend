@@ -1,6 +1,0 @@
-psql:src/migrations/017_create_historial_activos.sql:10: NOTICE:  la relación «historial_activos» ya existe, omitiendo
-psql:src/migrations/017_create_historial_activos.sql:12: NOTICE:  la relación «idx_historial_activos_inventario_id» ya existe, omitiendo
-psql:src/migrations/017_create_historial_activos.sql:13: NOTICE:  la relación «idx_historial_activos_empresa_id» ya existe, omitiendo
-psql:src/migrations/017_create_historial_activos.sql:14: ERROR:  error de sintaxis en o cerca de «***»
-L�NEA 1: *** End Patch
-        ^
